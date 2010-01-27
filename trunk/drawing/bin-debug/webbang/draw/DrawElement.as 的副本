@@ -1,0 +1,114 @@
+package webbang.draw
+{
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	
+	import mx.core.Container;
+	import mx.core.UIComponent;
+	import mx.graphics.GradientEntry;
+	import mx.graphics.LinearGradient;
+
+	public class DrawRectangle
+	{
+		
+		private var startPoint:Point = new Point();
+		private var drawArea:UIComponent;
+		private var drawContainer:Container;
+		private var color:uint;
+		private var keycode:int = 0;
+		
+		public function DrawRectangle(drawContainer:Container, color:uint = 0x000000)
+		{
+			this.drawContainer = drawContainer;
+			this.color = color;
+			
+		}
+		
+		public function startDraw():void{
+			drawContainer.parentApplication.addEventListener(KeyboardEvent.KEY_DOWN, onDrawKeyDown);
+			drawContainer.parentApplication.addEventListener(KeyboardEvent.KEY_UP, onDrawKeyUp);
+			
+			drawContainer.addEventListener(MouseEvent.MOUSE_DOWN, onDrawMouseDown);
+		}
+		
+		public function stopDraw():void{
+			drawContainer.removeEventListener(MouseEvent.MOUSE_DOWN, onDrawMouseDown);
+		}
+		
+		public function onDrawKeyDown(e:KeyboardEvent):void{
+			this.keycode = e.keyCode;
+		}
+		
+		public function onDrawKeyUp(e:KeyboardEvent):void{
+			this.keycode = 0;
+		}
+		
+		public function onDrawMouseDown(e:MouseEvent):void{
+			
+			drawContainer.addEventListener(MouseEvent.MOUSE_MOVE, onDrawMouseMove);
+			drawContainer.addEventListener(MouseEvent.MOUSE_UP, onDrawMouseUp);
+			
+			drawArea = new UIComponent();
+			drawContainer.addElement(drawArea); 
+			
+			drawArea.graphics.lineStyle(0, 0);
+			startPoint.x = drawContainer.mouseX;
+			startPoint.y = drawContainer.mouseY;
+			drawArea.graphics.moveTo(drawContainer.mouseX, drawContainer.mouseY);
+			
+		}
+		
+		
+		public function onDrawMouseMove(e:MouseEvent):void{
+			var g = drawArea.graphics;
+			var s_x:Number = startPoint.x;
+			var s_y:Number = startPoint.y;
+			var m_x:Number = drawContainer.mouseX;
+			var m_y:Number = drawContainer.mouseY;
+			
+			
+			g.clear();
+			g.lineStyle(0, 0);
+			
+  			var fill:LinearGradient = new LinearGradient();
+			var g1:GradientEntry = new GradientEntry(this.color);
+	  		var g2:GradientEntry = new GradientEntry(0xffffff);
+	    		
+	   		fill.entries = [ g1, g2 ];
+	  		fill.rotation = 90;
+	  		
+	  		g.moveTo(s_x, s_y);
+	  		fill.begin(g, new Rectangle(s_x, s_y, m_x, m_y));
+	  		
+	  		if (this.keycode == 16) {
+		  		if (m_x - s_x > m_y - s_y) {
+		  			//以高为长度画正方形
+		  			m_x = s_x + (m_y - s_y);	
+		  		} else {
+		  			m_y = s_y + (m_x - s_x);
+		  		}
+		  	} 
+		  	
+	  		g.lineTo(s_x, m_y);
+	  		g.lineTo(m_x, m_y);
+	  		g.lineTo(m_x, s_y);
+	  		g.lineTo(s_x, s_y);
+		  	fill.end(g);
+
+			
+		}
+		
+		public function onDrawMouseUp(e:MouseEvent):void{
+			drawContainer.removeEventListener(MouseEvent.MOUSE_MOVE, onDrawMouseMove);
+			drawContainer.removeEventListener(MouseEvent.MOUSE_UP, onDrawMouseUp);
+		}
+		
+		public function getDrawArea():UIComponent {
+			return this.drawArea;
+		}
+		
+		
+	}
+}
