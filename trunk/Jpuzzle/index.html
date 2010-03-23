@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <script type="text/javascript" src="lib/jquery/jquery-1.3.2.min.js"></script>
+        <script type="text/javascript" src="lib/jquery/ui.core.min.js"></script>
+        <script type="text/javascript" src="lib/jquery/ui.draggable.min.js"></script>
+        <script type="text/javascript" src="lib/jquery/ui.droppable.min.js"></script>
+        <script type="text/javascript" src="puzzle.js"></script>
+		<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Jpuzzle - webbang.net</title>
+    </head>
+    <body>
+		<div id="black_cover">
+		</div>
+		
+		<div id="score_area">
+			Your Score: <span id="score">115</span>
+			<div>
+			Your Name: <input type="text" id="name" />
+			<input type="image" src="img/submit_btn.png" id="submitbtn" />
+			<div id="submit_loading"><img src="img/loading.gif" /></div>
+			</div>
+		</div>
+		<div id="rank">
+		</div>
+		
+    	<div id="main">
+	    	<div id="head"><img src="img/head.png" /></div>
+			<div id="content">
+		    	<div id="puzzle_area">
+				</div>
+				<div id="puzzle_control_area">
+					<div id="time_area">
+						Timer:
+						<span id="timer"></span>
+					</div>
+					
+					<div id="form_area">
+						<span>Photo Url:</span>
+						<input type="text" id="imgurl" value="pic/1.jpg" />
+						<span> or </span>
+						<select id="photo_select">
+							<option value="">Photo Select</option>
+							<option value="pic/1.jpg">orang</option>
+							<option value="pic/2.jpg">scenery</option>
+							<option value="pic/3.jpg">comic</option>
+							<option value="pic/4.jpg">T-mac</option>
+							<option value="http://www.google.com/intl/en_ALL/images/logo.gif">Google</option>
+						</select>
+						<span>Piece Num：</span>
+						<select id="piecenum">
+							<option value="3">3</option>
+							<option value="4" selected="selected">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="7">9</option>
+							<option value="8">10</option>
+							<option value="7">11</option>
+							<option value="8">12</option>
+						</select>
+					</div>
+						<input type="image" src="img/button.png" id="loadbtn" />
+						<input type="image" src="img/rank_btn.png" id="rankbtn" />
+						<div class="clear"></div>
+					</div>
+					
+				</div>
+			</div>
+			<div id="copyright">
+				<p>Copyright Bang 2009  <a href="http://webbang.net">webbang.net</a> | Best Performance in <a href="http://www.google.cn/chrome">Google Chrome</a> or <a href="http://www.mozillaonline.com/">Firefox3</a></p> 
+				<p>Use <a href="http://jquery.com">Jquery</a>, Open source <a href="http://blog.webbang.net/?p=769">here</a></p>
+			</div>
+		</div>
+    </body>
+</html>
