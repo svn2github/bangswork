@@ -122,21 +122,22 @@ Army.init = {
                 })
                 .data("pos", j*5+i+1)
                 .appendTo(board)
-                .click(function(){
-                    var aimPos = $(this).data("pos"),
-                        piecesPos = $(".pieces_selected").data("pos"),
-                        cssPos = Army.game.getCssPosByPos(aimPos);
-                    if (piecesPos && Army.game.passable(piecesPos, aimPos)) {
-                        $(".pieces_selected").animate({
-                            top: cssPos.top,
-                            left: cssPos.left
-                        }).data("pos", aimPos).removeClass("pieces_selected");
-                    }
-                });
+                .click(Army.init.spaceClick);
             }
         }
     },
     
+    spaceClick: function() {
+        if (Army.game.turns == Army.game.group) {
+            var aimPos = $(this).data("pos"),
+                piecesPos = $(".pieces_selected").data("pos"),
+                currPieces = $(".pieces_selected");
+
+            if (piecesPos && Army.game.passable(piecesPos, aimPos)) {
+                Army.action.movePieces(currPieces, aimPos);
+            }
+        }
+    },
     /*
      * 摆放棋子
      * */
@@ -168,39 +169,38 @@ Army.init = {
             .addClass("pieces")
             .appendTo(board)
             .data("pos", i+1).data("role", cfg.role).data("group", cfg.group).data("status", 0)
-            .click(function(){
-                var self = $(this);
-
-                //处于未翻开状态
-                if (self.data("status") == 0) {
-                    bg_position = -self.data("group")*60 + "px " + (-self.data("role")*30) + "px";
-                    self.removeClass("pieces_c")
-                        .css("background-position", bg_position)
-                        .data("status", 1);
-                    $(".pieces_selected").removeClass("pieces_selected");
-
-                //处于翻开状态，并且未被选择
-                } else if (!self.hasClass("pieces_selected")) {
-                    //杀对方棋子
-                    if ($(".pieces_selected").length > 0 && $(".pieces_selected").data("group") != self.data("group")) {
-                        Army.game.piecesHit($(".pieces_selected"), self);
-                    
-                    //正常选中，军旗/地雷除外
-                    } else {
-                        if (self.data("role") != 10 && self.data("role") != 11) {
-                            $(".pieces_selected").removeClass("pieces_selected");
-                            self.addClass("pieces_selected");
-                        }
-                    }
-                
-                //处于翻开状态，已被选择，点击取消选择
-                } else {
-                    self.removeClass("pieces_selected");
-                }
-            })
+            .click(Army.init.piecesClick)
         }
     },
     
+    piecesClick: function() {
+        if (Army.game.turns == Army.game.group) {
+            var self = $(this);
+
+            //处于未翻开状态
+            if (self.data("status") == 0) {
+                Army.action.openPieces(self.data("pos"));
+
+            //处于翻开状态，并且未被选择
+            } else if (!self.hasClass("pieces_selected")) {
+                //杀对方棋子
+                if ($(".pieces_selected").length > 0 && $(".pieces_selected").data("group") != self.data("group")) {
+                    Army.game.piecesHit($(".pieces_selected"), self);
+                
+                //正常选中，军旗/地雷除外，敌人的棋子除外
+                } else {
+                    if (self.data("role") != 10 && self.data("role") != 11 && self.data("group") == Army.game.group) {
+                        $(".pieces_selected").removeClass("pieces_selected");
+                        self.addClass("pieces_selected");
+                    }
+                }
+            
+            //处于翻开状态，已被选择，点击取消选择
+            } else {
+                self.removeClass("pieces_selected");
+            }
+        }
+    },
     /*
      * 摆放棋子时随机抽取出棋子
      * param: role1:黑方棋子数组
@@ -230,13 +230,135 @@ Army.init = {
     }
 }
 
+Army.action = {
+    openPieces: function(pos, isRemote) {
+        var pieces = Army.game.getPiecesByPos(pos),
+            bg_position = -pieces.data("group")*60 + "px " + (-pieces.data("role")*30) + "px";
+
+        pieces.removeClass("pieces_c")
+            .css("background-position", bg_position)
+            .data("status", 1);
+
+        $(".pieces_selected").removeClass("pieces_selected");
+
+        Army.action.go(0, isRemote, {
+            pos: pos
+        })
+    },
+    
+    killPieces: function(type, currPieces, aimPieces, isRemote) {
+		var currPos   = currPieces.data("pos"),
+			aimPos    = aimPieces.data("pos"),
+            cssPos    = Army.game.getCssPosByPos(aimPos);
+
+        currPieces
+        //置于最上层
+        .css("z-index", 2)
+        .animate({
+            top: cssPos.top,
+            left: cssPos.left
+        },"linear", function(){
+            Army.action._removePieces(aimPieces);
+            if (type == 2 || type == 3) {
+                Army.action._removePieces(currPieces);
+            }
+            //恢复原有层级
+            $(this).css("z-index", 1);
+        })
+        .data("pos", aimPos);
+
+        $(".pieces_selected").removeClass("pieces_selected")
+        Army.action.go(2, isRemote, {
+            currPos: currPos,
+            aimPos: aimPos
+        })
+    },
+
+    movePieces: function(currPieces, aimPos, isRemote) {
+        var cssPos = Army.game.getCssPosByPos(aimPos);
+        currPieces.animate({
+            top: cssPos.top,
+            left: cssPos.left
+        }).data("pos", aimPos).removeClass("pieces_selected");
+
+        $(".pieces_selected").removeClass("pieces_selected")
+        Army.action.go(1, isRemote, {
+            currPos: currPieces.data("pos"),
+            aimPos: aimPos
+        });
+    },
+    /*
+     * 移除棋子，存入数组，并删除棋子元素
+     * param: pieces: 被杀死的棋子
+     * */
+    _removePieces: function(pieces) {
+		var role = pieces.data("role"),
+			g = Army.game;
+		if (pieces.data("group") == 0) {
+			g.currPieces0.splice($.inArray(role, g.currPieces0), 1);
+			g.killedPieces0.push(role);
+		} else {
+			g.currPieces1.splice($.inArray(role, g.currPieces1), 1);
+			g.killedPieces1.push(role);
+		}
+        Army.action._updateKilledPieces(pieces.data("group"), pieces.data("role"));
+		pieces.remove();
+	},
+
+    _updateKilledPieces: function(group, role) {
+        var $killedPieces = group? $("#killedPieces0"): $("#killedPieces1"),
+            found = false;
+
+        $killedPieces.find(".killedPieces_item").each(function(){
+            var $this = $(this);
+            if ($this.data("role") == role) {
+                found = true;
+                if ($this.find("b").length > 0) {
+                    $this.find("b").text("*" + (parseInt($this.find("b").text().substr(1)) + 1) );
+                } else {
+                    $this.html("<b>*2</b>");
+                }
+            }
+        });
+
+        if (!found) {
+            var bg_position = -group*60 + "px " + (-role*30) + "px";
+            $("<span>", {
+                "class": "killedPieces_item",
+                css: {
+                    "background-position": bg_position
+                }
+            })
+            .appendTo($killedPieces)
+            .data("role", role)
+        }
+    },
+
+    /* 
+     * 每走一步执行的函数
+     * param: type: 类型： 0-翻开棋子 1-正常行走 2-吃对方棋子
+     *        isRemote: 这一步是否由对方发出
+     *        obj:  参数对象 pos: 翻开棋子位置
+     *                       currPos: 当前棋子位置
+     *                       aimPos: 目标位置
+     *                       currRole: 当前棋子角色
+     *                       aimRole: 目标棋子角色
+     * */
+    go: function(type, isRemote, obj) {
+        Army.game.turns = Army.game.turns? 0:1;
+        Army.game.group = Army.game.group? 0:1;
+    }
+}
 
 Army.game = {
     currPieces0: Army.cfg.pieces_role_arr.slice(),
     currPieces1: Army.cfg.pieces_role_arr.slice(),
     killedPieces0: [],
     killedPieces1: [],
-	
+    
+    group: -1,
+    turns: 0,
+
     /*
      * 处理两个棋子相碰撞
      * param: currPieces: 当前棋子
@@ -245,32 +367,14 @@ Army.game = {
 	piecesHit: function(currPieces, aimPieces) {
 		var currPos   = currPieces.data("pos"),
 			aimPos    = aimPieces.data("pos"),
-			cssPos    = Army.game.getCssPosByPos(aimPos),
 			currRole  = currPieces.data("role"),
             aimRole   = aimPieces.data("role");
-
 
 		if (Army.game.passable(currPos, aimPos)) {
 			var type = Army.game.killType(currRole, aimRole)
 			//可杀以及目标不在行营里面
 			if (type && $.inArray(aimPos, Army.cfg.protect) == -1) {
-				$(".pieces_selected")
-				//置于最上层
-				.css("z-index", 2)
-				.animate({
-					top: cssPos.top,
-					left: cssPos.left
-				},"linear", function(){
-					Army.game.killPieces(aimPieces);
-					if (type == 2 || type == 3) {
-						Army.game.killPieces(currPieces);
-					}
-					//恢复原有层级
-					$(this).css("z-index", 1);
-				})
-				.data("pos", aimPos)
-				.removeClass("pieces_selected");
-
+                Army.action.killPieces(type, currPieces, aimPieces);
 			}
 		}
 	},
@@ -305,22 +409,6 @@ Army.game = {
 		return null;
 	},
     
-    /*
-     * 杀死棋子，存入数组，并删除棋子元素
-     * param: pieces: 被杀死的棋子
-     * */
-	killPieces: function(pieces) {
-		var role = pieces.data("role"),
-			g = Army.game;
-		if (pieces.data("group") == 0) {
-			g.currPieces0.splice($.inArray(role, g.currPieces0), 1);
-			g.killedPieces0.push(role);
-		} else {
-			g.currPieces1.splice($.inArray(role, g.currPieces1), 1);
-			g.killedPieces1.push(role);
-		}
-		pieces.remove();
-	},
 
 	/*
 	 * 获得某位置上的棋子
@@ -383,7 +471,7 @@ Army.game = {
 
 		return ret;
 	},
-    
+
     /*
      * 通过棋盘上的位置获取此位置上的css位置属性
      * param: pos:棋盘上的位置
@@ -404,5 +492,6 @@ $(function(){
     var board = $("#board");
     Army.init.createSpace(board);
     Army.init.createPieces(board);
+    Army.game.group = Army.game.turns;
 });
 
