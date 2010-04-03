@@ -1,0 +1,53 @@
+#board{
+    width:460px;
+    height:630px;
+    background:url("../img/map.png") no-repeat top left;
+    border:2px solid #ca0000;
+    position:relative;
+    float:left;
+}
+.pieces{
+    position:absolute;
+    cursor:pointer;
+    background:url("../img/pieces.png") no-repeat;
+    width:60px;
+    height:30px;
+}
+.pieces_selected{
+    border:solid 1px #ccc;
+}
+.pieces_c{
+    position:absolute;
+    cursor:pointer;
+    background:url("../img/pieces_c.png") no-repeat;
+    width:60px;
+    height:30px;
+}
+#killedPieces0, #killedPieces1 {
+    padding:5px;
+    width:90px;
+    float:left;
+}
+.killedPieces_item{
+    background:url("../img/pieces.png") no-repeat;
+    width:60px;
+    height:30px;
+    margin:5px;
+    display:block;
+    position:relative;
+}
+.killedPieces_item b{
+    position:absolute;
+    top:5px;
+    left:65px;
+    display:block;
+    font-weight:normal;
+    font-size:14px;
+}
+
+.space{
+    position:absolute;
+    width:60px;
+    height:30px;
+    cursor:pointer;
+}
