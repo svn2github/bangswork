@@ -154,7 +154,7 @@ Army.AI = {
                     }
                     //如果是最上一层
                     if (depth == Army.AI.depth - 1) {
-                        console.info(max, AI.boardScore(AI.board), killIndex);
+                        //console.info(max, AI.boardScore(AI.board), killIndex);
                         //记录最佳走法
                         AI.bestMove = action[maxIndex];
                         //如果存在杀棋子的步法，以及最佳走法的分数与杀棋子的分数一致，优先选择杀棋子
