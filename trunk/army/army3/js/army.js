@@ -136,7 +136,6 @@ Army.init = {
             var aimPos = $(this).data("pos"),
                 piecesPos = $(".pieces_selected").data("pos"),
                 currPieces = $(".pieces_selected");
-            console.info(piecesPos, aimPos);
             if (piecesPos != null && Army.game.passable(piecesPos, aimPos)) {
                 Army.action.movePieces(piecesPos, aimPos);
             }
@@ -455,7 +454,7 @@ Army.action = {
                 var role = obj.currPieces.data("role"),
                     group = obj.currPieces.data("group"),
                     status = obj.currPieces.data("status"),
-                    val = Army.AI.getValueByRole(role, group);
+                    val = Army.AI.getValueByRole(role, group, obj.aimPos);
                 Army.AI.board[obj.currPos] = [null, null, null, null];
                 Army.AI.board[obj.aimPos] = [role, group, status, val];
                 break;
@@ -473,13 +472,34 @@ Army.action = {
                     var role = obj.currPieces.data("role"),
                         group = obj.currPieces.data("group"),
                         status = obj.currPieces.data("status"),
-                        val = Army.AI.getValueByRole(role, group);
+                        val = Army.AI.getValueByRole(role, group, obj.aimPos);
                     Army.AI.board[obj.aimPos] = [role, group, status, val];
                 }
 
                 break;
         }
         if (!isRemote) {
+            /*
+            var worker = new Worker("js/AIWorkers.js");
+            worker.onmessage = function(event){
+                switch (event.data.type) {
+                    case "open":
+                        Army.action.openPieces(event.data.piecesPos, true);
+                        break;
+                    case "move":
+                        Army.action.movePieces(event.data.currPos, event.data.aimPos, true);
+                        break;
+                    case "kill":
+                        Army.action.killPieces(event.data.killType, event.data.currPos, event.data.aimPos, true);
+                        break;
+                }
+            };
+
+            worker.postMessage({
+                AIBoard: Army.AI.board,
+                group: Army.game.group
+            });
+            */
             setTimeout(Army.AI.go, 50);
         }
         Army.game.turns = Army.game.turns? 0:1;

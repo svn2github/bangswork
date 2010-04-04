@@ -8,21 +8,22 @@ Army.AI = {
      * */
     board: [],
     bestMove: [],
+    depth: 3,
     refreshAIBoard: function() {
         for (var i = 0; i < 60; i++) {
             var $p = Army.game.board[i],
                 role = $p? $p.data("role"): null,
                 group = $p? $p.data("group"): null,
                 status = $p? $p.data("status"): null,
-                val = Army.AI.getValueByRole(role, group);
+                val = Army.AI.getValueByRole(role, group, i);
                 
             Army.AI.board[i] = [role, group, status, val];
         }
     },
-    getValueByRole: function(role, group) {
+    getValueByRole: function(role, group, pos) {
         /*
         * 角色号码  0-炸弹 1-司令 2-军长 3-师长 4-旅长 5-团长 6-营长 7-连长 8-排长 9-工兵 10-地雷 11-军旗
-        * 角色价值  8-炸弹 10-司令 9-军长 8-师长 7-旅长 6-团长 5-营长 4-连长 3-排长 5-工兵 4-地雷 0-军旗
+        * 角色价值  6-炸弹 10-司令 9-军长 8-师长 7-旅长 6-团长 5-营长 4-连长 3-排长 5-工兵 8-地雷 0-军旗
         */
         var val = 0;
         if (role >= 1 || role <= 8) {
@@ -30,13 +31,13 @@ Army.AI = {
         } else {
             switch (role) {
                 case 0:
-                    val = 8;
+                    val = 6;
                     break;
                 case 9:
                     val = 5;
                     break;
                 case 10:
-                    val = 4;
+                    val = 8;
                     break;
                 case 11:
                     val = 0;
@@ -44,6 +45,7 @@ Army.AI = {
             }
         }
         
+        if ($.inArray(pos, Army.cfg.protect) > -1) val += 4;
         val = group == Army.game.group? -val: val;
         return val;
     },
@@ -68,12 +70,14 @@ Army.AI = {
         if (!walkable.length) {
             Army.action.openPieces(close[Math.floor(Math.random()*close.length)], true);
         } else {
-            var move = Army.AI.maxmin(4, Army.AI.board, Army.game.group?0:1);
+            var move = Army.AI.maxmin(Army.AI.depth, Army.AI.board, Army.game.group?0:1);
             //console.info(move, Army.AI.bestMove);
             if (Army.AI.bestMove[0] == 0) {
                 Army.action.movePieces(Army.AI.bestMove[1], Army.AI.bestMove[2], true);
             } else if (Army.AI.bestMove[0] == 1){
                 Army.action.killPieces(Army.AI.bestMove[1], Army.AI.bestMove[2], Army.AI.bestMove[3], true);
+            } else if (Army.AI.bestMove[0] == 2){
+                Army.action.openPieces(close[Math.floor(Math.random()*close.length)], true);
             }
         }
 
@@ -94,7 +98,7 @@ Army.AI = {
             if (!walkable.length) {
                 return AI.boardScore(board);
             } else {
-                var walkFlag = false, actionBoard, type, i, j;
+                var walkFlag = false, actionBoard, type, i, j, killIndex;
                 for (var i = 0, len = walkable.length; i < len; i++) {
                     for (var j = 0, slen = step[walkable[i]].length; j < slen; j++) {
 
@@ -114,6 +118,9 @@ Army.AI = {
                                 point = AI.maxmin(depth, actionBoard, turn?0:1);
                                 scores.push(point);
                                 action.push([1, type, currPos, aimPos]);
+
+                                //记录第一层杀棋子的位置
+                                if (depth == Army.AI.depth - 1) killIndex = scores.length-1
                             }
                         } else if ( AI.passable(currPos, aimPos, board) ) {
                             walkFlag = true;
@@ -129,26 +136,35 @@ Army.AI = {
                 
                 if (turn == Army.game.group) {  //轮到玩家，取最小值
                     var l = scores.length, i, min = scores[0];
-                    AI.bestMove = action[0];
                     for (i = 1; i < l; i++) {
                         if (min > scores[i]) {
                             min = scores[i];
-                            AI.bestMove = action[i];
                         }
                     }
                     return min;
                 } else {
-                    var l = scores.length, i, max = scores[0];
-                    AI.bestMove = action[0];
+                    var l = scores.length, i, max = scores[0], maxIndex = 0, min = scores[0];
                     for (i = 1; i < l; i++) {
                         if (max < scores[i]) {
                             max = scores[i];
-                            AI.bestMove = action[i];
+                            //如果是最上一层，记录最大值的位置index
+                            if (depth == Army.AI.depth-1) maxIndex = i;
                         }
+                        if (depth == Army.AI.depth-1 && min > scores[i]) min = scores[i] 
+                    }
+                    //如果是最上一层
+                    if (depth == Army.AI.depth - 1) {
+                        console.info(max, AI.boardScore(AI.board), killIndex);
+                        //记录最佳走法
+                        AI.bestMove = action[maxIndex];
+                        //如果存在杀棋子的步法，以及最佳走法的分数与杀棋子的分数一致，优先选择杀棋子
+                        if (killIndex >= 0 && scores[maxIndex] == scores[killIndex]) AI.bestMove = action[killIndex];
+                        //如果最佳走法和最差走法分数相同，则动作为open
+                        if (max == min) AI.bestMove = [2];
                     }
                     return max;
                 }
-
+                
 
             } //end if (!walkable.length)
         } //end if (depth == 0)
@@ -189,7 +205,7 @@ Army.AI = {
         for (var i = 0; i < 60; i++) {
             b = board[i];
             if (b && b[2]) {
-                val += board[i][3];
+                val += b[3];
             }
         }
         return val;
@@ -262,19 +278,5 @@ Army.AI = {
             return true;
         }
         return false;
-    },
-    arrMin: function(arr) {
-        var l = arr.length, i, m = arr[0];
-        for (i = 1; i < l; i++) {
-            if (m > arr[i]) m = arr[i];
-        }
-        return m;
-    },
-    arrMax: function(arr) {
-        var l = arr.length, i, m = arr[0];
-        for (i = 1; i < l; i++) {
-            if (m < arr[i]) m = arr[i];
-        }
-        return m;
     }
 }
