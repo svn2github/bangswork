@@ -528,28 +528,52 @@ Army.action = {
         }
 
         if (!isRemote) {
-            var worker = new Worker("AIWorkers.js");
-            worker.onmessage = function(event){
-                switch (event.data.type) {
-                    case "open":
-                        Army.action.openPieces(event.data.piecesPos, true);
-                        break;
-                    case "move":
-                        Army.action.movePieces(event.data.currPos, event.data.aimPos, true);
-                        break;
-                    case "kill":
-                        Army.action.killPieces(event.data.killType, event.data.currPos, event.data.aimPos, true);
-                        break;
-                }
-            };
 
-            worker.postMessage({
-                AIBoard: Army.AI.board,
-                group: Army.game.group
-            });
-            //setTimeout(Army.AI.go, 50);
+            //让firefox3.5以上版本使用web workers
+            if(Army.game.useWorker == undefined) {
+                var ua = window.navigator.userAgent,
+                    firefox = ua.indexOf("Firefox")>0,
+                    version;
+
+                if(firefox) {
+                    var re = /Firefox(\s|\/)(\d+(\.\d+)?)/;
+                    if(re.test(ua))
+                        version = parseFloat(RegExp.$2);
+                    if (version >= 3.5) Army.game.useWorker = true;
+                    else Army.game.useWorker = false;
+                } else {
+                    Army.game.useWorker = false;
+                }
+                
+            }
+
+            if (Army.game.useWorker) {
+                var worker = new Worker("js/AIWorkers.js");
+                worker.onmessage = function(event){
+                    switch (event.data.type) {
+                        case "open":
+                            Army.action.openPieces(event.data.piecesPos, true);
+                            break;
+                        case "move":
+                            Army.action.movePieces(event.data.currPos, event.data.aimPos, true);
+                            break;
+                        case "kill":
+                            Army.action.killPieces(event.data.killType, event.data.currPos, event.data.aimPos, true);
+                            break;
+                    }
+                };
+
+                worker.postMessage({
+                    AIBoard: Army.AI.board,
+                    group: Army.game.group
+                });
+
+            } else {
+                setTimeout(Army.AI.go, 50);
+            }
 
         }
+
         Army.game.turns = Army.game.turns? 0:1;
         //Army.game.group = Army.game.group? 0:1;
     }

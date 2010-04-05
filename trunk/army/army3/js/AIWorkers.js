@@ -71,11 +71,11 @@ Army.AI.go = function() {
 }
 
 
-var errorReceiver = function(event){
+errorReceiver = function(event){
     throw event.data;
-};
 
-var onmessage = function(event){
+};
+onmessage = function(event){
 	Army.game.group = event.data.group;
 	Army.AI.board = event.data.AIBoard;
 	Army.AI.go()
