@@ -107,6 +107,35 @@ Army.cfg.step = {
 }
 
 Army.init = {
+    //初始化，重置所有参数
+    startInit: function(){
+        var g = Army.game,
+            a = Army.AI;
+		g.currPieces0 = Army.cfg.pieces_role_arr.slice();
+		g.currPieces1 = Army.cfg.pieces_role_arr.slice();
+		g.killedPieces0 = [];
+		g.killedPieces1 = [];
+		g.killedMine0 = 0;
+		g.killedMine1 = 0;
+		g.initPieces = [];
+		g.group = 0;
+		g.turns = 0;
+		g.firstStep = true;
+		g.board = [];
+        g.gameOver = false;
+
+		a.board = [];
+		a.bestMove = [];
+		a.depth = 3;
+		a.close = [];     
+
+		$(".space").remove();
+		$(".pieces").remove();
+		$(".pieces_c").remove();
+		$(".pieces_selected").remove();
+        $("#killedPieces0 .killedPieces_item").remove();
+        $("#killedPieces1 .killedPieces_item").remove();
+    },
     /* 
      * 创建棋盘上每个位置的按钮
      * */
@@ -187,25 +216,15 @@ Army.init = {
 
             Army.game.board.push(pieces);
         }
-        Army.AI.refreshAIBoard();
+        Army.AI.initAIBoard();
     },
     
     /*
      * 点击棋子执行的函数
      * */
     _piecesClick: function() {
-                      /*
-        var self = $(this);
-        console.info(Army.AI.board[self.data("pos")][0] == self.data("role"))
-        console.info(Army.AI.board[self.data("pos")][1] == self.data("group"))
-        console.info(Army.AI.board[self.data("pos")][2] == self.data("status"))
-        console.info(self.data("role") == Army.game.board[self.data("pos")].data("role"))
-        console.info(self.data("group") == Army.game.board[self.data("pos")].data("group"))
-        console.info(self.data("status") == Army.game.board[self.data("pos")].data("status"))
-        */
-
-        //turns==group时轮到当前玩家下棋
-        if (Army.game.turns == Army.game.group) {
+        //turns==group时轮到当前玩家下棋 Army.game.gameOver==true时游戏结束
+        if (Army.game.turns == Army.game.group && !Army.game.gameOver) {
             var self = $(this);
 
             //处于未翻开状态
@@ -271,8 +290,8 @@ Army.action = {
         var pieces = Army.game.getPiecesByPos(pos),
             bg_position = -pieces.data("group")*60 + "px " + (-pieces.data("role")*30) + "px";
         
-		/*
-        //第一次揭开棋子，判定双方角色
+		/* 
+        //第一次揭开棋子，判定双方角色 for comet
         if (Army.game.firstStep) {
             Army.game.firstStep = false;
             var group = Army.game.getPiecesByPos(pos).data("group");
@@ -293,7 +312,7 @@ Army.action = {
             Army.game.turns = Army.game.group;
             
             //默认group为0，如果此时group为1，需要修改AI里的board表
-            if (Army.game.group == 1) Army.AI.refreshAIBoard();
+            if (Army.game.group == 1) Army.AI.initAIBoard();
         }
 
         pieces.removeClass("pieces_c")
@@ -320,7 +339,10 @@ Army.action = {
     killPieces: function(type, currPos, aimPos, isRemote) {
 		var currPieces = Army.game.getPiecesByPos(currPos),
 			aimPieces  = Army.game.getPiecesByPos(aimPos),
-            cssPos     = Army.game.getCssPosByPos(aimPos);
+            cssPos     = Army.game.getCssPosByPos(aimPos),
+            aimRole    = aimPieces.data("role"),
+            aimGroup   = aimPieces.data("group"),
+            g          = Army.game;
 
         currPieces
         //置于最上层
@@ -335,16 +357,41 @@ Army.action = {
             }
             //恢复原有层级
             $(this).css("z-index", 1);
+
+            //挖地雷
+            if (aimRole == 10) {
+                aimGroup == 0? g.killedMine0+=1: g.killedMine1+=1;
+            }
+
+            //判断游戏结束
+            if (aimRole == 11) {
+                if (aimGroup == g.group) g.gameOverFunc("lose");
+                else g.gameOverFunc("win");
+                g.gameOver = true;
+            }
+            if (g.killedPieces0.length - g.killedMine0 >= 21) {
+                Army.game.group == 0? g.gameOverFunc("lose"): g.gameOverFunc("win");
+                g.gameOver = true;
+            }
+            if (g.killedPieces1.length - g.killedMine1 >= 21) {
+                Army.game.group == 1? g.gameOverFunc("lose"): g.gameOverFunc("win");
+                g.gameOver = true;
+            }
+
         })
         .data("pos", aimPos);
 
-        $(".pieces_selected").removeClass("pieces_selected")
-        Army.action.go("kill", isRemote, {
-            currPos: currPos,
-            aimPos: aimPos,
-            killType: type,
-			currPieces: currPieces
-        })
+        $(".pieces_selected").removeClass("pieces_selected");
+        
+        //gameOver了就不用继续了
+        if (!g.gameOver) {
+            Army.action.go("kill", isRemote, {
+                currPos: currPos,
+                aimPos: aimPos,
+                killType: type,
+                currPieces: currPieces
+            })
+        }
     },
     
     /*
@@ -424,7 +471,8 @@ Army.action = {
      * 每走一步执行的函数
      * */
     go: function(type, isRemote, obj) {
-		/*
+		/*  
+        //for comet
         if (!isRemote) {
             switch (type) {
                 case "open":
@@ -478,9 +526,9 @@ Army.action = {
 
                 break;
         }
+
         if (!isRemote) {
-            /*
-            var worker = new Worker("js/AIWorkers.js");
+            var worker = new Worker("AIWorkers.js");
             worker.onmessage = function(event){
                 switch (event.data.type) {
                     case "open":
@@ -499,8 +547,8 @@ Army.action = {
                 AIBoard: Army.AI.board,
                 group: Army.game.group
             });
-            */
-            setTimeout(Army.AI.go, 50);
+            //setTimeout(Army.AI.go, 50);
+
         }
         Army.game.turns = Army.game.turns? 0:1;
         //Army.game.group = Army.game.group? 0:1;
@@ -514,6 +562,9 @@ Army.game = {
     //双方被杀棋子数组
     killedPieces0: [],
     killedPieces1: [],
+    //双方被杀的地雷数，用于判断是否可抢军旗
+    killedMine0: 0,
+    killedMine1: 0,
     //初始化棋盘的棋位置
     initPieces: [],
     //当前玩家角色
@@ -523,7 +574,7 @@ Army.game = {
     //是否为第一步
     firstStep: true,
 	board: [],
-	
+	gameOver: false,
     /*
      * 处理两个棋子相碰撞
      * param: currPieces: 当前棋子
@@ -536,7 +587,7 @@ Army.game = {
             aimRole   = aimPieces.data("role");
 
 		if (Army.game.passable(currPos, aimPos)) {
-			var type = Army.game.killType(currRole, aimRole)
+			var type = Army.game.killType(currRole, aimRole, Army.game.group)
 			//可杀以及目标不在行营里面
 			if (type && $.inArray(aimPos, Army.cfg.protect) == -1) {
                 Army.action.killPieces(type, currPos, aimPos);
@@ -552,13 +603,14 @@ Army.game = {
 	 * 两棋子相碰出现的情况
 	 * param: currRole: 移动的棋子的角色
 	 *        aimRole:  目标棋子的角色
+     *        group: 当前玩家
 	 * return: 1: 普通大吃小
 	 *         2: 俩棋子地位相等
 	 *         3: 有一方是炸弹,且目标不为军旗
 	 *         4: 工兵挖地雷
 	 *         null: 无符合条件的规则
 	 * */
-	killType: function(currRole, aimRole) {
+	killType: function(currRole, aimRole, group) {
 		
 		//普通大吃小
 		if (currRole > 0 && currRole < 10 && aimRole > 0 && aimRole < 10 && currRole < aimRole)
@@ -572,6 +624,11 @@ Army.game = {
 		//工兵挖地雷
 		if (currRole == 9 && aimRole == 10)
 			return 4;
+        //抢军旗
+        if (aimRole == 11) {
+            if (Army.game.killedMine1 == 3 && group == 0) return 5;
+            if (Army.game.killedMine0 == 3 && group == 1) return 5;
+        }
 
 		return null;
 	},
@@ -653,6 +710,10 @@ Army.game = {
 			top: Army.cfg.cssPosVer[parseInt((pos)/5)],
 			left: Army.cfg.cssPosHori[t]
 		}
-	}
+	},
+    gameOverFunc: function(type) {
+        if (type == "win") alert("你赢了");
+        else alert("你输了");
+    }
 
 }
