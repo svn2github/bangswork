@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link href="css/main.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/army.js"></script>
+<script type="text/javascript" src="js/army.ai.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+<title>陆战军旗</title>
+</head>
+
+<body>
+    <div class="hd">
+        <div class="warpper"><img src="img/hd.gif" class="hd_title"/></div>
+    </div>
+    <div class="main">
+        <div class="body_warpper">
+            <div id="desc">
+				<h3>简介</h3>
+				<p>此陆战军旗为翻翻AI版，由玩家与电脑对战。游戏一开始所有棋子随机摆放不可见，双方玩家轮流走一步，可掀开任意一颗棋子，也可以让自己的棋子行走。</p>
+
+				<h3>棋子大小</h3>
+				<p>地雷小于工兵；</p>
+				<p>司令 > 军长 > 师长 > 旅长 > 团长 > 营长 > 连长 > 排长 > 工兵</p>
+				<p>炸弹与任何棋子相遇时，双方都消失。</p>
+
+				<h3>开局</h3>
+				<p>第一个玩家翻开的棋子颜色就是第一个玩家的角色，另一种颜色则是堆放的角色</p>
+
+				<h3>胜负</h3>
+				<p>对方三颗地雷都被工兵挖尽时可用己方任意一颗棋子抢军旗，抢到军旗者胜</p>
+				<p>对方棋子被杀尽或者只剩地雷和军旗时胜利</p>     
+                <span><input type="button" id="descCloseBtn" value="关闭" /></span>
+            </div>
+            <div id="killedPieces0">
+                <span class="role">红方被杀：</span>
+            </div>
+            <div id="board">
+                <!--<span class="pieces"></span>-->
+            </div>
+            <div id="killedPieces1">
+                <span class="role">黑方被杀：</span>
+				<div class="funcBtns">
+					<input type="button" id="restartBtn" value="新棋局" />
+					<a href="javascript:void(0)" id="descBtn">游戏规则</a>
+				</div>
+				<span></span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <img src="img/pieces.png" style="display:none"/>
+    </div>
+    <div class="footer">Copyright <a href="http://webbang.net">webbang.net</a> 2010 | Best Performance in Firefox3.5+</div>
+</body>
+</html> 
