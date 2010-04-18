@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" content="text/html; charset=utf8">
+
+<html>
+<head>
+	<title>Actionscript3 CustomEvent</title>
+	<script type="text/javascript" src="yahoo.js"></script>
+	<script type="text/javascript" src="AS3Event.js"></script>
+	
+	<script type="text/javascript">
+
+		//输出
+		var trace = function(msg) {
+			document.write("<p>" + msg + "</p>");
+		}
+
+		//OrderEvent事件类
+		var OrderEvent = function(type) {
+			OrderEvent.superclass.constructor.call(this, OrderEvent.ORDER_DISHES);
+			this.dishes = [];
+		}
+		YAHOO.extend(OrderEvent, Event);
+		OrderEvent.ORDER_DISHES = "order";
+
+		//服务生Waiter类
+		var Waiter = function() {}
+		Waiter.prototype.replyOrderFood = function(event) {
+			trace("你好," + event.target.name + "!你点的菜是:"+ event.dishes);
+			trace("我马上吩咐厨房去做");
+		}
+
+		//客人类Customer
+		var Customer = function(name) {
+			Customer.superclass.constructor.call(this);
+			this.name = name;
+		}
+		YAHOO.extend(Customer, EventDispatcher);
+		Customer.prototype.order = function(dishes) {
+			var orderDish = new OrderEvent();
+			orderDish.dishes = dishes? dishes: ["农家小炒", "麻婆豆腐", "烤鱿鱼"];
+			this.dispatchEvent(orderDish);
+		}
+
+
+
+		//生成客人和湘缘服务员
+		var bang = new Customer("bang"),
+			xiangyuanWaiter = new Waiter();
+			
+		//注册侦听器，讲服务员的replyOrderFood()方法注册为侦听“order”事件的侦听器
+		bang.addEventListener(OrderEvent.ORDER_DISHES, xiangyuanWaiter.replyOrderFood, xiangyuanWaiter);
+		//俺点菜了，菜单在俺这个类里面
+		bang.order();
+		//再点次菜，点些饮料
+		bang.order(["鸡尾酒","咖啡"]);
+		//吃完饭，移除侦听器
+		bang.removeEventListener(OrderEvent.ORDER_DISHES, xiangyuanWaiter.replyOrderFood, xiangyuanWaiter);
+	
+	</script>
+
+
+</head>
+<body>
+</body>
+</html>
