@@ -14,8 +14,7 @@
 /*****Reset*****/
 html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote,
 pre, form, fieldset, table, th, td, canvas { margin: 0; padding: 0; }
- 
-/*****Basic Elements*****/
+
 body {
 	width: 100%;
 	height: 100%;
@@ -153,6 +152,12 @@ body {
 	top:10px;
 	left:30px;
 }
+
+#noIphone, #noStandalone {
+	line-height:22px;
+	margin:20px;
+	display:none;
+}
 </style> 
 <script type="text/javascript"> 
 	
@@ -165,17 +170,24 @@ body {
 		x1, y1, x2, y2, flag;
 			
 	window.onload = function() {
-			if (navigator.onLine)
-			{
-				cache = window.applicationCache;
- 
-				cache.addEventListener('updateready',function(){
-					cache.swapCache();
-					alert('2B has been successfully updated, changes will take effect next time 2B starts.');
-				});
+		
+		if (navigator.appVersion.indexOf('iPhone OS ') < 0) {
+			$("noIphone").style.display = 'block';
+			$("noStandalone").style.display = 'none';
+			$("main").style.display = 'none';
+		} else {
+			if (!window.navigator.standalone) {
+				$("noIphone").style.display = 'none';
+				$("noStandalone").style.display = 'block';
+				$("main").style.display = 'none';
+			} else {
+				$("noIphone").style.display = 'none';
+				$("noStandalone").style.display = 'none';
+				main();
+				reOrient();
 			}
-		main();
-		reOrient();
+		}
+		
 	}
 	
     window.onorientationchange = function() {
@@ -207,8 +219,6 @@ body {
 					y2 = t;
 				}
 			}
-			
-			
 		}
 		
 		canvas.ongesturestart = function(e) {
@@ -361,17 +371,21 @@ body {
 </script> 
 </head> 
 <body> 
-	<canvas id="canvas" width="320" height="480"></canvas>
-	<div id="result" class="result_vert"></div>
-	<img id="bg" class="bg_vert" src="bg.png" />
-	<img id="help" class="help_vert" src="help.png" />
-	<div id="help_panel" class="help_panel_vert hide">
-		<h2>手尺</h2>
-		<div class="panel_body">
-			测量手指比划距离的工具，两手指放在屏幕上，即会显示出两手指之间的长度，单位为厘米。
+	<div id="main">
+		<canvas id="canvas" width="320" height="480"></canvas>
+		<div id="result" class="result_vert"></div>
+		<img id="bg" class="bg_vert" src="bg.png" />
+		<img id="help" class="help_vert" src="help.png" />
+		<div id="help_panel" class="help_panel_vert hide">
+			<h2>手尺</h2>
+			<div class="panel_body">
+				测量手指比划距离的工具，两手指放在屏幕上，即会显示出两手指之间的长度，单位为厘米。
+			</div>
+			<div class="panel_footer">2010 <a href="http://webbang.net">webbang.net</a></div>
 		</div>
-		<div class="panel_footer">2010 <a href="http://webbang.net">webbang.net</a></div>
+		<div id="help_panel_mark" class="hide"></div>
 	</div>
-	<div id="help_panel_mark" class="hide"></div>
+	<div id="noIphone"><strong>手尺</strong>是一个专门为iphone/itouch开发的web app，请使用iphone/itouch访问。</div>
+	<div id="noStandalone">请点击下方的“+”按钮把本应用添加至主屏幕，这样可以全屏运行此app，并且可以离线使用。</div>
 	</body>
 </html>
