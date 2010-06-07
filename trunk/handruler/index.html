@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html manifest="ruler.manifest" xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/> 
+<meta name="apple-mobile-web-app-capable" content="yes" /> 
+<meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
+<link rel="apple-touch-startup-image" href="start.jpg"> 
+<link rel="apple-touch-icon-precomposed" href="logo.png"/> 
+<title>手尺</title> 
+<style type="text/css">
+
+/*****Reset*****/
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote,
+pre, form, fieldset, table, th, td, canvas { margin: 0; padding: 0; }
+ 
+/*****Basic Elements*****/
+body {
+	width: 100%;
+	height: 100%;
+	
+	-webkit-user-select: none;
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	
+	font-family: Helvetica, sans-serif;
+	
+}
+#canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border:solid 1px red;
+}
+#result {
+	position:absolute;
+	opacity:0.5;
+	font-size:40px;
+}
+
+.result_vert{
+	right:70px;
+	top:400px;
+}
+.result_hori{
+	right:70px;
+	top:240px;
+}
+
+#bg {
+	position:absolute;
+	z-index:-1;
+}
+.bg_vert {
+	top: -20px;
+	left: 0;
+}
+.bg_hori {
+	top: -80px;
+	left: 80px;
+	-webkit-transform: rotate(90deg);
+}
+
+#help{
+	position:absolute;
+	padding:10px;
+    opacity: 0.7;
+}
+.help_vert{
+	top:400px;
+	right:15px;
+}
+.help_hori{
+	top:240px;
+	right:15px;
+}
+.help_over{
+    -webkit-transform: scale(1.2) rotate(15deg);
+}
+.help_out{
+	-webkit-transform: scale(1) rotate(0deg);
+}
+
+#help_panel{
+	position:absolute;
+	width:250px;
+	height:167px;
+	-webkit-box-shadow: 0px 2px 4px #888;
+	-webkit-border-radius:12px;
+	border:1px solid #999;
+	background-color:#fff;
+	z-index:100;
+}
+.help_panel_vert{
+	top:140px;
+	left:35px;
+}
+.help_panel_hori{
+	top:65px;
+	left:115px;
+}
+#help_panel_mark{
+	position:absolute;
+	left:0;
+	right:0;
+	width:100%;
+	height:100%;
+	z-index:90;
+}
+
+.show{
+	visibility: visible;
+}
+.hide{
+	visibility: hidden;
+}
+
+@-webkit-keyframes DivZoom{
+0% { -webkit-transform: scale(0.01); opacity:0.01 }
+60% { -webkit-transform: scale(1.05); opacity:0.5}
+80% { -webkit-transform: scale(0.95); opacity:0.9}
+100% { -webkit-transform: scale(1.00); opacity:1}
+}
+.pZoom { 
+	-webkit-animation: DivZoom 0.5s ease-in-out 
+}
+
+#help_panel h2{
+	font-size:24px;
+	text-align:center;
+	padding:7px 4px;
+}
+.panel_footer{
+	background-color:#dffeff;
+	font-size:12px;
+	padding:3px;
+	margin-top:5px;
+	text-align:center;
+	-webkit-border-bottom-left-radius:12px;
+	-webkit-border-bottom-right-radius:12px;
+	width:244px;
+	height:18px;
+}
+.panel_body {
+	line-height:22px;
+	padding:4px 14px;
+}
+
+
+#test{
+	position:absolute;
+	z-index:100;
+	top:10px;
+	left:30px;
+}
+</style> 
+<script type="text/javascript"> 
+	
+	var cache,
+		canvas,
+		ctx,
+		cWidth = 320,
+		cHeight = 480,
+		radius = 5,
+		x1, y1, x2, y2, flag;
+			
+	window.onload = function() {
+			if (navigator.onLine)
+			{
+				cache = window.applicationCache;
+ 
+				cache.addEventListener('updateready',function(){
+					cache.swapCache();
+					alert('2B has been successfully updated, changes will take effect next time 2B starts.');
+				});
+			}
+		main();
+		reOrient();
+	}
+	
+    window.onorientationchange = function() {
+        reOrient();
+    };
+	
+	function main() {
+		canvas = $("canvas");
+		ctx = canvas.getContext("2d");
+		canvas.ontouchstart = function(e) {
+			ctx.clearRect(0, 0, cWidth, cHeight);  
+			draw(e);
+		}
+		canvas.ontouchmove = function(e) {
+			e.preventDefault();
+			draw(e);
+		};
+		
+		canvas.ontouchend = function(e) {
+			if (e.targetTouches[0]) {
+				flag = true;
+				if (Math.abs(e.targetTouches[0].pageX - x2) <= 5 && Math.abs(e.targetTouches[0].pageY - y2) <= 5) {
+					var t;
+					t = x1;
+					x1 = x2;
+					x2 = t;
+					t = y1;
+					y1 = y2;
+					y2 = t;
+				}
+			}
+			
+			
+		}
+		
+		canvas.ongesturestart = function(e) {
+			e.preventDefault();
+		}
+		canvas.ongesturechange = function(e) {
+			e.preventDefault();
+		}
+		
+		$("help").ontouchstart = function(e) {
+			addClass($("help_panel"), "pZoom");
+			removeClass($("help_panel"), "hide");
+			addClass($("help_panel"), "show");
+			removeClass($("help_panel_mark"), "hide");
+			addClass($("help_panel_mark"), "show");
+			removeClass($("help"), "help_out");
+			addClass($("help"), "help_over");
+		}
+		
+		$("help").ontouchend = function(e) {
+			removeClass($("help"), "help_over");
+			addClass($("help"), "help_out");
+		}
+		
+		
+		$("help_panel").ontouchmove = function(e) {
+			e.preventDefault();
+		};
+		
+		$("help_panel_mark").ontouchstart = function(e) {
+			removeClass($("help_panel"), "pZoom");
+			removeClass($("help_panel"), "show");
+			addClass($("help_panel"), "hide");
+			addClass($("help_panel_mark"), "show");
+			addClass($("help_panel_mark"), "hide");
+		}	
+		
+	}
+		
+	function draw(e) {
+		
+		
+		if (e.targetTouches[1] || x2) {
+			ctx.clearRect(0, 0, cWidth, cHeight);  
+			ctx.beginPath();
+			x1 = e.targetTouches[0].pageX;
+			y1 = e.targetTouches[0].pageY;
+			if (e.targetTouches[1]) {
+				x2 = e.targetTouches[1].pageX;
+				y2 = e.targetTouches[1].pageY;
+			}
+			
+			ctx.arc(x1, y1, radius, 0, 2*Math.PI);  
+			ctx.arc(x2, y2, radius, 0, 2*Math.PI);  
+			ctx.fill();
+			
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.stroke();
+			
+		} else {
+			x1 = e.targetTouches[0].pageX;
+			y1 = e.targetTouches[0].pageY;
+			if (!flag) {
+				ctx.clearRect(0, 0, cWidth, cHeight);  
+				ctx.beginPath();
+				ctx.arc(x1, y1, radius, 0, 2*Math.PI);  
+				ctx.fill();
+			}
+		}
+		calc()
+	}
+	
+	function calc() {
+		if (x1 && x2 && y1 && y2) {
+			var distance = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+			$("result").innerHTML = Math.round(distance/63*100)/100 + "cm";
+		}
+	}
+	
+	function reOrient() {
+		orientation = window.orientation;
+		if (orientation == 90 || orientation == -90) {
+			cWidth = 480;
+			cHeight = 320;
+			canvas.width = cWidth;
+			canvas.height = cHeight; 
+			toHori();
+		} else {
+			cWidth = 320;
+			cHeight = 480;
+			canvas.width = cWidth;
+			canvas.height = cHeight;
+			toVert();
+		}
+	}
+	
+	function toVert() {
+		var bg = $("bg"),
+			result = $("result"),
+			help = $("help"),
+			help_panel = $("help_panel");
+		removeClass(bg, "bg_hori");
+		addClass(bg, "bg_vert");
+		removeClass(result, "result_hori");
+		addClass(result, "result_vert");
+		removeClass(help, "help_hori");
+		addClass(help, "help_vert");
+		removeClass(help_panel, "help_panel_hori");
+		addClass(help_panel, "help_panel_vert");
+	}
+	
+	function toHori() {
+		var bg = $("bg"),
+			result = $("result"),
+			help = $("help"),
+			help_panel = $("help_panel");
+		removeClass(bg, "bg_vert");
+		addClass(bg, "bg_hori");
+		removeClass(result, "result_vert");
+		addClass(result, "result_hori");
+		removeClass(help, "help_vert");
+		addClass(help, "help_hori");
+		removeClass(help_panel, "help_panel_vert");
+		addClass(help_panel, "help_panel_hori");
+	}
+	
+	
+    function hasClass(e, c) {
+        return e.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+	
+    function addClass(e, c) {
+        if (!hasClass(e, c)) {
+            e.className += " " + c;
+        }
+    }
+    function removeClass(e, c) {
+        if (hasClass(e, c)) {
+            var reg = new RegExp('(\\s|^)' + c + '(\\s|$)');
+            e.className = e.className.replace(reg, ' ');
+        }
+    }
+	
+	function $(id) {
+		return document.getElementById(id);
+	}
+ 
+</script> 
+</head> 
+<body> 
+	<canvas id="canvas" width="320" height="480"></canvas>
+	<div id="result" class="result_vert"></div>
+	<img id="bg" class="bg_vert" src="bg.png" />
+	<img id="help" class="help_vert" src="help.png" />
+	<div id="help_panel" class="help_panel_vert hide">
+		<h2>手尺</h2>
+		<div class="panel_body">
+			测量手指比划距离的工具，两手指放在屏幕上，即会显示出两手指之间的长度，单位为厘米。
+		</div>
+		<div class="panel_footer">2010 <a href="http://webbang.net">webbang.net</a></div>
+	</div>
+	<div id="help_panel_mark" class="hide"></div>
+	</body>
+</html>
