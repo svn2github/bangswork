@@ -13,12 +13,13 @@ var iQuery = function( selector, context ) {
 
 	
 	// Use the correct document accordingly with window argument (sandbox)
-	document = window.document
+	document = window.document;
 	
 iQuery.fn = iQuery.prototype = {
 	init: function( selector, context ) {
-		var context = context || document,
-			result
+		var result;
+		
+		context = context || document;
 			
 		// Handle $(""), $(null), or $(undefined)
 		if ( !selector ) {
@@ -123,17 +124,18 @@ iQuery.fn = iQuery.prototype = {
 	each: function ( callback ) {
 		return iQuery.each( this, callback );
 	}
-}
+};
 
 iQuery.fn.init.prototype = iQuery.fn;
 
 iQuery._extend = iQuery.fn._extend = function ( obj ) {
-	for ( name in obj ) {
-		this[ name ] = obj [ name ];
+	for ( var name in obj ) {
+		if ( obj.hasOwnProperty(name) ) {
+			this[ name ] = obj [ name ];
+		}
 	}
 	return this;
-}
-
+};
 
 
 
@@ -154,6 +156,16 @@ iQuery._extend({
 		
 		return object;
 	},
+	
+	mix: function ( self, obj, o ) {
+		for ( var name in obj ) {
+			if ( self[ name ] === undefined || o ) {
+				self[ name ] = obj[ name ];
+			}
+		}
+		return self;
+	},
+	
 	bindReady: function () {
 		document.addEventListener( "DOMContentLoaded", function(){
 			document.removeEventListener( "DOMContentLoaded", arguments.callee, false );
@@ -171,10 +183,14 @@ iQuery._extend({
 		readyList = null;
 	},
 	
+	load: function ( fn ) {
+		window.addEventListener( "load", fn, false );
+	},
+	
 	makeArray: function ( arr, results ) {
 		var ret = results || [];
 		
-		if ( arr != null ) {
+		if ( arr !== null ) {
 			if ( arr.length === null || typeof arr === "string"  ) {
 				push.call( ret, arr );
 			} else {
@@ -212,9 +228,9 @@ iQuery._extend({
 			div.innerHTML = elems;
 			elems = div.childNodes;
 			
-			for ( var i = 0; i < elems.length; i++ ) {
+			while ( elems[0] ) {
 				//todo：用while危险，这里每次appendel elems的元素就会减少，而下面不会，
-				fragment.appendChild( elems[i] );
+				fragment.appendChild( elems[0] );
 			}
 			
 		} else if ( elems[0] && elems[0].nodeType ) {
@@ -244,7 +260,7 @@ iQuery.fn._extend({
 			return this.each(function(i, o) {
 				var className = " " + o.className + " ";
 				if ( className.indexOf( " " + name + " ") < 0 ) {
-					o.className += " " + name;
+					o.className += o.className? " " + name: name;
 				}
 			});
 		}
@@ -295,14 +311,14 @@ iQuery.fn._extend({
 	},
 	
 	text: function ( content ) {
+		var ret = "", i;
 		if ( content === undefined ) {
-			var ret = "";
-			for ( var i = 0; this[i]; i++ ) {
+			for ( i = 0; this[i]; i++ ) {
 				ret += this[i].textContent;
 			}
 			return ret;
 		} else {
-			for ( var i = 0; this[i]; i++ ) {
+			for ( i = 0; this[i]; i++ ) {
 				 this[i].textContent = content;
 			}
 			return this;
@@ -312,7 +328,7 @@ iQuery.fn._extend({
 	html: function ( content ) {
 		if ( !content ) {
 			var ret = "";
-			for ( var i = 0, elem; (elem = this[i]) != null; i++ ) {
+			for ( var i = 0, elem; (elem = this[i]) !== null; i++ ) {
 				ret += elem.innerHTML;
 			}
 			return ret;
@@ -471,19 +487,18 @@ iQuery.fn._extend({
 		});
 		return iQuery( ret );
 	}
-	
 });
 
 var scrollFlag,
-	speeds = {
+	scrollSpeeds = {
 		"slow" : 15,
 		"normal" : 10,
 		"fast" : 5
-	}
+	};
 	
 iQuery._extend({
 	isIphone: function () {
-		return navigator.appVersion.indexOf('iPhone OS ') >= 0
+		return navigator.appVersion.indexOf('iPhone OS ') >= 0;
 	},
 	
 	isStandalone: function() {
@@ -495,18 +510,23 @@ iQuery._extend({
 	
 	scrollTo: function( pos, time ) {
 		var speed = time,
-			offset;
+			dom = iQuery(),
+			offset,
+			stopScroll = function(e) {
+				scrollFlag = false;
+				dom.unbind("touchstart", stopScroll, true);
+			};
 		scrollFlag = true;
 		
 		if ( typeof time == "string" ) {
-			speed = speeds[time];
+			speed = scrollSpeeds[time];
 		}
 		if ( typeof speed != "number" ) {
-			speed = 10
+			speed = 10;
 		}
 		
 		//点击屏幕时停止滚动
-		$().bind("touchstart", stopScroll, true);
+		dom.bind("touchstart", stopScroll, true);
 		
 		setTimeout(function(){
 			offset = (pos  - window.pageYOffset)/speed;
@@ -517,15 +537,59 @@ iQuery._extend({
 			if ( Math.abs(window.pageYOffset - pos) > 1 && scrollFlag) {
 				setTimeout(arguments.callee, 20);
 			} else {
-				$().unbind("touchstart", stopScroll, true);
+				dom.unbind("touchstart", stopScroll, true);
 			}
 		}, 20);
 		
-		function stopScroll(e) {
-			scrollFlag = false;
-			$().unbind("touchstart", stopScroll, true);
+	},
+	
+	//隐藏地址栏 需要在onload里才能用
+	hideBar : function() {
+		$.load(function(){
+			setTimeout(function() {
+				window.scrollTo(0, 1);
+			}, 0);
+		});
+	},
+
+	setup: function( options ) {
+		var defaults = {
+				icon: "",
+				iconGloss: true,
+				startup: "",
+				viewport: true,
+				fullScreen: true,
+				statusBar: true
+			},
+			html = "";
+		
+		options = iQuery.mix( defaults, options, true );
+		// Set icon
+		if ( options.icon ) {
+			var precomposed = (options.iconGloss) ? '' : '-precomposed';
+			html += '<link rel="apple-touch-icon' + precomposed + '" href="' + options.icon + '" />';
 		}
+		// Set startup screen
+		if ( options.startup ) {
+			html += '<link rel="apple-touch-startup-image" href="' + options.startup + '" />';
+		}
+		// Set viewport
+		if ( options.viewport ) {
+			html += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>';
+		}
+		// Set full-screen
+		if ( options.fullScreen ) {
+			html += '<meta name="apple-mobile-web-app-capable" content="yes" />';
+			if ( options.statusBar ) {
+				html += '<meta name="apple-mobile-web-app-status-bar-style" content="black" />';
+			}
+		}
+		if ( html != "" ) {
+			iQuery("head").append( html );
+		}
+		
 	}
+	
 	
 });
 
@@ -534,7 +598,7 @@ iQuery.fn._extend({
 		useCapture = useCapture? true: false;
 		this.each(function(i, o){
 			o.addEventListener( type, fn, useCapture );
-		})
+		});
 	},
 	unbind: function( type, fn, useCapture ) {
 		useCapture = useCapture? true: false;
@@ -546,23 +610,45 @@ iQuery.fn._extend({
 });
 
 iQuery.each( ("touchstart touchmove touchend touchcancel gesturestart gesturechange gestureend " +
-			  "orientationchange click unload focus blur submit change abort " +
+			  "webkitTransitionEnd, orientationchange click unload focus blur submit change abort scroll " +
 			  "mousemove mousedown mouseup mouseover mouseout").split(" "), function(i, o) {
 	iQuery.fn[o] = function ( fn, useCapture ) {
 		this.bind( o, fn, useCapture );
-	}
+		return this;
+	};
 });
-iQuery.fn.touch = iQuery.fn.touchstart;
+iQuery.fn.touch = function ( touchFn, touchendFn, touchmoveFn, compat ) {
+	this.bind( "touchstart", touchFn );
+	if ( touchendFn ) {
+		this.bind( "touchend", touchendFn );
+	}
+	if ( touchmoveFn ) {
+		this.bind( "touchmove", touchmoveFn );
+	}
+	if (compat && !$.isIphone()) {
+		this.bind( "mousedown", touchFn );
+		this.bind( "mousemove", touchmoveFn );
+		this.bind( "mouseup", touchendFn );
+	}
+	return this;
+};
 iQuery.fn.orient = iQuery.fn.orientationchange;
 
 
-
-var rdashAlpha = /-([a-z])/ig,
+var rexclude = /z-?index|font-?weight|opacity|zoom|line-?height/i,
+	rdashAlpha = /-([a-z])/ig,
 	rupper = /([A-Z])/g,
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
 	};
+
 	
+var tranSpeeds = {
+	slow: 3,
+	normal: 2,
+	fast: 1
+};
+
 iQuery._extend({
 	curCss: function( elem, name ) {
 		var style = elem.style, ret,
@@ -587,7 +673,34 @@ iQuery._extend({
 	
 	setCss: function( elem, name, value ) {
 		name = name.replace(rdashAlpha, fcamelCase);
+		if ( typeof value === "number" && !rexclude.test(name) ) {
+			value += "px";
+		}
 		elem.style[ name ] = value;
+	},
+	
+	//问题1：从display:none转到display:block时无法进行动画
+	//问题2：如果上一次动画未结束即进行下一个动画，则动画结束后所有传进的fn都会执行
+	//	fadeIn("slow", fn1) fadeOut("slow", fn2)  在fadeIn未结束时执行fadeOut 则动画结束后fn1 fn2都会执行
+	fade: function ( to, self, speed, fn ) {
+		if ( typeof speed != "number" ) {
+			speed = tranSpeeds[speed] || 2;
+		}
+		self.each( function( i, o ){
+			var elem = iQuery(o)
+			elem.css({
+				"-webkit-transition-property": "opacity",
+				"-webkit-transition-duration": speed + "s",
+				"opacity": to
+			});
+			if ( fn ) {
+				elem.bind( "webkitTransitionEnd", function(e) {
+					fn(e);
+					elem.unbind("webkitTransitionEnd", arguments.callee);
+				});
+			}
+			
+		});
 	}
 });
 
@@ -604,7 +717,9 @@ iQuery.fn._extend({
 			} else {
 				this.each(function(i, o) {
 					for ( var j in name ) {
-						iQuery.setCss( o, j, name[j] );
+						if ( name.hasOwnProperty(j) ) {
+							iQuery.setCss( o, j, name[j] );	
+						}
 					}
 				});
 			}
@@ -616,6 +731,118 @@ iQuery.fn._extend({
 		}
 		
 		return this;
+	},
+	
+	offset: function() {
+		var elem = this[0];
+		if ( elem ) {
+			var offset = elem.offsetTop;
+			while ( elem = elem.offsetParent ) {
+				console.info(elem, elem.offsetTop);
+				offset += elem.offsetTop;
+			}
+			return offset;
+		}
+		return 0;
+	},
+	
+	show: function( speed, fn ) {
+		if (!speed) {
+			this.each(function(i, o) {
+				iQuery(o).css("display", "block");
+			});
+		} else {
+			this.fadeIn( speed, fn );
+		}
+	},
+	
+	hide: function( speed, fn ) {
+		if (!speed) {
+			this.each(function(i, o) {
+				iQuery(o).css("display", "none");
+			});
+		} else {
+			this.fadeOut( speed, fn );
+		}
+	},
+	fadeIn: function( speed, fn ) {
+		iQuery.fade( 1, this, speed, fn );
+	},
+	
+	fadeOut: function( speed, fn ) {
+		iQuery.fade( 0, this, speed, fn );
+	}
+});
+
+
+iQuery._extend({
+
+	/*	method, type, timeout, data, url, success, error, username, password
+	*/
+	ajax: function ( options ) {
+		var xhr = new XMLHttpRequest(),
+			//method默认为GET
+			method = options.method? (options.method.toUpperCase() == "POST"? "POST": "GET") : "GET",
+			timeout = options.timeout || false,
+			url = options.url,
+			type = options.type,
+			postData, hasCompleted;
+			
+		if ( options.data ) {
+			postData = [];
+			for ( var d in options.data ) {
+				if ( d && options.data.hasOwnProperty(d) ) {
+					postData.push( d + "=" + encodeURIComponent( options.data[d] ) );
+				}
+			}
+			postData = postData.join("&").replace(/%20/g, "+");
+		}
+		
+		if ( options.timeout && options.timeout > 0 ) {
+			setTimeout(function() {
+					if (!hasCompleted) {
+						xhr.abort();
+						timeout = "absort";
+						if ( options.error ) {
+							options.error( xhr, "timeout" );
+						}
+					}
+			}, options.timeout
+			);
+		}
+		
+		xhr.onreadystatechange = function () {
+			if ( xhr.readyState == 4 ) {
+				if ( xhr.status == 200 ) {
+					var ct = xhr.getResponseHeader("content-type") || "",
+						xml = type === "xml" || !type && ct.indexOf("xml") >= 0,
+						data = xhr.responseText;
+					options.success && options.success( data, xhr );
+				} else {
+					options.error && options.error();
+				}
+			}
+		};
+		
+		if (postData && method === "GET" ) {
+			url += ("?" + postData);
+			postData = null;
+		}
+		
+		xhr.open( method, url, true, options.username, options.password );
+		
+		// 设置header
+		if (options.headers) {
+			for (var h in options.headers) {
+				if ( options.headers.hasOwnProperty(h) ) {
+					xhr.setRequestHeader(h, options.headers[h]);
+				}
+			}
+		}
+		method === "POST" && xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		xhr.send(postData);
+		return xhr;
 	}
 });
 
