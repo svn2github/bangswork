@@ -1,0 +1,466 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+<title>iQuery</title> 
+<link rel="stylesheet" href="animate.css" type="text/css" />
+<style type="text/css">
+body{
+	background:url(img/bg.png);
+	margin:0;
+	padding:0;
+	min-height:460px;
+	font-family: "Microsoft YaHei";
+}
+a{
+	text-decoration:none;
+	color:#000;
+}
+#header{
+	height:45px;
+	background:#fff;
+	display:block;
+	text-align:center;
+	background: url(img/toolbar.png) repeat-x #6E85A2;
+}
+h1{
+	margin:0;
+	font-size:18px;
+	padding-top:10px;
+	color:#fff;
+}
+#main, #content{
+	position:absolute;
+	width:100%;    
+	-webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: .5s;
+}
+#content{
+	-webkit-transform:translateX(100%); 
+}
+#content div{
+	display:none;
+}
+#main li a[href='#empty']{
+	color:#999!important;
+}
+ul{
+	background:#fff;
+	margin:10px;
+	padding:0;
+	border:1px solid #999999;
+	-webkit-border-radius:10px;
+	-webkit-box-shadow: 2px 2px 3px #999;
+}
+ul li {
+	min-height:32px;
+	border-bottom:1px solid #999999;
+	margin:0;
+	padding:10px 0 0 15px;
+	list-style:none;
+	display:block;
+}
+ul > li:last-child{
+	-webkit-border-bottom-left-radius:10px;
+	-webkit-border-bottom-right-radius:10px;
+	border-bottom:none !important;
+}
+ul > li:first-child{
+	-webkit-border-top-left-radius:10px;
+	-webkit-border-top-right-radius:10px;
+}
+
+.active{
+	color:#fff!important;
+	background: -webkit-gradient(linear, 0 0, 0 80%, from(#0746c7), to(#3875f0))!important;
+}
+.active a{
+	color:#fff!important;
+}
+#backbtn{
+	width:30px;
+	border-width:0 8px 0 14px;
+	-webkit-border-image:url(img/backbtn.png) 0 8 0 14;
+	position:absolute;
+	top:7px;
+	left:10px;
+	color:#fff;
+	padding-top:8px;
+	height:22px;
+	font-size:13px;
+	opacity:0;
+}
+.nav_btn {
+	background:#fff;
+	border:1px solid #999999;
+	-webkit-border-radius:5px;
+	margin:10px 1px;
+	padding:8px;
+	background: -webkit-gradient(linear, 0 0, 0 80%, from(white), to(#dedede));
+}
+#nav{
+	margin:5px;
+	padding:15px 0 10px 0;
+	text-align:center
+}
+#ctn_back, .ctn_item{
+	background:#fff;
+	border:1px solid #999999;
+	-webkit-border-radius:10px;
+	margin:10px;
+	display:block;
+}
+#ctn_back{
+	padding:10px 10px 0 10px;
+	height:28px;
+	text-align:center;
+}
+.ctn_item{
+	padding-bottom:10px;
+}
+#empty{
+	padding:40px;
+	text-align:center;
+}
+#m_dom, #m_event, #m_css, #m_iphone {
+	display:none;
+}
+
+h2{
+	padding:10px;
+	display:block;
+	background: -webkit-gradient(linear, 0 0, 0 80%, from(#3c5b9a), to(#6684c1))!important;
+	color:#fff;
+	border-bottom:1px solid #999999;
+	margin:0;
+	-webkit-border-top-left-radius:10px;
+	-webkit-border-top-right-radius:10px;
+}
+h3{
+	padding:5px;
+	margin:10px
+}
+h4{
+	margin:5px 15px;
+	padding:5px;
+}
+p{
+	margin:4px 15px 10px 26px;
+	line-height:1.5em;
+}
+#copyright{
+	margin:10px;
+	text-align:center;
+	width:100%;
+	display:block;
+}
+</style>
+<script type="text/javascript" src="iQuery-min.js"></script>
+<script type="text/javascript" > 
+	$.setup({
+		icon: "img/logo.png"
+	});
+	$.hideBar();
+	var touchFlag;
+	$(function(){
+		$("ul li").touch(function(){
+			touchFlag = true;
+			$(this).addClass("active");
+			
+		}, function(e) {
+			$(this).removeClass("active");
+			if (touchFlag) {
+			
+				var id = $(this).find("a").attr("href");
+				$("#content").find("div").hide();
+				$(id).show();
+				$("#main").css("-webkit-transform", "translateX(-100%)");
+				var top = window.pageYOffset <= 45? 45: window.pageYOffset;
+				$("#content").css("-webkit-transform", "translateX(0)").css("top", top+"px");
+				$("#backbtn").show(.4);
+				
+			}
+		}, function() {
+			touchFlag = false;
+			$(this).removeClass("active");
+			
+		}, true);
+		
+		$("ul li a").click(function(e){
+			e.preventDefault();
+			e.stopPropagation();
+		});
+		$("#backbtn").touch(function(){
+			$("#main").css("-webkit-transform", "translateX(0%)");
+			$("#content").css("-webkit-transform", "translateX(100%)");
+			$("#backbtn").hide(.4);
+		},null,null, true);
+		
+		$("#ctn_back").touch(function(){
+			$(this).addClass("active");
+			
+		}, function(){
+			$(this).removeClass("active");
+			$("#main").css("-webkit-transform", "translateX(0%)");
+			$("#content").css("-webkit-transform", "translateX(100%)");
+			$("#backbtn").hide(.4);
+			
+		}, null, true);
+		
+		$("#nav span").touch(function(){
+			$(this).addClass("active");
+		}, function(){
+			$(this).siblings().removeClass("active");
+			var id = $(this).find("a").attr("href");
+			$("#main").find("div:not(#nav)").hide();
+			$(id).show();
+		}, function() {
+			$(this).removeClass("active");
+			
+		}, true);
+		
+		$("#nav span a").click(function(e){
+			e.preventDefault();
+			e.stopPropagation();
+		});
+	});
+</script> 
+</head> 
+<body> 
+	<div id="header">
+		<span id="backbtn">返回</span>
+		<h1>iQuery文档</h1>
+	</div>
+	<div id="main">
+		<div id="nav">
+			<span class="nav_btn active"><a href="#m_core">核心</a></span>
+			<span class="nav_btn"><a href="#m_dom">DOM</a></span>
+			<span class="nav_btn"><a href="#m_css">CSS</a></span>
+			<span class="nav_btn"><a href="#m_event">事件</a></span>
+			<span class="nav_btn"><a href="#m_iphone">IPhone</a></span>
+		</div>
+		<div id="m_core">
+			<ul>
+				<li><a href="#c1_1">$(expr, [context])</a></li>
+				<li><a href="#c1_2">$(html)</a></li>
+				<li><a href="#c1_3">$(elements)</a></li>
+				<li><a href="#c1_4">$(callback)</a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">$.each(obj, [callback])</a></li>
+				<li><a href="#empty">$.mix(self, obj, [override])</a></li>
+				<li><a href="#empty">$.trim(str)</a></li>
+				<li><a href="#empty">$.makeArray(obj)</a></li>
+				<li><a href="#empty">$.isFunction(obj)</a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">each(callback)</a></li>
+				<li><a href="#empty">length</a></li>
+			</ul>
+		</div>
+		<div id="m_dom"> 
+			<ul>
+				<li><a href="#empty">empty()</a></li>
+				<li><a href="#empty">remove()</a></li>
+				<li><a href="#empty">text( [val] ) </a></li>
+				<li><a href="#empty">html( [val] ) </a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">append(content)</a></li>
+				<li><a href="#empty">appendTo(content)</a></li>
+				<li><a href="#empty">prepend(content)</a></li>
+				<li><a href="#empty">prependTo(content)</a></li>
+				<li><a href="#empty">after(content)</a></li>
+				<li><a href="#empty">before(content)</a></li>
+				<li><a href="#empty">insertAfter(content)</a></li>
+				<li><a href="#empty">insertBefore(content)</a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">first()</a></li>
+				<li><a href="#empty">last()</a></li>
+				<li><a href="#empty">eq(index)</a></li>
+				<li><a href="#empty">find([expr])</a></li>
+				<li><a href="#empty">parent()</a></li>
+				<li><a href="#empty">children()</a></li>
+				<li><a href="#empty">prev()</a></li>
+				<li><a href="#empty">next()</a></li>
+				<li><a href="#empty">siblings()</a></li>
+			</ul>
+		</div>
+		<div id="m_css">
+			<ul>
+				<li><a href="#empty">css(name)</a></li>
+				<li><a href="#empty">css(properties)</a></li>
+				<li><a href="#empty">css(name, value)</a></li>
+			</ul> 
+			<ul>
+				<li><a href="#empty">hasClass(class) </a></li>
+				<li><a href="#empty">addClass(class) </a></li>
+				<li><a href="#empty">removeClass([class])</a></li>
+				<li><a href="#empty">toggleClass(class)</a></li>
+				<li><a href="#empty">attr(name)</a></li>
+				<li><a href="#empty">attr(key, value)</a></li>
+				<li><a href="#empty">removeAttr(name)</a></li>
+				<li><a href="#empty">offset()</a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">show()</a></li>
+				<li><a href="#empty">show(speed, [callback])</a></li>
+				<li><a href="#empty">hide()</a></li>
+				<li><a href="#empty">hide(speed, [callback])</a></li>
+				<li><a href="#empty">fadeIn(speed, [callback])</a></li>
+				<li><a href="#empty">fadeOut(speed, [callback])</a></li>				
+			</ul>
+		</div>
+		<div id="m_event">
+			<ul>
+				<li><a href="#empty">$.ajax([options])</a></li>
+				<li><a href="#empty">ready(callback)</a></li>
+				<li><a href="#empty">$.load(callback)</a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">bind(type, fn)</a></li>
+				<li><a href="#empty">unbind(type, data) </a></li>
+				<li><a href="#e_touch">touch(fn1, [fn2], [fn3], [compat])</a></li>
+				<li><a href="#empty">touchstart(fn)</a></li>
+				<li><a href="#empty">touchmove(fn)</a></li>
+				<li><a href="#empty">touchend(fn)</a></li>
+				<li><a href="#empty">gesturestart(fn)</a></li>
+				<li><a href="#empty">gesturechange(fn)</a></li>
+				<li><a href="#empty">gestureend(fn)</a></li>
+				<li><a href="#empty">orient(fn)</a></li>
+				<li><a href="#empty">webkitTransitionEnd(fn)</a></li>
+			</ul>
+			<ul>
+				<li><a href="#empty">click(fn)</a></li>
+				<li><a href="#empty">unload(fn)</a></li>
+				<li><a href="#empty">focus(fn)</a></li>
+				<li><a href="#empty">blur(fn)</a></li>
+				<li><a href="#empty">submit(fn)</a></li>
+				<li><a href="#empty">change(fn)</a></li>
+			</ul>
+		</div>
+		<div id="m_iphone">
+			<ul>
+				<li><a href="#i_setup">$.setup([options])</a></li>
+				<li><a href="#i_hidebar">$.hideBar()</a></li>
+				<li><a href="#i_scrollto">$.scrollTo(Ypos, [time])</a></li>
+				<li><a href="#i_orient">$.orient()</a></li>
+				<li><a href="#i_isIphone">$.isIphone()</a></li>
+				<li><a href="#i_isStandalone">$.isStandalone()</a></li>
+			</ul>
+		</div>
+	<span id="copyright">© 2010 <a href="http://webbang.net">webbang.net</a></span>
+	</div>
+	<div id="content">
+		<div class="ctn_item" id="c1_1">
+			<h2>$(expr, [context])</h2>
+			<h3>概述</h3>
+				<p>选择器，通过querySelectorAll选出符合条件的元素并构造iQuery对象</p>
+			<h3>参数</h3>
+				<h4>expr(String)</h4>
+				<p>用来查找的字符串</p>
+				<h4>context(Element)</h4>
+				<p>作为待查找的 DOM 元素集、文档或 iQuery对象。</p>
+		</div>
+		<div class="ctn_item" id="c1_2">
+			<h2>$(html)</h2>
+			<h3>概述</h3>
+				<p>通过HTML字符串构建dom并生成iQuery对象</p>
+			<h3>参数</h3>
+				<h4>html(String)</h4>
+				<p>html字符串，例: &lt;span>&lt;a href='#'>test&lt;/a>&lt;/span>"</p>
+		</div>
+		<div class="ctn_item" id="c1_3">
+			<h2>$(elements)</h2>
+			<h3>概述</h3>
+				<p>通过传入Dom Element构造iQuery对象</p>
+			<h3>参数</h3>
+				<h4>elements(Element)</h4>
+				<p>单个Dom Element或者Element数组</p>
+		</div>
+		<div class="ctn_item" id="c1_4">
+			<h2>$(callback)</h2>
+			<h3>概述</h3>
+				<p>$(document).ready()的简写。DOM加载完成后执行callback</p>
+			<h3>参数</h3>
+				<h4>callback(Function)</h4>
+				<p>当DOM加载完成后要执行的函数</p>
+		</div>
+		<div class="ctn_item"  id="e_touch">
+			<h2>touch(fn1, [fn2], [fn3], [compat])</h2>
+			<h3>参数</h3>
+				<h4>fn1(Function)</h4>
+				<p>touchstart事件发生时触发的函数</p>
+				<h4>fn2(Function)</h4>
+				<p>touchend事件发生时触发的函数</p>
+				<h4>fn3(Function)</h4>
+				<p>touchmove事件发生时触发的函数</p>
+				<h4>compat(Boolean)</h4>
+				<p>若为true，则对普通浏览器兼容，上面三个Function分别追加作用在mousedown, mouseup, mousemove上</p>
+		</div>
+		<div class="ctn_item"  id="i_setup">
+			<h2>$.setup([options])</h2>
+			<h3>参数</h3>
+				<h4>options:</h4>
+				<p> key-value object, 可选，详细见下</p>
+			<h3>选项</h3>
+				<h4>icon(String)</h4>
+					<p>添加到IPHONE屏幕时的图标地址，默认为空</p>
+				<h4>iconGloss(Boolean)</h4>
+					<p>是否为图标添加高光，默认为true</p>
+				<h4>startup(String)</h4>
+					<p>添加到IPHONE屏幕后启动的图片地址(460*320)，默认为空</p>
+				<h4>viewport(Boolean)</h4>
+					<p>iphone浏览器显示设置，若为true，则设置页面宽度为iphone宽度，并不可缩放。默认为true</p>
+				<h4>fullScreen(Boolean)</h4>
+					<p>添加到IPHONE屏幕后是否全屏运行。默认为true</p>
+				<h4>statusBar(String)</h4>
+					<p>添加到IPHONE屏幕后是否隐藏地址栏。默认为true</p>
+				
+		</div>
+		
+		<div class="ctn_item"  id="i_hidebar">
+			<h2>$.hideBar()</h2>
+			<h3>概述</h3>
+				<p>载入页面后隐藏地址栏</p>				
+		</div>
+		
+		<div class="ctn_item"  id="i_scrollto">
+			<h2>$.scrollTo(Ypos, [speed])</h2>
+			<h3>概述</h3>
+				<p>竖直方向平滑滚动到某一位置</p>	
+			<h3>参数</h3>
+				<h4>Ypos(Number)</h4>
+				<p>要滚动到的Y坐标</p>		
+				<h4>speed(String)</h4>
+				<p>滚动速度，可选："slow", "normal", "fast"。默认为"normal"</p>
+		</div>
+		
+		<div class="ctn_item"  id="i_orient">
+			<h2>$.orient()</h2>
+			<h3>概述</h3>
+				<p>返回window.orientation，返回值90,-90为横屏</p>				
+		</div>
+		
+		<div class="ctn_item"  id="i_isIphone">
+			<h2>$.isIphone()</h2>
+			<h3>概述</h3>
+				<p>判断当前浏览器是否为iphone safari</p>				
+		</div>
+		
+		<div class="ctn_item"  id="i_isStandalone">
+			<h2>$.isStandalone()</h2>
+			<h3>概述</h3>
+				<p>判断是否已经添加到屏幕，作为app打开</p>
+				<p>true: 已作为app打开</p>
+				<p>false: 在浏览器中打开</p>
+		</div>
+		
+		<div class="ctn_item" id="empty">
+			暂无，待补上...
+		</div>
+		<span id="ctn_back">返回</span>
+	</div>
+</body>
+</html>

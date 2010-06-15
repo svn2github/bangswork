@@ -597,13 +597,13 @@ iQuery.fn._extend({
 	bind: function( type, fn, useCapture ) {
 		useCapture = useCapture? true: false;
 		this.each(function(i, o){
-			o.addEventListener( type, fn, useCapture );
+			if (o) o.addEventListener( type, fn, useCapture );
 		});
 	},
 	unbind: function( type, fn, useCapture ) {
 		useCapture = useCapture? true: false;
 		this.each(function(i, o){
-			o.removeEventListener( type, fn, useCapture );
+			if (o)  o.removeEventListener( type, fn, useCapture );
 		});
 	}
 	
