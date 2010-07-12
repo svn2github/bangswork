@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Window xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="578" height="610" initialize="init()" cornerRadius="0" backgroundColor="#ECEBBD">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var employee:Object;
+			public var stmt:SQLStatement
+			
+			[Bindable]
+			private var birth_date:String;
+			[Bindable]
+			public var graduate:String = "";
+			[Bindable]
+			public var description:String = "";
+			
+			private function init():void
+			{
+				this.title = employee.name + "的简历";
+				var d:Date = new Date(employee.birth_date);
+				birth_date = Utility.dateFormat(d);
+				
+				try{
+					stmt.text = "SELECT remuse_id FROM employee WHERE id=" + employee.id;
+					stmt.execute(); 
+					var result = stmt.getResult().data[0];
+					employee.remuse_id = result.remuse_id;
+				} catch (e:Error) {
+					
+				}
+				
+				if (employee.remuse_id > 0) {
+					stmt.text = "SELECT * FROM remuse WHERE remuse_id=" + employee.remuse_id;
+					stmt.execute(); 
+					var result = stmt.getResult().data;
+					for (var i in result[0]) {
+						trace(i + ":" + result[0][i]);
+					}
+					graduate = unescape(result[0].graduate);
+					description = unescape(result[0].description);
+					
+				}
+			}
+			
+			private function saveBtnHandler(e:MouseEvent):void
+			{
+				stmt.text = "SELECT COUNT(*) as count FROM remuse WHERE remuse_id=" + employee.remuse_id;
+				stmt.execute(); 
+				var count = stmt.getResult().data.count;
+				
+				if (employee.remuse_id == 0 || count == 0) {
+					//插入新remuse
+					try {
+						stmt.text = "INSERT INTO remuse(description, graduate) VALUES ('" + escape(descrriptionTA.text) + "', '" + escape(graduateTA.text) + "')";
+						stmt.execute(); 
+				    	stmt.text = "SELECT * FROM remuse ORDER BY remuse_id DESC LIMIT 1"; 
+						stmt.execute(); 
+						var remuse_id = stmt.getResult().data[0].remuse_id;
+						
+					    stmt.text = "UPDATE employee SET remuse_id=" + remuse_id + " WHERE id=" + employee.id;  
+					    trace(stmt.text);
+						stmt.execute(); 
+					    
+					    status = "保存成功";
+					} catch (e:Error) {
+					    status = "保存失败" + e.message;
+						trace(e.getStackTrace());
+					}
+				} else {
+					//更新remuse
+					try {
+					    stmt.text = "UPDATE remuse SET description='" + escape(descrriptionTA.text) + "', graduate='" + escape(graduateTA.text) + "' WHERE remuse_id=" + employee.remuse_id;  
+					    stmt.execute(); 
+					    
+					    status = "保存成功";
+					} catch (e:Error) {
+					    status = "保存失败" + e.message;
+						trace(e.getStackTrace());
+					}
+					
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+		Label{
+			fontSize:14;
+		}
+	</mx:Style>
+	<mx:Button x="474" y="541" label="保存" fontSize="12" click="saveBtnHandler(event)"/>
+	<mx:Button x="414" y="541" label="关闭" fontSize="12" click="close()"/>
+	<mx:Label x="49" y="79" fontSize="14" text="姓名:"/>
+	<mx:Text x="90" y="79" fontSize="14" text="{employee.name}"/>
+	<mx:Label x="49" y="114" fontSize="14" text="籍贯:"/>
+	<mx:Text x="90" y="114" fontSize="14" text="{employee.native}"/>
+	<mx:Label x="49" y="147" fontSize="14" text="学历:"/>
+	<mx:Text x="90" y="147" fontSize="14" text="{employee.school_record}"/>
+	<mx:Label x="185" y="147" fontSize="14" text="毕业院校:"/>
+	<mx:Label x="49" y="181" fontSize="14" text="身份证号:"/>
+	<mx:Text x="118" y="181" fontSize="14" text="{employee.identity}"/>
+	<mx:Label x="185" y="114" fontSize="14" text="民族:"/>
+	<mx:Text x="228" y="114" fontSize="14" text="{employee.nation}"/>
+	<mx:Label x="306" y="114" fontSize="14" text="政治面貌:"/>
+	<mx:Text x="375" y="114" fontSize="14" text="{employee.politics}"/>
+	<mx:Label x="185" y="79" fontSize="14" text="性别:"/>
+	<mx:Text x="228" y="79" fontSize="14" text="{employee.sex}"/>
+	<mx:Label x="306" y="79" fontSize="14" text="出生年月:"/>
+	<mx:Text x="375" y="79" fontSize="14" text="{birth_date}"/>
+	<mx:TextInput x="258" y="147" fontSize="14" borderStyle="none" text="{graduate}" width="256" backgroundAlpha="0.0" id="graduateTA"/>
+	<mx:Label x="49" y="215" fontSize="14" text="简介:"/>
+	<mx:TextArea x="49" y="251" width="477" height="277" text="{description}" fontSize="14" id="descrriptionTA"/>
+	<mx:Label textAlign="center" y="19" fontFamily="微软雅黑" fontSize="28" width="576" text="{employee.name}的简历"/>
+</mx:Window>

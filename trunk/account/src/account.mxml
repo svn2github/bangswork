@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" applicationComplete="init();" width="440" height="310">
+	<mx:Style> 
+	   Application 
+	   {
+	      background-color:""; 
+	      background-image:""; 
+	      
+	   }
+	   Alert {
+            modalTransparencyBlur:3;
+            modalTransparency:0;
+        }
+
+	</mx:Style>	
+	<mx:Script>
+		<![CDATA[
+		
+			import mx.messaging.channels.StreamingAMFChannel;
+			import mx.controls.*;
+			import mx.events.*;
+			import mx.collections.*
+			import flash.events.Event;
+			import flash.display.*;
+			var year:Number;
+			var month:Number;
+			var date:Number;
+			var preYear:Number;
+			var preMonth:Number;
+			var accStr:String;	//xml文件地址
+			var accFile:File;	//xml文件
+			var backupFile:File;
+			var fs:FileStream=new FileStream();
+			var xml:XML;
+			var sLabel:String;	//花费中选择的label	
+			[Bindable]
+			var collect:ArrayCollection;	//combobox数据
+			[Bindable]
+			var costCollect:ArrayCollection; //cost combobox数据
+			//初始化函数  获得日期  判断路径文件是否存在
+			private function init():void{
+				
+
+				//第一个区域显示 其他隐藏  
+				funcCanv.visible=true;
+				showCanv.visible=false;
+				editCanv.visible=false;
+				
+				//随机显示外壳
+				var bgRandom=int(Math.random()*10%3)
+				switch(bgRandom){
+					case 0:bgImage.source="img/bg1.png";
+							break;
+					case 1:bgImage.source="img/bg2.png";
+							break;
+					case 2:bgImage.source="img/bg3.png";
+							break;
+				}
+				
+				//点击图片拖动
+				bgImage.addEventListener(MouseEvent.MOUSE_DOWN, onStartMove)
+				
+				var dataTemp:Date=new Date();
+				year=dataTemp.getFullYear()
+				month=dataTemp.getMonth()+1   //当前月加1  因默认0是1月
+				date=dataTemp.getDate()
+				var direcFile:File = File.applicationStorageDirectory.resolvePath("accDirec.txt");
+				if(direcFile.exists){
+					fs.open(direcFile,FileMode.READ);
+					accStr=String(fs.readUTFBytes(fs.bytesAvailable));
+					accFile=new File(accStr)
+					fs.close();
+					if(accFile.exists)	reqData();
+					else {
+						Alert.yesLabel = "create";
+	                	Alert.noLabel = "select"; 
+						Alert.show("没有找到XML文件，是否创建新帐本？","create new account",1|2,this,alertClickHandler);
+					}
+				}else{
+					Alert.yesLabel = "create";
+	                Alert.noLabel = "select"; 
+					Alert.show("没有找到路径文件，是否创建新帐本？","create new account",1|2,this,alertClickHandler);
+				}
+			}
+			
+			//没有路径文件处理函数
+			private function alertClickHandler(event:CloseEvent):void{
+                if (event.detail==Alert.YES){
+					createFile();
+                }
+                else{
+                	openFile();
+                }
+			}
+			
+			//在document上创建XML 并将地址写入路径文件
+			private function createFile():void{
+				var direcFile:File = File.applicationStorageDirectory.resolvePath("accDirec.txt");
+                accFile=File.documentsDirectory.resolvePath("account.xml");
+                fs.open(accFile,FileMode.WRITE);
+                var initXML:XML=
+						<account>
+						  <data year={year} month={month}>
+							  <bank>0</bank>
+							  <burse>0</burse>
+							  <store>0</store>
+							  <cost label="饭卡"><m>0</m></cost>
+							  <cost label="零食"><m>0</m></cost>
+							  <cost label="其他"><m>0</m></cost>
+						  </data>
+						</account>
+				fs.writeUTFBytes(initXML.toXMLString());
+				fs.close();
+				fs.open(direcFile,FileMode.WRITE);
+				fs.writeUTFBytes(accFile.nativePath);    
+				reqData();     
+			}
+			
+			//打开文件
+			private function openFile(){
+				var accOpenFile=new File();		//储存打开文件的地址的临时文件
+				var xmlFilter:FileFilter=new FileFilter("XML", "*.xml");
+                accOpenFile.browseForOpen("Open", [xmlFilter]); 
+                accOpenFile.addEventListener(Event.SELECT, onSelectOpenFile);  
+			}
+			
+			//打开文件后执行的函数
+			private function onSelectOpenFile(e:Event){
+				accFile=new File(String(e.target.nativePath));
+				var direcFile:File = File.applicationStorageDirectory.resolvePath("accDirec.txt");
+				fs.open(direcFile,FileMode.WRITE);
+				fs.writeUTFBytes(accFile.nativePath);
+				fs.close();
+				reqData();   
+			}
+			
+			//备份XML函数
+			private function backup():void{
+				backupFile = new File();  
+				backupFile.browseForSave("Save");  
+				backupFile.addEventListener(Event.SELECT, onSelectWriteFile);   
+			}
+			
+			private function onSelectWriteFile(e:Event):void{
+				fs.open(backupFile, FileMode.WRITE); 
+				fs.writeUTFBytes(xml.toString()); 
+				fs.close(); 
+			}
+			//获取XML数据并进行月份判断
+			private function reqData(){
+				try{
+					fs.open(accFile,FileMode.READ)
+					xml=XML(fs.readUTFBytes(fs.bytesAvailable))
+				}
+				catch(error:Error){
+					Alert.yesLabel = "create";
+	                Alert.noLabel = "select"; 
+					Alert.show("文件出错，是否在我的文档处创建新帐本?","Error",1|2,this,alertClickHandler);
+				}
+				
+				//定义上个月
+				if(month==1){
+					preYear=year-1;
+					preMonth=12;
+				}else{
+					preYear=year;
+					preMonth=month-1;
+				}
+				if(!xml.hasOwnProperty("data")){
+					Alert.yesLabel = "create";
+	                Alert.noLabel = "select"; 
+					Alert.show("文件出错，是否在我的文档处创建新帐本?","Error",1|2,this,alertClickHandler);
+				}else{
+					if(xml.data.(@year==year&&@month==month).hasOwnProperty("bank")){
+						show();
+					}else{
+						if(xml.data.(@year==preYear&&@month==preMonth).hasOwnProperty("bank")){  //判断上个月是否存在数据
+							createMonth(1);  //正常创建新一月数据
+						}else{
+							Alert.yesLabel = "Yes";
+		                	Alert.noLabel = "No"; 
+							Alert.show("请检查电脑日期是否出错，确定要在此日期建数据？若否请修改日期","warning",3,this,dateErrorHandler);
+						}//end if
+					}//end if
+				}//end if
+			}//end of func
+			
+			//日期异常的处理函数
+			private function dateErrorHandler(event:CloseEvent){
+				if (event.detail==Alert.YES){
+					createMonth(0);  //不正常创建新一月数据
+                }
+                else{
+                	init();
+                }
+			}
+			
+			//新增新一个月的数据
+			private function createMonth(normal){
+				var addXML:XML=
+						  <data year={year} month={month}>
+							  <bank>0</bank>
+							  <burse>0</burse>
+							  <store>0</store>
+							  <cost label="饭卡"><m>0</m></cost>
+							  <cost label="零食"><m>0</m></cost>
+							  <cost label="其他"><m>0</m></cost>
+						  </data>
+				xml=xml.appendChild(addXML);
+				if(normal){
+					//复制上个月的bank
+					xml.data.(@year==year&&@month==month).bank=Number(xml.data.(@year==preYear&&@month==preMonth).bank)
+					//复制上个月的burse
+					xml.data.(@year==year&&@month==month).burse=Number(xml.data.(@year==preYear&&@month==preMonth).burse)
+					
+					
+					
+				}
+				show();
+			}
+			
+			//显示数据
+			private function show(){
+				initCombo()
+				showPrevious(preYear,preMonth)
+				showPresent();
+			}
+			
+			//初始化日期combobox
+			private function initCombo():void {
+				var monthArray:Array=new Array();
+            
+	            for each(var i in xml.data){
+	            	monthArray.push({year:i.@year,month:i.@month,label:i.@year+"年"+i.@month+"月"})
+				}
+	            monthArray.push({label:"全部"});
+            	collect=new ArrayCollection(monthArray);
+            	showPrevious(monthCombo.selectedItem.year,monthCombo.selectedItem.month);
+         	}
+         
+	         //combobox选择后的响应函数
+	        private function changeEvt(event:Event):void {
+	            if(event.currentTarget.selectedItem.year==undefined){
+	            	showAll();
+	            }else{
+	            	showPrevious(event.currentTarget.selectedItem.year,event.currentTarget.selectedItem.month);
+	           	}
+	        }
+			
+			
+			//初始化cost的combobox
+			private function costComboFunc():void{
+				var costArray:Array=new Array();
+				for each(var i in xml.data.(@year==year&&@month==month).cost){
+					costArray.push({label:i.@label})
+				}
+				costCollect=new ArrayCollection(costArray);
+				sLabel=costCombo.selectedItem.label;
+			}
+			
+			//cost的combobox选择的响应函数
+			private function costChangeEvt(event:Event):void{
+				sLabel=event.currentTarget.selectedItem.label
+			}
+			
+			//显示某年某月的数据
+			private function showPrevious(sYear,sMonth):void{
+				var allCost:Number=0;
+				var allStore:Number;
+				var what:String="";
+				var preMonthData:XML=<account></account>	
+				preMonthData.appendChild(xml.data.(@year==sYear&&@month==sMonth).toXMLString())
+				for each(var i in preMonthData.data.cost){
+					allCost+=Number(i.m)
+					what+=i.@label+":"+Number(i.m)+"  ";
+				}
+				textCost.text=String(allCost);
+				textStore.text=preMonthData.data.store.toString();
+				textWhat.text=what;
+				textEarn.visible=false;
+				labelEarn.visible=false;
+			}
+			 
+			 
+			//显示当前月的数据
+			private function showPresent():void{
+			 	var pCostNum:Number=0;
+				pBank.text=xml.data.(@year==year&&@month==month).bank.toString();
+				pBurse.text=xml.data.(@year==year&&@month==month).burse.toString();
+				pStore.text=xml.data.(@year==year&&@month==month).store.toString();
+				for each(var i in xml.data.(@year==year&&@month==month).cost){
+					pCostNum+=Number(i.m)
+				}
+				pCost.text=String(pCostNum)
+				costComboFunc();
+			}
+			
+			//显示全部数据
+			private function showAll():void{
+				var allCost:Number=0;
+				var allStore:Number=0;
+				var allEarn:Number=0;
+				var detailString:String="";
+				for each(var i in xml.data.cost){
+					allCost+=Number(i.m)
+				}
+				for each(var i in xml.data.store){
+					allStore+=Number(i)
+				}
+				for each(var i in xml.data.cost.@label){
+					var detailCost:Number=0;
+					for each(var j in xml.data.cost.(@label==i.toString())){
+						detailCost+=Number(j.m)
+					}
+					if(detailString.search(i.toString())<0){
+						detailString+=i.toString()+":"+detailCost+"  ";
+					}
+				}
+				for each(var i in xml.data.earn){
+					allEarn+=Number(i)
+				}
+				textCost.text=String(allCost);
+				textStore.text=String(allStore);
+				textWhat.text=detailString;
+				labelEarn.visible=true;
+				textEarn.visible=true;
+				textEarn.text=String(allEarn);
+				
+			}
+			//存款功能函数
+			private function storeFunc():void{
+				if(storeInput.text==""||String(Number(storeInput.text))=="NaN"){
+					inputError();
+				}else{
+					xml.data.(@year==year&&@month==month).bank=Number(xml.data.(@year==year&&@month==month).bank)+Number(storeInput.text);
+					xml.data.(@year==year&&@month==month).store=Number(xml.data.(@year==year&&@month==month).store)+Number(storeInput.text);
+					storeInput.text=""
+					showPresent();
+					updataXML();
+				}
+			}
+						
+			//取款功能函数
+			private function getFunc():void{
+				if(getInput.text==""||String(Number(getInput.text))=="NaN"){
+					inputError();
+				}else{
+					xml.data.(@year==year&&@month==month).bank=Number(xml.data.(@year==year&&@month==month).bank)-Number(getInput.text);
+					xml.data.(@year==year&&@month==month).burse=Number(xml.data.(@year==year&&@month==month).burse)+Number(getInput.text);
+					getInput.text=""
+					showPresent()
+					updataXML();
+				}
+			}
+			
+			//花费功能函数			
+			private function costFunc():void{
+				var isCreate:Boolean;
+				if(costInput.text==""||String(Number(costInput.text))=="NaN"){
+					inputError();
+				}else{
+				
+					for each(var i in xml.data.(@year==year&&@month==month).cost){
+						(i.@label==newCost.text)? isCreate=1:isCreate=0;
+					}//判断输入的label是否已经存在
+					if(newCost.text==""||isCreate){
+						if(newCost.text!="") sLabel=newCost.text
+						xml.data.(@year==year&&@month==month).cost.(@label==sLabel).m=
+						Number(xml.data.(@year==year&&@month==month).cost.(@label==sLabel).m)+Number(costInput.text)
+						xml.data.(@year==year&&@month==month).burse=
+						Number(xml.data.(@year==year&&@month==month).burse)-Number(costInput.text)
+						costInput.text="";
+						newCost.text="";
+						showPresent();
+						updataXML();
+					}else{
+						var newCostXml:XML=
+						<cost label={newCost.text}><m>{costInput.text}</m></cost>
+						xml.data.(@year==year&&@month==month).appendChild(newCostXml)
+						xml.data.(@year==year&&@month==month).burse=
+						Number(xml.data.(@year==year&&@month==month).burse)-Number(costInput.text)	
+						costInput.text="";
+						newCost.text=""
+						showPresent();
+						costComboFunc();
+						updataXML();
+					}
+				}
+				
+			}
+						
+			//修改功能函数
+			private function changeFunc():void{
+				if(cBurseInput.text==""||String(Number(cBurseInput.text))=="NaN"){
+					inputError();
+				}else{
+					xml.data.(@year==year&&@month==month).cost.(@label=="其他").m=
+					Number(xml.data.(@year==year&&@month==month).cost.(@label=="其他").m)+Number(xml.data.(@year==year&&@month==month).burse)-Number(cBurseInput.text);
+					xml.data.(@year==year&&@month==month).burse=cBurseInput.text;
+					cBurseInput.text=""
+					showPresent();
+					updataXML();
+				}
+			}
+			
+			
+			//额外收入功能函数
+			private function earnFunc():void{
+				if(earnInput.text==""||earnName.text==""||String(Number(earnInput.text))=="NaN"){
+					inputError();
+				}else{
+					var earnXml:XML=
+					<earn label={earnName.text}>{earnInput.text}</earn>
+					xml.data.(@year==year&&@month==month).appendChild(earnXml)
+					xml.data.(@year==year&&@month==month).bank=
+					Number(xml.data.(@year==year&&@month==month).bank)+Number(earnInput.text)	
+					earnInput.text="";
+					earnName.text="";
+					showPresent();
+					updataXML();
+					
+				}
+			}
+			//输入数据错误调用的函数
+			private function inputError():void{
+				Alert.show('please input data', 'ErrorMessage')
+			}
+			
+			//更新XML文件
+			private function updataXML():void{
+				fs.open(accFile,FileMode.WRITE);
+				fs.writeUTFBytes(xml.toXMLString())
+				fs.close();
+			}
+			
+			
+			//修改框读取XML
+			private function readXML():void{
+				editArea.text=xml.toXMLString();
+			}
+			
+			//修改框修改XML
+			private function editXML():void{
+				Alert.yesLabel = "yes";
+		        Alert.noLabel = "no"; 
+				Alert.show("确定修改？","edit XML file",3,this,editHandler);
+			}
+			
+			//是否修改
+			private function editHandler(event:CloseEvent):void{
+				if (event.detail==Alert.YES){	
+					if(editArea.text!=""){	
+						try{		
+							xml=XML(editArea.text);	//放在第一个  检测XML结构是否正确
+							fs.open(accFile,FileMode.WRITE);
+							fs.writeUTFBytes(editArea.text)
+							fs.close();
+							showPresent();
+						}catch(error:Error){
+							Alert.show('XML structure error', 'ErrorMessage')
+						}
+					}else{
+						Alert.show('The edit area is empty', 'ErrorMessage')
+					}
+				}
+			}
+			
+			//区域选择radioButton响应函数
+			private function handleFunc(event:Event):void{
+				funcCanv.visible=true;
+				showCanv.visible=false;
+				editCanv.visible=false;
+			}
+			
+			private function handleShow(event:Event):void{
+				funcCanv.visible=false;
+				showCanv.visible=true;
+				editCanv.visible=false;
+			}
+			
+			private function handleEdit(event:Event):void{
+				funcCanv.visible=false;
+				showCanv.visible=false;
+				editCanv.visible=true;
+			}
+			
+			
+			//窗口最小化、关闭、拖动函数
+			public function minimizeWindow():void{
+		        this.stage.nativeWindow.minimize();
+		    }
+			
+			public function closeWindow():void{
+			     this.stage.nativeWindow.close();
+			} 
+			public function onStartMove(event:MouseEvent):void{
+			     this.stage.nativeWindow.startMove();
+			}
+		]]>
+	</mx:Script>
+
+	
+	<mx:Image x="10" y="10" id="bgImage"/>
+	<mx:Button click="closeWindow();" x="353.2" y="38" width="18" height="19" 
+		upSkin="@Embed(source='img/close.gif')"
+		overSkin="@Embed(source='img/close2.gif')"
+		downSkin="@Embed(source='img/close.gif')"
+		disabledSkin="@Embed(source='img/close.gif')" />
+	<mx:Button click="minimizeWindow();" x="320.3" y="32" width="18" height="19" 
+		upSkin="@Embed(source='img/min.gif')"
+	    overSkin="@Embed(source='img/min2.gif')"
+	    downSkin="@Embed(source='img/min.gif')"
+	    disabledSkin="@Embed(source='img/min.gif')" />
+		
+	<mx:RadioButton groupName="area" click="handleFunc(event);"  x="47" y="58" label="function" color="#D5D5D5" fillAlphas="[1.0, 1.0, 1.0, 1.0]" selected="true"/>
+	<mx:RadioButton groupName="area" click="handleShow(event);"  x="119" y="59" label="Show" color="#D5D5D5" fillAlphas="[1.0, 1.0, 1.0, 1.0]"/>
+	<mx:RadioButton groupName="area" click="handleEdit(event);"  x="179" y="59" label="Edit" color="#D5D5D5" fillAlphas="[1.0, 1.0, 1.0, 1.0]"/>
+		
+	<mx:Canvas id="funcCanv" width="363" height="192" x="44" y="82">
+			<mx:Label text="银行存款：" x="28" y="4" width="66" height="20" fontSize="12" color="#FFEDBC"/>
+			<mx:Label text="钱包现剩：" x="172" y="4" width="66" height="20" fontSize="12" color="#FFEDBC"/>
+			<mx:Text x="98" y="4" text="" id="pBank" fontSize="12" color="#FFEDBC"/>
+			<mx:Text x="240" y="4" text="" id="pBurse" fontSize="12" color="#FFEDBC"/>
+			<mx:Label text="今月花费：" x="28" y="30" width="66" height="20" fontSize="12" color="#FFEDBC"/>
+			<mx:Label text="今月存钱：" x="172" y="31" width="66" height="20" fontSize="12" color="#FFEDBC"/>
+			<mx:Text x="98" y="31" text="" fontSize="12" id="pCost" color="#FFEDBC"/>
+			<mx:Text x="240" y="31" text="" fontSize="12" id="pStore" color="#FFEDBC"/>
+			<mx:Button x="102" y="60" label="存钱" fontSize="12" click="storeFunc()" fillAlphas="[0.8, 0.99, 1.0, 0.99]"/>
+			<mx:Button x="102" y="92" label="取钱" fontSize="12" click="getFunc()" fillAlphas="[0.84, 1.0, 1.0, 1.0]"/>
+			<mx:Button x="304" y="109" label="花费" fontSize="12" click="costFunc()" fillAlphas="[0.8, 0.8, 1.0, 0.8]"/>
+			<mx:Button x="127" y="125" label="修改" fontSize="12" click="changeFunc()" fillAlphas="[0.8, 0.8, 1.0, 0.8]"/>
+			<mx:Button x="258" y="163" label="收入" fontSize="12" click="earnFunc()" fillAlphas="[0.8, 0.8, 1.0, 0.8]"/>
+			<mx:TextInput x="20" y="92" width="71" id="getInput"/>
+			<mx:TextInput x="241" y="125" width="56" id="costInput"/>
+			<mx:TextInput x="241" y="93" width="55" id="newCost" fontSize="12"/>
+			<mx:TextInput x="20" y="60" width="71" id="storeInput"/>
+			<mx:ComboBox x="192" y="60" width="131" id="costCombo" dataProvider="{costCollect}" change="costChangeEvt(event)" fontSize="12"  fillAlphas="[0.9, 0.81, 1.0, 0.81]"/>
+			<mx:Label x="10" y="127" text="钱包：" fontSize="12" color="#FFEDBC"/>
+			<mx:Label x="36" y="165" text="收入：" fontSize="12" color="#FFEDBC"/>
+			<mx:Label x="151" y="165" text="金额：" fontSize="12" color="#FFEDBC"/>
+			<mx:TextInput x="59" y="127" width="57" id="cBurseInput"/>
+			<mx:TextInput x="86" y="165" width="57" id="earnName"/>
+			<mx:TextInput x="192" y="164" width="57" id="earnInput"/>
+			<mx:Label x="192" y="97" text="新建：" height="19" fontSize="12" color="#FFEDBC"/>
+			<mx:Label x="192" y="125" text="花费：" height="19" fontSize="12" color="#FFEDBC"/>
+		</mx:Canvas>
+	<mx:Canvas id="showCanv" x="47" y="78" width="344" height="196">
+		<mx:ComboBox dataProvider="{collect}" id="monthCombo" change="changeEvt(event)" width="125" x="10" y="10" fontSize="12" fillAlphas="[0.8, 0.8, 1.0, 0.8]"/>
+		<mx:Label x="10" y="42" text="花钱：" width="57" height="24" fontSize="12" color="#FFEDBC" />
+		<mx:Label x="96" y="41" text="存钱：" width="57" height="24" fontSize="12" color="#FFEDBC" />
+		<mx:Label x="194" y="41" text="收入：" width="57" height="24" fontSize="12"  id="labelEarn" visible="false" color="#FFEDBC" />
+		<mx:Text x="233" y="41" text="" id="textEarn" fontSize="12" visible="false" color="#FFEDBC" />
+		<mx:Label x="10" y="69" text="具体：" width="57" height="24" fontSize="12" color="#FFEDBC" />
+		<mx:Text x="50" y="42" text="" id="textCost" fontSize="12" color="#FFEDBC"/>
+		<mx:Text x="136" y="41" text="" id="textStore" fontSize="12" color="#FFEDBC" />
+		<mx:TextArea x="54" y="73" text="" id="textWhat" fontSize="12" width="255" height="106" editable="false"/>
+	</mx:Canvas>
+	<mx:Canvas id="editCanv" x="47" y="80" width="360" height="194">
+		<mx:TextArea x="25" y="10" width="294" height="148" fontSize="12" id="editArea"/>
+		<mx:Button x="207" y="166" label="读取" fontSize="12" click="readXML();" fillAlphas="[0.81, 0.81, 1.0, 0.81]"/>
+		<mx:Button x="48" y="166" label="备份" fontSize="12" click="backup();" fillAlphas="[0.81, 0.81, 1.0, 0.81]"/>
+		<mx:Button x="267" y="166" label="修改" fontSize="12" click="editXML();" fillAlphas="[0.81, 0.81, 1.0, 0.81]"/>
+		<mx:Button x="108" y="166" label="更换源文件" fontSize="12" click="openFile();" fillAlphas="[0.81, 0.81, 1.0, 0.81]"/>
+		
+	</mx:Canvas>
+	<mx:Canvas id="aboutMe" x="142" y="218" width="158.75" height="55.6" backgroundColor="#FFFFFF" borderStyle="solid" alpha="0.8" visible="false">
+			<mx:Label x="7" y="2" text="QQ:67551552" fontSize="9"/>
+			<mx:Label x="7" y="19" text="Email:bang590@gmail.com" fontSize="9"/>
+			<mx:Label x="7" y="35" id="blogLabel" text="Blog:Click to go" fontSize="9"/>
+	</mx:Canvas>
+	<mx:Button x="165" y="273" alpha="0.0" width="117" height="18" mouseOver="aboutMe.visible=true" mouseOut="aboutMe.visible=false;blogLabel.text='Blog:Click to go'" mouseDown="navigateToURL(new URLRequest('http://space.flash8.net/space/?461421'),'_blank');blogLabel.text='Blog:going.....'"/>
+</mx:Application>

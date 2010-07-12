@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:local="*" initialize="init()" borderColor="#8B8B8B" backgroundGradientColors="[#8B8B8B, #595959]">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			import mx.controls.TextInput;
+			import mx.controls.Alert;
+			import mx.controls.dataGridClasses.DataGridItemRenderer;
+			import mx.events.DataGridEvent;
+			import mx.events.ListEvent;
+			import mx.messaging.channels.StreamingAMFChannel;
+			import mx.controls.ComboBox;
+			import mx.controls.ComboBase;
+			import mx.core.UIComponent;
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.controls.DataGrid;
+			import mx.collections.ArrayCollection;
+			import mx.core.Window;
+			import mx.events.*
+			private var conn:SQLConnection;       //数据库连接对象
+			private var stmt:SQLStatement;   //执行命令对象
+			
+			[Bindable]
+			private var employeeData:ArrayCollection;
+			private var tableInfoData:Array = new Array();
+			private var employeeDataGrid:EmployeeDataGrid;
+			
+			
+			private var fs:FileStream = new FileStream();
+			private var dbFile:File;
+			
+			public function init() {
+				
+			    addEventListener(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, windowResizeHandle);
+			    addAppMenu();
+			    this.title = "陆丰市信用社人事管理"
+			    
+			    dbFile = File.applicationDirectory.resolvePath("db");
+			    
+			    if (dbFile.exists) {
+			    	connectToDB();
+			    } else {
+				    var configFile:File = File.applicationStorageDirectory.resolvePath("config.txt");
+				    
+				    if (!configFile.exists) {
+				    	
+						Alert.show("没有找到数据库，请选择数据库文件","找不到数据库",1,this,selectFileHandler);
+						
+				    } else {
+				    	
+						fs.open(configFile, FileMode.READ);
+						var dbFileDir = String(fs.readUTFBytes(fs.bytesAvailable));
+						dbFile = new File(dbFileDir);
+						fs.close();
+						
+						if(dbFile.exists) {
+						    connectToDB();
+						} else {
+							Alert.show("没有找到数据库，请选择数据库文件","找不到数据库",1,this,selectFileHandler);
+						}
+						
+				    }
+			    }
+			    
+			} 
+			
+			private function selectFileHandler(e:Event):void
+			{
+				var dbOpenFile = new File();
+                dbOpenFile.browseForOpen("Open"); 
+                dbOpenFile.addEventListener(Event.SELECT, selectedFileHandler);  
+			}
+			
+			private function selectedFileHandler(e:Event):void
+			{
+				dbFile = new File(String(e.target.nativePath));
+			    var configFile:File = File.applicationStorageDirectory.resolvePath("config.txt");
+				fs.open(configFile, FileMode.WRITE);
+				fs.writeUTFBytes(dbFile.nativePath);
+				fs.close();
+				connectToDB();
+			}
+			
+			private function connectToDB():void
+			{
+				status = "数据库位置:" + dbFile.nativePath;
+				conn = new SQLConnection();
+				stmt = new SQLStatement();
+				
+			    try {
+					conn.open(dbFile); 
+					stmt.sqlConnection = conn;  
+			    	selectTable();
+			    } catch (e:Error) {
+			    	trace(e.getStackTrace());
+			    	Alert.yesLabel = "选择";
+					Alert.show("数据库出错，请重新选择数据库文件","数据库出错",1,this,selectFileHandler);
+					
+			    }
+			}
+			
+			
+			private function windowResizeHandle(e:FlexNativeWindowBoundsEvent = null) {
+				if (employeeDataGrid) {
+					employeeDataGrid.width = this.width - 100;
+					employeeDataGrid.height = this.height - employeeDataGrid.y - 100;
+					bottomBar.y = this.height - 90;
+				}
+			}
+			
+						
+			private function selectTable(e:Event = null):void
+			{
+				if (employeeDataGrid) {
+					this.removeChild(employeeDataGrid);
+					employeeDataGrid = null;
+				}
+				employeeDataGrid = new EmployeeDataGrid();
+				employeeDataGrid.stmt = stmt;
+				this.addChild(employeeDataGrid);
+				employeeDataGrid.addEventListener("REFRESH_TABLE", selectTable);
+				
+				if (this.width) windowResizeHandle();
+				
+				filterCanvas.stmt = stmt;
+				filterCanvas.employeeData = employeeDataGrid.employeeData;
+				filterCanvas.employeeDataGrid = employeeDataGrid;
+				filterCanvas.tableInfoData = employeeDataGrid.tableInfoData;
+				filterCanvas.init();
+				
+			}
+			
+			
+			private function addAppMenu():void
+			{
+				var appMenu:NativeMenu = new NativeMenu();
+				var openMI:NativeMenuItem = new NativeMenuItem("打开数据库");
+				var statMI:NativeMenuItem = new NativeMenuItem("统计");
+				var aboutMI:NativeMenuItem = new NativeMenuItem("关于");
+				
+				appMenu.addItem(openMI);
+				appMenu.addItem(statMI);
+				appMenu.addItem(aboutMI);
+				
+				openMI.addEventListener(Event.SELECT, selectFileHandler);
+				statMI.addEventListener(Event.SELECT, statHandler);
+				aboutMI.addEventListener(Event.SELECT, aboutHandler);
+				
+				this.contextMenu = appMenu;
+				
+			}
+			
+			
+			private function statHandler(e:Event){
+				var stat:Stat = new Stat();
+				stat.stmt = stmt;
+				stat.open();
+			}
+			
+			private function aboutHandler(e:Event){
+				var about:About = new About();
+				about.open();
+			}
+			
+			
+			private function importData(){
+				/*
+				var t:String = "INSERT INTO employee (department, classify, name, sex, nation, birth_date, identity, position, position2, start_date, job_number, title, background, pre_identity, school_record, school_level, uion_member, politics, politics_date, enqueue_date, join_date, native, beikao) VALUES ('保卫部','工勤服务人员（临工）','陈典鸿','男','汉','1961-06-01','442530196106181417','车辆管理员、保卫','','2004-01-01','','','','学生','初中','','是','','1000-01-01','1000-01-01','2004-01-01','陆丰湖东','临（未报）');\
+INSERT INTO employee (department, classify, name, sex, nation, birth_date, identity, position, position2, start_date, job_number, title, background, pre_identity, school_record, school_level, uion_member, politics, politics_date, enqueue_date, join_date, native, beikao) VALUES ('保卫部','工勤服务人员（临工）','郭育成','男','汉','1978-09-01','441522197809153053','门卫','','2006-09-01','','','','学生','大专','','是','','1000-01-01','1000-01-01','2003-05-01','博美三陂','临');\
+";
+				var a:Array = t.split(';');
+				for (var i=0; i<a.length-1; i++) {
+				   trace(i);
+					try {
+					    stmt.text = a[i];  
+						stmt.execute();
+					} catch (e:Error) {
+						trace(e.getStackTrace());
+						trace(i);
+					}
+				}
+				return ;*/
+			}
+		]]> 
+	</mx:Script>
+	<mx:Style>
+		.employeeDG{
+		} 
+		Alert{
+			fontSize:12;
+		}
+		ComboBox{
+			fontSize:12;
+		}
+		Button{
+			fillAlphas: 1,1,.9,.9;  
+			fontSize:12;
+			cornerRadius:0;
+			borderColor:#6997B7;
+			color:#000;
+			fontWeight:normal;
+		} 
+		Application{
+		}
+	</mx:Style>
+	<mx:Image x="7" y="17" source="assest/header.png"/>
+	<mx:HBox x="695" y="67" width="100%" horizontalAlign="right">
+		<mx:Label text="条数：{employeeData.length}" fontSize="12" color="#E6E6E6" width="120"/>
+	</mx:HBox>
+	
+	<mx:HBox x="0" y="480" width="100%" id="bottomBar" horizontalAlign="center">
+		<local:Filter id="filterCanvas" />
+	</mx:HBox>
+
+</mx:WindowedApplication>

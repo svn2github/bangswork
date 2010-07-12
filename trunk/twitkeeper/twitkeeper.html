@@ -1,0 +1,655 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+        <title>twitkeeper</title>
+        <link href="css/main.css" rel="stylesheet" type="text/css"/>
+        
+        <!-- Uncomment the following line to add introspection.  When running the application hit F12 to bring up the introspector -->
+       <script type="text/javascript" src="js/AIRIntrospector.js"></script>
+        
+        <!-- Uncomment the following line to use the AIR source viewer -->
+        <!-- <script type="text/javascript" src="AIRSourceViewer.js"></script> -->
+        
+        <!-- Uncomment the following line to use the AIR Localizer -->
+        <!-- <script type="text/javascript" src="AIRLocalizer.js"></script> -->
+        
+        <!-- Uncomment the following line to use the AIR Menu Builder -->
+        <!-- <script type="text/javascript" src="AIRMenuBuilder.js"></script> -->
+        
+        <script type="text/javascript" src="js/AIRAliases.js"></script>
+        <script type="text/javascript" src="js/writeXML.js"></script>
+        <script type="text/javascript" src="js/read.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+        	
+			
+			
+			
+        	var obj;
+			var fileName;
+			
+			
+			$(document).ready(function(){
+				//两个菜单按钮是否锁定
+				var readActive = true;
+				var funcActive = false;
+				
+				//窗口拖动
+				document.getElementById("head").addEventListener('mousedown', mousedownHandler, true)
+				function mousedownHandler (e) {
+					window.nativeWindow.startMove();
+				}
+				
+				//窗口控制
+				$("#faqBtn").hover(
+					function(){
+						$("#faqBtn").css("background", "url(../img/faq2.png)");
+					},
+					function(){
+						$("#faqBtn").css("background", "url(../img/faq1.png)");
+					}
+				).click(function(){
+					var faq = air.File.applicationDirectory.resolvePath( 'faq.html' );
+					var init = new air.NativeWindowInitOptions();
+					var win = null;
+					var bounds = new air.Rectangle( ( air.Capabilities.screenResolutionX - 510 ) / 2, ( air.Capabilities.screenResolutionY - 450 ) / 2, 510, 450 );
+					init.minimizable = false;
+					init.maximizable = false;
+					init.resizable = false;
+					init.systemChrome = air.NativeWindowSystemChrome.NONE;
+					init.transparent = true
+					win = air.HTMLLoader.createRootWindow( true, init, true, bounds );
+					win.load( new air.URLRequest( faq.url ) );
+				})
+				$("#minBtn").hover(
+					function(){
+						$("#minBtn").css("background", "url(../img/min2.png)");
+					},
+					function(){
+						$("#minBtn").css("background", "url(../img/min1.png)");
+					}
+				).click(function(){
+					window.nativeWindow.minimize();
+				})
+				$("#closeBtn").hover(
+					function(){
+						$("#closeBtn").css("background", "url(../img/close2.png)");
+					},
+					function(){
+						$("#closeBtn").css("background", "url(../img/close1.png)");
+					}
+				).click(function(){
+					window.nativeWindow.close();
+				})
+				
+				
+				//载入控制 暂停和继续
+				$("#loadStop").click(function(){
+					obj.stop();
+					$("#loadStop").hide();
+					$("#loadStart").show();
+				})
+				$("#loadStart").click(function(){
+					obj.start();
+					$("#loadStart").hide();
+					$("#loadStop").show();
+				})
+				
+				
+				$("#loadBtn").click(
+					function(){
+						initLoad();
+						var userName = $("#userName").val();
+						var readType = $("#readType").val();
+						var fromWeb = $("#fromWeb").val();
+						var endPage = Number($("#endPage").val());
+						var startPage = Number($("#startPage").val());
+						fileName = userName + "-" + readType + "-" + fromWeb + ".xml";
+						//检查startPage，endPage
+						if (!(startPage > 0)) {
+							startPage = 1;
+						}
+						
+						if (!(endPage > 0)) {
+							endPage = undefined;
+						}
+						if(check(userName)){
+							if (fromWeb == "fanfou") {
+								obj = new Fanfou(userName, endPage, startPage);
+								obj.setDivId('pages');
+								obj.setStateId('state');
+								if (readType == "user") {
+									obj.readUser();
+								} else {
+									obj.readFriends();
+								}
+							}
+							if (fromWeb == "jiwai") {
+								obj = new Jiwai(userName, endPage, startPage);
+								obj.setDivId('pages');
+								obj.setStateId('state');
+								if (readType == "user") {
+									obj.readUser();
+								} else {
+									obj.readFriends();
+								}
+							}
+						} else {
+							showMsg("输入有误，请重新输入。")
+						};
+					}					
+				)
+				
+				//初始化读取
+				function initLoad(){
+					document.getElementById("pages").innerHTML="";
+					document.getElementById("pageSelect").innerHTML="";
+					$("#loadCtrl").fadeIn("slow");
+					$("#pageCtrl").fadeIn("slow");
+					$("#loadStart").hide();
+					$("#loadStop").show();
+					try{
+						obj.stop();
+					}catch(e){}
+				}
+				
+				
+				//从网站读取-分页跳转函数
+				$("#pageSelect").change(
+					function(){
+						//被选择的页码
+						var page = $("#pageSelect option:selected").val();
+						//循环隐藏其他页码 显示被选择的页码
+						$("#pages div[id]").each(
+							function(i, n){
+								var pageid = n.getAttribute("id");
+								if ("page" + page == pageid) {
+									$("#"+pageid).show();
+								} else {
+									$("#"+pageid).hide();
+								}
+							}
+						)
+					}
+				)// end of click
+				
+				//从文件读取-分页跳转函数
+				$("#rPageSelect").change(
+					function(){
+						//被选择的页码
+						var page = $("#rPageSelect option:selected").val();
+						//循环隐藏其他页码 显示被选择的页码
+						$("#rPages div[id]").each(
+							function(i, n){
+								var pageid = n.getAttribute("id");
+								if ("rPage" + page == pageid) {
+									$("#"+pageid).show();
+								} else {
+									$("#"+pageid).hide();
+								}
+							}
+						)
+					}
+				)// end of click
+				
+				
+				$("#prepage").click(
+					function(){
+						prepage("#pages", "#page", "#pageSelect");
+					}
+				)
+				
+				$("#nextpage").click(
+					function(){
+						nextpage("#pages", "#page", "#pageSelect");
+					}
+				)
+				
+				$("#rPrepage").click(
+					function(){
+						prepage("#rPages", "#rPage", "#rPageSelect");
+					}
+				)
+				
+				$("#rNextpage").click(
+					function(){
+						nextpage("#rPages", "#rPage", "#rPageSelect");
+					}
+				)
+				
+				
+				$(window).keydown(function(e){
+				  switch(e.keyCode) {
+				  	case 33:
+					case 37:
+						prepage("#pages", "page", "pageSelect");
+						break;
+					case 34:
+					case 39:
+						nextpage("#pages", "page", "pageSelect");
+						break;
+				
+				  }
+				}); 
+				
+				$("#moreClose").click(function(){
+					$("#moreInputContent").fadeOut("slow");
+				});
+				
+				$("#moreInput").click(function(){
+					$("#moreInputContent").fadeIn("slow");
+				});
+				
+				$("#closeStorage").click(function(){
+					$("#storage").fadeOut("slow");
+					$("#storageBtn").show();
+					$(this).hide();
+				});
+				
+				$("#storageBtn").click(function(){
+					$("#storage").fadeIn("slow");
+					$("#closeStorage").show();
+					$(this).hide();
+				});
+				
+				//menu鼠标经过
+				$("#menuFunc").hover(
+					function(){
+						if (!funcActive) {
+							$(this).css("background", "url(../img/menu4.png)");
+							$(this).css("cursor", "hand")
+						}
+					},
+					function(){
+						if (!funcActive) {
+							$(this).css("background","url(../img/menu3.png)");
+						}
+					}
+				)
+				$("#menuRead").hover(
+					function(){
+						if(!readActive){
+							$(this).css("background","url(../img/menu2.png)");
+							$(this).css("cursor","hand");
+						}
+					},
+					function(){
+						if(!readActive){
+							$(this).css("background","url(../img/menu1.png)");
+						}
+					}
+				)
+				$("#menuFunc").click(function(){
+					if (!funcActive) {
+						$("#readMain").hide("normal");
+						$("#funcMain").show("normal");
+						$("#menuRead").css("background","url(../img/menu1.png)")
+						funcActive = true;
+						readActive = false;
+					}
+				});
+				$("#menuRead").click(function(){
+					if (!readActive) {
+						$("#readMain").show("normal");
+						$("#funcMain").hide("normal");
+						$("#menuFunc").css("background","url(../img/menu3.png)")
+						readActive = true;
+						funcActive = false;
+					}
+				});
+				
+				
+				/*应用部分*/
+				//程序目录按钮
+				$("#appCatalogBtn").click(function(){
+					$("#fileList").fadeIn("normal");
+					$(this).hide();
+					$("#closeCatalogBtn").show();
+					readAppCatalog();
+				})
+				
+				//关闭程序目录按钮
+				$("#closeCatalogBtn").click(function(){
+					$("#fileList").fadeOut("slow");
+					$(this).hide();
+					$("#appCatalogBtn").show();
+				})
+				
+				//读取文件按钮
+				$("#readFileBtn").click(function(){
+					readXML.fileSelect();
+					
+				})
+				
+				//搜索按钮
+				$("#searchBtn").click(function(){
+					var startTime = $("#searchStartTime").val();
+					var endTime = $("#searchEndTime").val();
+					var name = $("#searchName").val();
+					var keyWord = $("#searchKeyWord").val();
+					var pages = $("#searchPages").val();
+					var resultArray = readXML.dataToArray(readXML.xmlData, startTime, endTime, name, keyWord);
+					var checkResult = checkSearch(startTime, endTime, pages);
+					if (checkResult) {
+						showMsg(checkResult);
+					}
+					else {
+						$("#searchBar").fadeOut("normal");
+						if (resultArray[0]) {
+							initFileLoad();
+							$("#funcState").html("find " + resultArray.length + " messages");
+							readXML.displayData(resultArray, pages);
+						}
+						else {
+							$("#funcState").html("haven't found any data");
+						}
+					}
+				})
+				
+				//显示搜索按钮
+				$("#searchShowBtn").click(function(){
+					$("#searchBar").fadeIn("normal");
+				})
+				
+				//关闭搜索按钮
+				$("#closeSearchBtn").click(function(){
+					$("#searchBar").fadeOut("normal");
+				})
+				
+				
+				//统计月份选择
+				$("#rStatSelect").change(
+					function(){
+						var item = String($("#rStatSelect option:selected").val()).split("|");
+						if (item[0] != "all") {
+							$("#rTotalMsg").html("条数:" + item[0]);
+							$("#rTotalWord").html("字数:" + item[1]);
+							$("#rTotalAt").html("@条数:" + item[2]);
+						} else {
+							$("#rTotalMsg").html("总条数:" + item[1]);
+							$("#rTotalWord").html("总字数:" + item[2]);
+							$("#rTotalAt").html("@条数:" + item[3]);	
+						}
+					}
+				)
+				
+				$("#rHourStatBtn").click(function(){
+					$("#rHourStat").fadeIn("normal");
+					$(this).hide();
+					$("#rCloseBtn").show();
+				})
+				
+				$("#rCloseBtn").click(function(){
+					$("#rHourStat").fadeOut("normal");
+					$(this).hide();
+					$("#rHourStatBtn").show();
+				})
+			}); // end of ready
+			
+			//初始化统计数据
+			function initStat(){
+				var statObj = readXML.stat(readXML.xmlData);
+				$("#rStatSelect").html("");
+				$("#rHourStat").html("");
+				$("#rTotalMsg").html("总条数:" + statObj.totalMsg);
+				$("#rTotalWord").html("总字数:" + statObj.totalWord);
+				$("#rTotalAt").html("@条数:" + statObj.totalAt);	
+				$("#rReadName").html(readXML.xmlData.documentElement.getElementsByTagName('user')[0].textContent + "-" + readXML.xmlData.documentElement.getElementsByTagName('title')[0].textContent)
+				$("#rStatSelect").append('<option value="all|' + statObj.totalMsg  + '|' + statObj.totalWord + '|' + statObj.totalAt + '">全部</option>')
+				$.each(statObj.data,function(num, item){
+					$("#rStatSelect").append('<option value="' + item[1] + '|' + item[2] + '|' + item[3] + '">' + item[0] + '</option>');
+				});
+				$.each(statObj.hour,function(num, item){
+					$("#rHourStat").append('<li>' + num + ":" + item + '</li>');
+				});
+			}
+			
+			//读取程序目录里的文件名
+			function readAppCatalog(){
+				$("#fileList li").html("");
+				var fileOpenList = air.File.applicationStorageDirectory.getDirectoryListing();
+				for (var i = 0; i < fileOpenList.length; i++) {
+					if (fileOpenList[i].url.slice(-3) == "xml") {
+						$("#fileList").append("<li>" + decodeURI(fileOpenList[i].url.slice(13)) + "</li>");
+					}
+				}
+				$("#fileList li").each(function(i, n){
+					n.onclick = function(){
+						readFileToShow(n.innerHTML);
+					}
+				})
+			}
+			
+			//读取文件
+			function readFileToShow(name){
+				$("#content").show();
+				$("#fileList").fadeOut("normal");
+				$("#closeCatalogBtn").hide();
+				$("#appCatalogBtn").show();
+				$("#searchShowBtn").show();
+				initFileLoad();
+				readXML.fileOpenByName(name);
+				
+				
+				
+			}
+			
+			//初始化读取文件
+			function initFileLoad(){
+				document.getElementById("rPages").innerHTML="";
+				document.getElementById("rPageSelect").innerHTML="";
+				$("#rPageCtrl").show();
+				$("#rStat").show();
+				
+				
+			}
+			
+			//检查搜索输入的数据
+			function checkSearch(startTime, endTime, pages){
+				if (!(pages>0 && pages<=200)){
+					return '页码输入错误，范围：1~200';
+				}
+				startarr = startTime.split('-');
+				endarr = startTime.split('-');
+				if (startTime != '') {
+					if (!((Number(startarr[0]) < 3000) && (Number(startarr[0]) > 1000)) ||
+					!((Number(startarr[1]) < 13) && (Number(startarr[1]) > 0)) ||
+					!((Number(startarr[2]) < 32) && (Number(startarr[2]) > 0))) {
+						return '开始时间格式错误。示例：2008-4-17'
+					}
+				}
+				if (endTime != '') {
+					if (!((Number(endarr[0]) < 3000) && (Number(endarr[0]) > 1000)) ||
+					!((Number(endarr[1]) < 13) && (Number(endarr[1]) > 0)) ||
+					!((Number(endarr[2]) < 32) && (Number(endarr[2]) > 0))) {
+						return '结束时间格式错误。示例：2008-4-17'
+					}
+				}
+				return 0;
+			}
+			
+			
+			
+			//储存文件
+			var fileSave = new air.File();	//用于储存的文件
+			fileSave.addEventListener(air.Event.SELECT, selectWrite);
+			function selectWrite(e){
+				obj.writeToFile(fileSave);
+				showMsg("储存成功");
+			}
+			function appWrite(){
+				fileSave = air.File.applicationStorageDirectory.resolvePath(fileName);
+				obj.writeToFile(fileSave);
+				$("#storage").fadeOut("slow");
+				$("#storageBtn").show();
+				$("#closeStorage").hide();
+				showMsg("储存成功");
+			}
+			function selectFile(){
+				fileSave.browseForSave('choose a file')
+				$("#storage").fadeOut("slow");
+				$("#storageBtn").show();
+				$("#closeStorage").hide();
+			}
+			
+			
+			
+			
+			
+			
+			
+			function prepage(divPages, divPage, divPageSelect){
+				//清空提示
+				$("#suggest").html("");
+				//上一页
+				var prenum = Number($(divPages + " div[id]:visible").attr("id").toString().slice(divPage.length-1))-1;
+				var firstnum = Number($(divPages + " div[id]:first").attr("id").toString().slice(divPage.length-1))
+				if (prenum == firstnum-1) {
+					showMsg("已是第一页");
+				} else {
+					$(divPages + " div[id]:visible").hide();
+					$(divPage + prenum).show();
+					$(divPageSelect + " option[value='"+prenum+"']").attr("selected","selected");
+				}
+				
+			}
+			
+			function nextpage(divPages, divPage, divPageSelect){
+				//清空提示
+				$("#suggest").html("");
+				
+				//下一页
+				var nextnum = Number($(divPages + " div[id]:visible").attr("id").toString().slice(divPage.length-1))+1;
+				//总页数
+				var lastnum = Number($(divPages + " div[id]:last").attr("id").toString().slice(divPage.length-1))
+				
+				if (nextnum > lastnum) {
+					showMsg("已到最后一页");
+				} else {
+					$(divPages + " div[id]:visible").hide();
+					$(divPage + nextnum).show();
+					$(divPageSelect + " option[value='"+nextnum+"']").attr("selected","selected");
+				}
+			}
+			
+			
+			
+			
+			function showMsg(msg) {
+				$("#suggest").html(msg);
+				$("#suggest").hide();
+				$("#suggest").css("bottom","30");
+				$("#suggest").css("opacity","1");
+				$("#suggest").dequeue();          
+				$("#suggest").animate({bottom:'+=10', opacity: 'show'},"slow"); 
+				$("#suggest").animate({bottom:'+=5', opacity: 'hide'},"slow"); 
+			}
+			function check(testWord) {
+				return 1;
+			}
+        </script>
+	</head>
+
+    <body>
+		<div id="main">
+			<div id="head">
+				<div id="menu">
+					<span id="menuRead"></span>
+					<span id="menuFunc"></span>
+				</div>
+				<div id="windowCtrl">
+					<span id="faqBtn"></span>
+					<span id="minBtn"></span>
+					<span id="closeBtn"></span>
+				</div>
+			</div>
+				<div id="readMain">
+				<div id="request">
+					<span>用户名：</span>
+					<input type="text" id="userName" value="bang590" />
+					<select id="readType">
+						<option value="user" selected="selected">user</option>
+						<option value="friends">friends</option>
+					</select>
+					<select id="fromWeb">
+						<option value="fanfou">饭否</option>
+						<option value="jiwai">叽歪</option>
+					</select>
+					<input type="button" id="loadBtn" value="load" />
+					<span id="moreInput">高级</span>
+					<div id="moreInputContent">
+						<span>读取起始页：</span><input type="text" id="startPage" />
+						<span>读取末尾页：</span><input type="text" id="endPage" />
+						<span class="divClose" id="moreClose">close</span>
+					</div>
+				</div>
+				
+		    	<div id="content">
+					<!--
+			        <a href="#" onclick="test()">test</a>
+			        <a href="#" id="file" onclick="readXML.fileSelect()">测试</a>
+			        <a href="#" id="file" onclick="readXML.readData(30)">测试2</a>
+					-->
+					<div id="pages">
+					</div>
+				</div>
+				
+		    	<div id="state"></div>
+				<div id="loadCtrl">
+			        <a href="#" id="loadStop">暂停</a>
+			        <a href="#" id="loadStart">继续</a>
+			        <a href="#" id="storageBtn">储存</a>
+			        <a href="#" id="closeStorage">取消</a>
+					<div id="storage">
+				        <span><a href="#" id="file" onclick="appWrite()">储存到程序目录</a></span>
+				        <span><a href="#" id="file" onclick="selectFile()">选择储存目录</a></span>
+					</div>
+				</div>
+				<div id="pageCtrl">
+					<a id="prepage" href="#pages">上一页</a>
+					<select id="pageSelect"></select>
+					<a id="nextpage" href="#pages">下一页</a>
+				</div>
+			</div>
+		<div id="funcMain">
+			<div id="funcHead">
+				<a href="#" id="appCatalogBtn">程序目录</a>
+				<a href="#" id="closeCatalogBtn">关闭目录</a>
+				<a href="#" id="readFileBtn">读取文件</a>
+				<a href="#" id="searchShowBtn">搜索</a>
+			</div>
+			<div id="searchBar">
+				<span>开始时间：<input type="text" id="searchStartTime" /></span>
+				<span>结束时间：<input type="text" id="searchEndTime" /></span>
+				<span>　　名字：<input type="text" id="searchName" /></span>
+				<span>　关键字：<input type="text" id="searchKeyWord" /></span>
+				<span>每页显示：<input type="text" id="searchPages" value="20" /></span>
+				<input type="button" id="searchBtn" value="搜索" />
+				<input type="button" id="closeSearchBtn" value="关闭" />
+			</div>
+			<ul id="fileList"></ul>
+		    <div id="rContent">
+				<div id="rPages"></div>
+			</div>
+				<div id="rStat">
+					<span id="rTotalMsg"></span>
+					<span id="rTotalWord"></span>
+					<span id="rTotalAt"></span>
+					<br />
+					<div id="rReadName"></div>
+					<select id="rStatSelect"></select>
+					<a href="#" id="rHourStatBtn">每小时统计</a>
+					<a href="#" id="rCloseBtn">关闭小时统计</a>
+					<ul id="rHourStat"></ul>
+				</div>
+			<div id="rPageCtrl">
+				<a id="rPrepage" href="#rPages">上一页</a>
+				<select id="rPageSelect"></select>
+				<a id="rNextpage" href="#rPages">下一页</a>
+			</div>
+			<div id="funcState"></div>
+		</div>
+		<div id="suggest"></div>
+		</div>
+    </body>
+</html>

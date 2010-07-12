@@ -1,0 +1,82 @@
+body{
+	background:url(../img/bg.gif) top repeat-x #3280ab;
+	margin:0;
+	font-size:14px;
+	font-family:Tahoma, Helvetica, sans-serif;
+}
+a{
+	color:#3280ab;
+	text-decoration:underline;
+}
+a:hover {
+	color:#000000;
+	text-decoration:none;
+}
+	
+img {
+	border:none;
+}
+h1{
+	margin:0;
+	padding:0;
+}
+
+#container {
+	width:770px;
+	margin:0 auto;
+}
+
+#sideBar {
+	float:left;
+	width:190px;
+	margin-bottom:30px;
+}
+
+#logo {
+	margin:30px 0 0 20px;
+}
+
+#introduce {
+	margin:50px 0 0 20px;
+	color:#FFF;
+}
+#introduce p{
+	padding:0 5px;
+	line-height:24px;
+	background:url(../img/dot.gif);
+}
+
+#introduce a{
+	color:#f1f1f1;
+}
+#introduce a:hover{
+	color:#ddd;
+}
+
+#main {
+	float:right;
+	width:567px;
+	background:url(../img/content_bg.png);
+	padding:10px 0 20px 0;
+}
+#bottom{
+	float:right;
+	width:567px;
+	height:27px;
+	background:url(../img/content_bottom.png);
+	margin-bottom:10px;
+}
+#footer{
+	background-color:#02466c;
+	clear:both;
+	padding:8px;
+}
+#footerMain {
+	width:700px;
+	margin:0 auto;
+	text-align:right;
+}
+	
+	
+/*for ie6 png*/
+img, div { behavior: url(css/iepngfix.htc) } 

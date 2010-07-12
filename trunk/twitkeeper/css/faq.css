@@ -1,0 +1,51 @@
+body {
+	font-size:12px;
+	background:url(../img/faq.png) top left;
+}
+a{
+	color:#985000;
+	text-decoration:none;
+}
+a:hover{
+	color:#000000;
+}
+#head{
+	height:40px;
+}
+#windowCtrl{
+	margin:10px 20px 0 0 ;
+	float:right;
+}
+
+#minBtn{
+	width:12px;
+	height:12px;
+	background:url(../img/min1.png);
+	display:inline-block;;
+	margin:2px;
+}
+
+#closeBtn{
+	width:12px;
+	height:12px;
+	background:url(../img/close1.png);
+	display:inline-block;;
+	margin:2px;
+}
+
+#faq{
+	padding:30px;
+	padding-top:10px;
+}
+#faq h1{
+	font-size:16px;
+}
+#faq p{
+	line-height:18px;
+}
+#copyright{
+	position:absolute;
+	left:150px;
+	bottom:15px;
+	font-size:10px;
+}

@@ -1,0 +1,963 @@
+<?xml version='1.0' encoding='GB2312'?>
+  <imgList>
+    <list sizes="1" team1="SAC">05-06/Abdur-Rahim_400_051222.jpg</list>
+    <list sizes="1" team1="MIL" name1="Bogut">05-06/ABogut400.jpg</list>
+    <list sizes="1" team1="IND" team2="CHA">05-06/ACroshere_400_060118.jpg</list>
+    <list sizes="1" team1="ATL" name1="Harrington">05-06/AHarrington400.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/AI_400_051214.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI" team2="HOU">05-06/ai_400_060206.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/AIver400.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI">05-06/AIverson_400_051129.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/AIverson_400_051231.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/AIverson_400_060120.jpg</list>
+    <list sizes="1" team1="NO">05-06/AlexScales_400_060115.jpg</list>
+    <list sizes="1" team1="ATL" name1="Harrington">05-06/AlH_400_051202.jpg</list>
+    <list sizes="1" team1="ATL" name1="Harrington" team2="DET">05-06/AlH_400_060118.jpg</list>
+    <list sizes="1" team1="ATL" name1="Harrington">05-06/AlHarrington_400_051230.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/aLIverson.jpg400.jpg</list>
+    <list sizes="1" team1="ATL" team2="BOS">05-06/ALJefferson_400_060106.jpg</list>
+    <list sizes="1" team1="BOS" team2="NJ">05-06/AlJefferson_400_060121.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/AlleIverson400.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI" team2="GS">05-06/AllenIverson400.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/alleniverson_400_051228.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI" team2="AS">05-06/alleniverson_400_060206.jpg</list>
+    <list sizes="1" team1="SEA" name1="Allen" team2="DEN">05-06/AllenRay400.jpg</list>
+    <list sizes="1" team1="HOU">05-06/alston_400_060212.jpg</list>
+    <list sizes="1" team1="PHO">05-06/AmarStou.jpg400.jpg</list>
+    <list sizes="1" team1="DEN" team2="NO">05-06/AMiller400.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47" team2="OS">05-06/Andr400.jpg</list>
+    <list sizes="1" team1="GS" team2="SEA">05-06/AndrBiedrin400.jpg</list>
+    <list sizes="1" team1="NOT">05-06/AndreEmmit_400_060115.jpg</list>
+    <list sizes="1" team1="DEN">05-06/andremiller_400_060102.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony" team2="CHI">05-06/anthony_400_060116.jpg</list>
+    <list sizes="1" team1="WAS">05-06/AntJamison.jpg400.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony">05-06/anthony_400_060123.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony">05-06/anthony_400_060206.jpg</list>
+    <list sizes="2" team1="DEN" name1="Anthony">05-06/anthony_600_060105.jpg</list>
+    <list sizes="2" team1="DEN" name1="Anthony" team2="PHO">05-06/anthony_600_060110.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony" team2="ATL">05-06/AnthonyCarmelo400.jpg</list>
+    <list sizes="1" team1="IND" team2="MIN">05-06/AnthonyJohnson_400_060120.jpg</list>
+    <list sizes="2" team1="WAS">05-06/Antonio-Daniels600.jpg</list>
+    <list sizes="2" team1="DET" team2="MIA">05-06/Antonio-McDyess600.jpg</list>
+    <list sizes="1" team1="CLE">05-06/APavlovic_400_060221.jpg</list>
+    <list sizes="1" team1="WAS" name1="Arenas" team2="OS">05-06/Arenas400.jpg</list>
+    <list sizes="1" team1="WAS" name1="Arenas" team2="CHA">05-06/Arenas_400_060128.jpg</list>
+    <list sizes="1" team1="WAS" name1="Arenas">05-06/arenas_400_060206.jpg</list>
+    <list sizes="2" team1="WAS" name1="Arenas" team2="NY">05-06/arenas_600_051104.jpg</list>
+    <list sizes="2" team1="WAS" name1="Arenas">05-06/arenas_600_051123.jpg</list>
+    <list sizes="2" team1="WAS" name1="Arenas">05-06/arenas_600_051125.jpg</list>
+    <list sizes="2" team1="WAS" name1="Arenas">05-06/arenas_600_051210.jpg</list>
+    <list sizes="2" team1="WAS" name1="Arenas">05-06/arenas_600_060128.jpg</list>
+    <list sizes="2" team1="WAS" name1="Arenas" team2="OT">05-06/Arenas_600_060210.jpg</list>
+    <list sizes="2" team1="IND" name1="Artest" team2="OS">05-06/Artest_600_051208.jpg</list>
+    <list sizes="1" team1="DAL" name1="MAS">05-06/AveryJ400.jpg</list>
+    <list sizes="1" team1="MIA">05-06/AWalker_400_0600129.jpg</list>
+    <list sizes="1" team1="MIL" team2="OT">05-06/bango_400_060214.jpg</list>
+    <list sizes="1" team1="PHO">05-06/Barbosa.jpg400.jpg</list>
+    <list sizes="1" team1="PHO">05-06/barbosa_400_060127.jpg</list>
+    <list sizes="1" team1="GS" name1="Davis" team2="SA">05-06/barondavis_400_060202.jpg</list>
+    <list sizes="1" team1="SA">05-06/barry_400_060213.jpg</list>
+    <list sizes="1" team1="SA">05-06/BBowen_600_060114.jpg</list>
+    <list sizes="1" team1="GS" name1="Davis">05-06/BDavis400.jpg</list>
+    <list sizes="1" team1="GS" name1="Davis" team2="DAL">05-06/BDavis_400_051230.jpg</list>
+    <list sizes="1" team1="PHO">05-06/BDiaw_400_051220.jpg</list>
+    <list sizes="1" team1="PHO" team2="HOU">05-06/bell_400_060216.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash" name2="Marion">05-06/BellNashMarion_600_060131.jpg</list>
+    <list sizes="1" team1="CHI">05-06/BenGor400.jpg</list>
+    <list sizes="1" team1="CHI" team2="CLE">05-06/Ben-Gordon400.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/BenWallace400.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben" team2="BOS">05-06/benwallace_600_060116.jpg</list>
+    <list sizes="1" team1="CHA">05-06/bernardKing_400_060115.jpg</list>
+    <list sizes="1" team1="CHI">05-06/BGcel_400_060118.jpg</list>
+    <list sizes="2" team1="CHI" team2="OS">05-06/BGordan_600_060121.jpg</list>
+    <list sizes="1" team1="SAC" name1="Biby">05-06/Bibbym400.jpg</list>
+    <list sizes="2" team1="SAC" name1="Biby">05-06/bibbymiller_600_060119.jpg</list>
+    <list sizes="1" team1="DET">05-06/billdavidson_400_051216.jpg</list>
+    <list sizes="1" team1="DET" name1="Billups">05-06/Billups400.jpg</list>
+    <list sizes="1" team1="DET" name1="Billups">05-06/billups_400_051231.jpg</list>
+    <list sizes="2" team1="DET" name1="Billups">05-06/billups_051111.jpg</list>
+    <list sizes="2" team1="DET" name1="Billups">05-06/billups_051211.jpg</list>
+    <list sizes="2" team1="DET" name1="Billups">05-06/billups_060106.jpg</list>
+    <list sizes="2" team1="DET" name1="Billups">05-06/billups_060107.jpg</list>
+    <list sizes="2" team1="DET" name1="Billups">05-06/billups_060110.jpg</list>
+    <list sizes="1" team1="DET" name1="Billups" name2="Prince">05-06/billupsPrince_400_060127.jpg</list>
+    <list sizes="1" team1="MEM">05-06/B-Jackson400.jpg</list>
+    <list sizes="1" team1="CHA" team2="OS">05-06/BKnight_400_060118.jpg</list>
+    <list sizes="2" team1="CHA">05-06/BKnight_600_051213.jpg</list>
+    <list sizes="1" team1="WAS">05-06/blatche_400_060111.jpg</list>
+    <list sizes="2" team1="OT">05-06/Blue-Man-Group600.jpg</list>
+    <list sizes="1" team1="SAC" team2="MEM">05-06/BMiller_400_060207.jpg</list>
+    <list sizes="1" team1="MEM" team2="OS">05-06/Bobby-Jackson400.jpg</list>
+    <list sizes="1" team1="MIL" team2="HOU">05-06/bobbysimmons_400_060123.jpg</list>
+    <list sizes="2" team1="SEA" name1="MAS">05-06/Bob-Hill.jpg600.jpg</list>
+    <list sizes="2" team1="SEA" name1="MAS">05-06/bobhill_600_060105.jpg</list>
+    <list sizes="2" team1="SEA" name1="MAS">05-06/bobhill_600_060130.jpg</list>
+    <list sizes="2" team1="OT">05-06/boblanier_600_060213.jpg</list>
+    <list sizes="1" team1="MIL" name1="Bogut">05-06/bogut_400_060110.jpg</list>
+    <list sizes="1" team1="MIL" name1="Bogut" team2="CHA">05-06/bogut_400_060121.jpg</list>
+    <list sizes="2" team1="MIL" name1="Bogut">05-06/Bogut_600_051201.jpg</list>
+    <list sizes="1" team1="TOR" name1="Bosh">05-06/bosh_400_060123.jpg</list>
+    <list sizes="2" team1="TOR" name1="Bosh">05-06/bosh_051125.jpg</list>
+    <list sizes="2" team1="TOR" name1="Bosh">05-06/bosh_051219.jpg</list>
+    <list sizes="2" team1="TOR" name1="Bosh" team2="HOU">05-06/bosh_051221b.jpg</list>
+    <list sizes="2" team1="TOR" name1="Bosh" team2="SA">05-06/bosh_051223.jpg</list>
+    <list sizes="2" team1="TOR" name1="Bosh">05-06/bosh_060118.jpg</list>
+    <list sizes="1" team1="HOU">05-06/bowen_400_060110.jpg</list>
+    <list sizes="1" team1="IND" team2="OT">05-06/BOWSER_400_051208.jpg</list>
+    <list sizes="1" team1="LC" name1="Brand" team2="MIN">05-06/Brand_400_051129.jpg</list>
+    <list sizes="1" team1="LC" name1="Brand" team2="HOU" name2="Yao">05-06/Brand_400_051217.jpg</list>
+    <list sizes="1" team1="LC" name1="Brand" team2="UTA">05-06/brand_400_060116.jpg</list>
+    <list sizes="2" team1="LC" name1="Brand">05-06/brand_600_051104.jpg</list>
+    <list sizes="2" team1="LC" name1="Brand" team2="SAC">05-06/brand_600_060106.jpg</list>
+    <list sizes="2" team1="LC" name1="Brand">05-06/brand_600_060118.jpg</list>
+    <list sizes="2" team1="LC" name1="Brand" team2="DEN">05-06/brand_600_060127.jpg</list>
+    <list sizes="2" team1="LC" name1="Brand">05-06/brand_600_060130.jpg</list>
+    <list sizes="1" team1="WAS">05-06/BrendanHaywood_400_060118.jpg</list>
+    <list sizes="2" team1="LA" team2="OS">05-06/Brian-Grant600.jpg</list>
+    <list sizes="2" team1="LA">05-06/brown)600_051212.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="PHI" name2="AI">05-06/Bryant_400_051201.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="SAC">05-06/bryant_400_060119.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/bryant_600_051118.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/bryant_600_051223.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/bryant_600_051228.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/bryant_600_060122.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/bryant_600_060122c.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Bryant-daughter400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Bryant-drive400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Bryant-Foul400.jpg</list>
+    <list sizes="1" team1="MIL" team2="CHI">05-06/BSimmons_400_060106.jpg</list>
+    <list sizes="2" team1="MIL" team2="OS">05-06/BSimmons_600_051207.jpg</list>
+    <list sizes="2" team1="SAC" team2="MIN">05-06/BSkinner_600_051213.jpg</list>
+    <list sizes="1" team1="GS" team2="SAC">05-06/burleson_400_060113.jpg</list>
+    <list sizes="1" team1="NO">05-06/butler_400_060130.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben" team2="CLE">05-06/BWallace2_600_051231.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/BWallace_400_051202.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben" team2="CLE">05-06/BWallace_400_051231.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/BWallace_400_060129.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/BWallace_400_060207.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/BWallace_400_060214.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben">05-06/bwallace_600_051214.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben">05-06/bwallace_600_051219.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben" team2="UTA">05-06/bwallace_600_060107.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben">05-06/bwallace_600_060129.jpg</list>
+    <list sizes="2" team1="DET" name1="Ben">05-06/bwallace_600_060131.jpg</list>
+    <list sizes="2" team1="SAC" team2="OS">05-06/BWells_600_060214.jpg</list>
+    <list sizes="1" team1="LA" team2="NY">05-06/bynum_400_060131.jpg</list>
+    <list sizes="1" team1="LA">05-06/Bynum_400_060213.jpg</list>
+    <list sizes="1" team1="DEN">05-06/Camby_400_051201.jpg</list>
+    <list sizes="1" team1="DEN">05-06/Camby_400_051205.jpg</list>
+    <list sizes="1" team1="DEN">05-06/camby_400_060128.jpg</list>
+    <list sizes="1" team1="DEN">05-06/camby_400_060221.jpg</list>
+    <list sizes="1" team1="NO">05-06/CAndersen_400_060118.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony">05-06/CAnthony_400_051227.jpg</list>
+    <list sizes="2" team1="DEN" name1="Anthony">05-06/CAnthony_600_060118.jpg</list>
+    <list sizes="1" team1="ORL">05-06/Carlo400.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony">05-06/CarmelAn400.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony">05-06/CarmeloAnth400.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony" team2="DEN" name2="Tmac">05-06/carmeloanthony_400_051223.jpg</list>
+    <list sizes="1" team1="WAS" team2="OS">05-06/CaronBut400.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter" team2="DET" name2="Ben">05-06/carter600.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/carter_400_051223.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/carter_400_060110.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/carter_400_060116.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/Carter_400_060131.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/carter_400_060210.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/carter_600_051003.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/carter_600_051221.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/carter_600_051226.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/carter_600_060131.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/carter_600_060204.jpg</list>
+    <list sizes="1" team1="LC">05-06/cassell_400_060205.jpg</list>
+    <list sizes="1" team1="HOU" team2="WAS">05-06/CAtkins_400_060103.jpg</list>
+    <list sizes="1" team1="TOR">05-06/CBosh_400_060115.jpg</list>
+    <list sizes="1" team1="TOR">05-06/CBosh_400_060118.jpg</list>
+    <list sizes="1" team1="WAS" team2="ATL">05-06/CButler_400_060114.jpg</list>
+    <list sizes="1" team1="CHI">05-06/chandler_400_051216.jpg</list>
+    <list sizes="1" team1="MIL">05-06/CharlieBell_400_051129.jpg</list>
+    <list sizes="1" team1="TOR">05-06/charlieV400.jpg</list>
+    <list sizes="1" team1="TOR">05-06/charlievillanueva_400_051216.jpg</list>
+    <list sizes="1" team1="TOR">05-06/ChrisBosh400.jpg</list>
+    <list sizes="1" team1="TOR">05-06/Chris-Bosh400.jpg</list>
+    <list sizes="2" team1="CHI">05-06/ChrisDuhon_600_060111.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/Chris-Paul400.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul" team2="DET" name2="Ben">05-06/chrispaul_400_060110.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/chrispaul_400_060128.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/ChristopherPaul400.jpg</list>
+    <list sizes="1" team1="MEM">05-06/ChuckAt400.jpg</list>
+    <list sizes="1" team1="NOT">05-06/cjmiles_400_060116.jpg</list>
+    <list sizes="1" team1="NO">05-06/claxton_400_060123.jpg</list>
+    <list sizes="1" team1="NO">05-06/claxton_400_060213.jpg</list>
+    <list sizes="1" team1="DEN" name1="MAS">05-06/CoachhMikeAntoni400.jpg</list>
+    <list sizes="1" team1="LC">05-06/coreym400.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/cpaul400.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul" team2="WAS">05-06/CPaul_400_060120.jpg</list>
+    <list sizes="2" team1="NO" name1="Paul" team2="OS">05-06/CPaul_600_060221.jpg</list>
+    <list sizes="1" team1="NY" team2="PHI">05-06/Crawford_400_051201.jpg</list>
+    <list sizes="1" team1="NY">05-06/Crawford_400_051212.jpg</list>
+    <list sizes="1" team1="NY">05-06/crawford_400_060119.jpg</list>
+    <list sizes="1" team1="NY">05-06/CrawJ400.jpg</list>
+    <list sizes="2" team1="NET" team2="CLE">05-06/CRobinson_600_051227.jpg</list>
+    <list sizes="2" team1="IND">05-06/croshere_600_060111.jpg</list>
+    <list sizes="1" team1="NY">05-06/curry_400_060102.jpg</list>
+    <list sizes="1" team1="PHI" team2="SAC">05-06/CWebber_400_060103.jpg</list>
+    <list sizes="1" team1="NOT" team2="OS">05-06/DahnJones400.jpg</list>
+    <list sizes="1" team1="NOT" team2="OS">05-06/DaleDavis.jpg400.jpg</list>
+    <list sizes="1" team1="PHI">05-06/Dalembert400.jpg</list>
+    <list sizes="1" team1="MEM">05-06/Damon_400_051209.jpg</list>
+    <list sizes="2" team1="MEM" team2="DET" name2="Billups">05-06/Damon-Bill600.jpg</list>
+    <list sizes="1" team1="LC">05-06/Daniel-Ewing400.jpg</list>
+    <list sizes="1" team1="WAS">05-06/Daniels_400_051228.jpg</list>
+    <list sizes="2" team1="WAS" team2="PHI" name2="AI">05-06/daniels_600_060212.jpg</list>
+    <list sizes="1" team1="NOT">05-06/David-Harrison400.jpg</list>
+    <list sizes="1" team1="NOT">05-06/DavidLee_400_060115.jpg</list>
+    <list sizes="2" team1="HOU" team2="OS">05-06/DavidWesley_600_060108.jpg</list>
+    <list sizes="1" team1="BOS">05-06/davis_400_060105.jpg</list>
+    <list sizes="1" team1="MIN">05-06/davis_400_060210.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce" team2="MIN">05-06/davispierce_600_060130.jpg</list>
+    <list sizes="2" team1="OT">05-06/DBavetta_600_060208.jpg</list>
+    <list sizes="1" team1="DET" team2="NY">05-06/delfino_400_060119.jpg</list>
+    <list sizes="1" team1="BOS" team2="ORL">05-06/delonte_400_060212.jpg</list>
+    <list sizes="1" team1="CHI">05-06/deng_400_060216.jpg</list>
+    <list sizes="2" team1="CHI">05-06/dengdunk_600_051222.jpg</list>
+    <list sizes="1" team1="UTA">05-06/deronwilliams_400_051216.jpg</list>
+    <list sizes="1" team1="NO">05-06/DesMas400.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben" team2="AS" name2="Billups">05-06/detroit_400_060210.jpg</list>
+    <list sizes="2" team1="LA">05-06/DeveanGeorge_600_060207.jpg</list>
+    <list sizes="1" team1="UTA">05-06/devinbrown_400_060123.jpg</list>
+    <list sizes="1" team1="UTA">05-06/devinbrown_400_060128.jpg</list>
+    <list sizes="1" team1="DAL">05-06/Devin-Harris400.jpg</list>
+    <list sizes="1" team1="GS">05-06/dfisher_400_060127.jpg</list>
+    <list sizes="2" team1="GS">05-06/DFisher_600_060211.jpg</list>
+    <list sizes="1" team1="DAL">05-06/DH_400_051231.jpg</list>
+    <list sizes="1" team1="DAL" team2="LC">05-06/DHarris_400_060221.jpg</list>
+    <list sizes="1" team1="ORL">05-06/DHowar400.jpg</list>
+    <list sizes="1" team1="ORL">05-06/DHoward_400_060106.jpg</list>
+    <list sizes="1" team1="ORL">05-06/DHoward_400_060115.jpg</list>
+    <list sizes="1" team1="ORL">05-06/DHoward_400_060124.jpg</list>
+    <list sizes="1" team1="ORL" team2="PHI">05-06/DHoward_400_060129.jpg</list>
+    <list sizes="2" team1="ORL">05-06/DHoward_600_060214.jpg</list>
+    <list sizes="1" team1="PHO">05-06/diaw_400_060216.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/DiNowit400.jpg</list>
+    <list sizes="1" team1="DAL">05-06/DiopD.jpg400.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/dirk_400_051230.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/dirk_400_060120.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki" team2="OS">05-06/Dirkn-arrives400.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/dirknowitzki_400_051201.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/dirkNowitzki_400_060111.jpg</list>
+    <list sizes="1" team1="NO">05-06/Dmason_400_051202.jpg</list>
+    <list sizes="2" team1="" name1="MAS">05-06/Doc-River600.jpg</list>
+    <list sizes="1" team1="TOR">05-06/DonteSmith_400_060115.jpg</list>
+    <list sizes="1" team1="TOR">05-06/dontesmith_400_060116.jpg</list>
+    <list sizes="1" team1="BOS">05-06/Dorellwright_400_060116.jpg</list>
+    <list sizes="1" team1="IND" team2="CHI">05-06/DSongaila_400_060121.jpg</list>
+    <list sizes="1" team1="MEM" team2="ORL">05-06/DStoudamire_400_051202.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan">05-06/duncan_400_051203.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan">05-06/duncan_400_051217.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan">05-06/Duncan_400_051220.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan" team2="AS">05-06/DUNCAN_400_060210.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/duncan_600_051123.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/duncan_600_051125.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/duncan_600_051205.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/duncan_600_051227.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/duncan_600_060124.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/Duncan_600_060128.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan">05-06/duncan_600_060212.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan" team2="PHI" name2="AI">05-06/duncaniverson_400_051203.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan" name2="KG">05-06/duncan-KG600.jpg</list>
+    <list sizes="1" team1="GS" team2="CLE">05-06/dunleavy_400_060211.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/DWade_400_051211.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/DWade_400_060120.jpg</list>
+    <list sizes="2" team1="HOU" team2="OS">05-06/DWesley_600_060120.jpg</list>
+    <list sizes="1" team1="NO" team2="DAL">05-06/DWest_400_051231.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/dwyanewade_400_060202.jpg</list>
+    <list sizes="1" team1="LC" name1="Brand">05-06/EBrand_400_060205.jpg</list>
+    <list sizes="1" team1="LC" name1="Brand">05-06/EBrand_400_060208.jpg</list>
+    <list sizes="1" team1="LC" name1="Brand" team2="OS">05-06/EBrand_400_060221.jpg</list>
+    <list sizes="1" team1="NY" team2="HOU" name2="Yao">05-06/Ecurry_400_060205.jpg</list>
+    <list sizes="1" team1="DAL">05-06/EDampier_400_060207.jpg</list>
+    <list sizes="2" team1="IND" team2="OS">05-06/Eddie-Gill600.jpg</list>
+    <list sizes="2" team1="WAS">05-06/eddiejordan_600_060128.jpg</list>
+    <list sizes="1" team1="MIN">05-06/EGriffin_400_051230.jpg</list>
+    <list sizes="1" team1="MEM" team2="GS">05-06/EJones_400_060103.jpg</list>
+    <list sizes="1" team1="MEM" team2="MIA">05-06/EJones_400_060124.jpg</list>
+    <list sizes="1" team1="CHA">05-06/ely_400_051228.jpg</list>
+    <list sizes="2" team1="CLE">05-06/Eric-Snow600.jpg</list>
+    <list sizes="1" team1="CLE">05-06/EricSnow_400_051220.jpg</list>
+    <list sizes="1" team1="DAL">05-06/eriDampier600.jpg</list>
+    <list sizes="1" team1="CLE">05-06/ESnow_400_060129.jpg</list>
+    <list sizes="1" team1="CLE" team2="OS">05-06/ESnowAH_400_060127.jpg</list>
+    <list sizes="2" team1="SEA" team2="MIN">05-06/evans_600_051228.jpg</list>
+    <list sizes="1" team1="LC">05-06/ewing_400_060110.jpg</list>
+    <list sizes="1" team1="OT" team2="CLE">05-06/fans_400_060221.jpg</list>
+    <list sizes="2" team1="SAC" team2="OS">05-06/FGarcia_600_051204.jpg</list>
+    <list sizes="1" team1="SA" team2="OS">05-06/Finley400.jpg</list>
+    <list sizes="1" team1="SA">05-06/FINLEY_400_060105.jpg</list>
+    <list sizes="1" team1="IND">05-06/FJones_400_051230.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/Flip_400_060124.jpg</list>
+    <list sizes="1" team1="UTA" team2="MIL">05-06/Ford_400_051201.jpg</list>
+    <list sizes="1" team1="MIL">05-06/ford_400_060116.jpg</list>
+    <list sizes="1" team1="ORL" name1="Francis">05-06/Francis_400_051201.jpg</list>
+    <list sizes="1" team1="ORL" name1="Francis">05-06/francis_400_051228.jpg</list>
+    <list sizes="2" team1="ORL" name1="Francis">05-06/FrancisThonmas600.jpg</list>
+    <list sizes="1" team1="ORL" name1="Francis">05-06/franSteve400.jpg</list>
+    <list sizes="1" team1="IND">05-06/fredjones_400_051208.jpg</list>
+    <list sizes="1" team1="NY" team2="MIA">05-06/frye400.jpg</list>
+    <list sizes="1" team1="NY">05-06/frye_400_060106.jpg</list>
+    <list sizes="1" team1="MIL">05-06/Gadzuric_400_051207.jpg</list>
+    <list sizes="1" team1="MIL">05-06/gadzuric_400_060130.jpg</list>
+    <list sizes="1" team1="MIL">05-06/gadzuric_400_060221.jpg</list>
+    <list sizes="2" team1="MIL">05-06/gadzuric_ostertag_600_05121.jpg</list>
+    <list sizes="1" team1="WAS" name1="Arenas">05-06/GArenas_400_060131.jpg</list>
+    <list sizes="1" team1="WAS" name1="Arenas">05-06/GArenas_400_060208.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/Garnett_400_051212.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/garnett_400_051223.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/garnett_400_051228.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/Garnett_400_060128.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG">05-06/garnett_600_060111.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG">05-06/garnett_600_060122.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG">05-06/garnett_600_060124.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG">05-06/garnett_600_060128.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG" team2="OS">05-06/garnett_600_060130.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/garnettsczcerbiak_400_06013.jpg</list>
+    <list sizes="2" team1="OT">05-06/gasol1_600_060221.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol2_400_060213.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol_400_051203.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol_400_060113.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol_400_060120.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol_400_060130.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol_400_060208.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/gasol_400_060221.jpg</list>
+    <list sizes="2" team1="MEM" name1="Gasol">05-06/gasol_600_051214.jpg</list>
+    <list sizes="2" team1="MEM" name1="Gasol">05-06/gasol_600_051230.jpg</list>
+    <list sizes="2" team1="MEM" name1="Gasol">05-06/gasol_600_051230b.jpg</list>
+    <list sizes="2" team1="MEM" name1="Gasol">05-06/gasol_600_060122.jpg</list>
+    <list sizes="2" team1="MEM" name1="Gasol">05-06/gasol_600_060201.jpg</list>
+    <list sizes="1" team1="CHA" team2="SAC">05-06/Gerald-Wallace400.jpg</list>
+    <list sizes="1" team1="SA" name1="Ginobili">05-06/ginobili_400_051205.jpg</list>
+    <list sizes="1" team1="SA" name1="Ginobili">05-06/ginobili_400_060120.jpg</list>
+    <list sizes="1" team1="SA" name1="Ginobili">05-06/Ginobili_400_060202.jpg</list>
+    <list sizes="1" team1="UTA" team2="PHI">05-06/giricek_400_060111.jpg</list>
+    <list sizes="1" team1="CLE">05-06/gooden_400_060206.jpg</list>
+    <list sizes="1" team1="CHI">05-06/gordon_400_051205.jpg</list>
+    <list sizes="2" team1="MIA">05-06/GPayton_600_051211.jpg</list>
+    <list sizes="2" team1="BOS" team2="CHI">05-06/Greene_400_051202.jpg</list>
+    <list sizes="2" team1="PHI" team2="OS">05-06/grizzlies_600_051205.jpg</list>
+    <list sizes="1" team1="DET" name1="Hamilton" team2="OS">05-06/hamil400.jpg</list>
+    <list sizes="1" team1="DET" name1="Hamilton">05-06/hamilton_400_060119.jpg</list>
+    <list sizes="2" team1="DET" name1="Hamilton">05-06/hamilton_600_051211.jpg</list>
+    <list sizes="2" team1="DET" name1="Hamilton" team2="SEA" name2="Allen">05-06/hamilton_600_060106.jpg</list>
+    <list sizes="2" team1="DET" name1="Hamilton">05-06/hamilton_600_060116.jpg</list>
+    <list sizes="2" team1="DET" name1="Hamilton">05-06/hamilton_600_060116b.jpg</list>
+    <list sizes="2" team1="DET" name1="Hamilton">05-06/hamilton_600_060201.jpg</list>
+    <list sizes="1" team1="UTA" team2="LA">05-06/harpring_400_051201.jpg</list>
+    <list sizes="1" team1="UTA">05-06/Harpring_400_060114.jpg</list>
+    <list sizes="2" team1="ATL">05-06/harrington_600_051216.jpg</list>
+    <list sizes="1" team1="CHI">05-06/harrington_hinrich_400_0602.jpg</list>
+    <list sizes="1" team1="WAS">05-06/haywood_400_060210.jpg</list>
+    <list sizes="2" team1="MIA">05-06/heatcelebration_600_060212.jpg</list>
+    <list sizes="1" team1="ORL">05-06/hEDO400.jpg</list>
+    <list sizes="1" team1="ORL">05-06/hedo_400_060124.jpg</list>
+    <list sizes="2" team1="ORL">05-06/HedoTurkoglu_600_060214.jpg</list>
+    <list sizes="1" team1="PHI" team2="OT">05-06/hiphop_400_060128.jpg</list>
+    <list sizes="1" team1="ORL">05-06/Howard_400_051201.jpg</list>
+    <list sizes="1" team1="ORL">05-06/HOWARD_400_060113.jpg</list>
+    <list sizes="2" team1="WAS">05-06/huddle_600_060120.jpg</list>
+    <list sizes="1" team1="MIN">05-06/hudson_400_060101.jpg</list>
+    <list sizes="1" team1="MIN" team2="CLE">05-06/Hughes_400_051201.jpg</list>
+    <list sizes="1" team1="NOT">05-06/icecube_400_060115.jpg</list>
+    <list sizes="1" team1="PHI">05-06/IGAndredala400.jpg</list>
+    <list sizes="1" team1="PHI">05-06/Iguodala400.jpg</list>
+    <list sizes="1" team1="PHI">05-06/Iguodala_400_051129.jpg</list>
+    <list sizes="1" team1="PHI" team2="CHI">05-06/iguodala_hinrich_400_060216.jpg</list>
+    <list sizes="1" team1="GS" team2="IND">05-06/IkeDiogu400.jpg</list>
+    <list sizes="1" team1="GS">05-06/IkeDiogu_400_060103.jpg</list>
+    <list sizes="1" team1="CLE">05-06/ilgauskas_400_060208.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI" team2="OS">05-06/iverson600.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI" team2="MIN">05-06/Iverson_400_051212.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI" team2="ATL">05-06/iverson_400_051216.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI" team2="WAS">05-06/iverson_400_051223.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/iverson_400_060212.jpg</list>
+    <list sizes="1" team1="PHI" name1="AI">05-06/iverson_400_060216.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI" team2="OS">05-06/iverson_600_051101.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI">05-06/iverson_600_051129.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI">05-06/Iverson_600_051201.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI">05-06/iverson_600_051221.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI" team2="DEN">05-06/iverson_600_051227.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI">05-06/iverson_600_060106.jpg</list>
+    <list sizes="2" team1="PHI" name1="AI">05-06/Iverson-Allen.jpg600.jpg</list>
+    <list sizes="1" team1="IND" team2="WAS">05-06/JACKSON_400_051208.jpg</list>
+    <list sizes="1" team1="LA" name1="MAS">05-06/jackson_400_060119.jpg</list>
+    <list sizes="1" team1="CLE" name1="James" team2="MIA" name2="Wade">05-06/james_400_051217.jpg</list>
+    <list sizes="1" team1="CLE" name1="James" team2="AS">05-06/james_400_060202.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/james_400_060213.jpg</list>
+    <list sizes="2" team1="CLE" name1="James" team2="ORL">05-06/James_600_051201.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/james_600_051203.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/james_600_060107.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/james_600_060112.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/james_600_060118.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/james_600_060120.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/jamesSingleton_400_060205.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/JamesssLeb600.jpg</list>
+    <list sizes="1" team1="WAS" team2="MIL">05-06/jamison_4_051202.jpg</list>
+    <list sizes="1" team1="WAS">05-06/Jamison_400_051230.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/JasnRic400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/JasonRich400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/JasonR_400_060103.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/Jason-Rich400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/Jason-Richardson400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/Jason-Richardsonn.jpg400.jpg</list>
+    <list sizes="1" team1="DAL" team2="SA">05-06/JasonTerry_400_051201.jpg</list>
+    <list sizes="1" team1="DAL">05-06/jasonterry_400_051216.jpg</list>
+    <list sizes="1" team1="MIA">05-06/Jason-Williams400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/jasoRichardson400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/JasRichardson400.jpg</list>
+    <list sizes="1" team1="ATL">05-06/JChildress_400_051214.jpg</list>
+    <list sizes="1" team1="ATL" team2="WAS">05-06/JChildress_400_060111.jpg</list>
+    <list sizes="1" team1="NY">05-06/JCrawford_400_060121.jpg</list>
+    <list sizes="1" team1="WAS">05-06/jefferiesJ400.jpg</list>
+    <list sizes="2" team1="NJ">05-06/Jefferson600.jpg</list>
+    <list sizes="2" team1="IND" name1="Joneal">05-06/JermaineOneal_600_051201.jpg</list>
+    <list sizes="1" team1="NY">05-06/Jerome-James400.jpg</list>
+    <list sizes="1" team1="DAL">05-06/JHoward_400_060207.jpg</list>
+    <list sizes="1" team1="ATL">05-06/JoeJohns400.jpg</list>
+    <list sizes="1" team1="HOU">05-06/JohnLucas_400_060114.jpg</list>
+    <list sizes="1" team1="IND" name1="Joneal">05-06/JOneal_400_051214.jpg</list>
+    <list sizes="1" team1="IND" name1="Joneal">05-06/JONeal_400_060111.jpg</list>
+    <list sizes="2" team1="IND" name1="Joneal">05-06/joneal_600_051202.jpg</list>
+    <list sizes="2" team1="IND" name1="Joneal">05-06/joneal_600_060109.jpg</list>
+    <list sizes="2" team1="IND" name1="Joneal" team2="WAS">05-06/joneal_600_060113.jpg</list>
+    <list sizes="2" team1="IND" name1="Joneal" team2="OS">05-06/joneal_600_060116.jpg</list>
+    <list sizes="2" team1="IND" name1="Joneal">05-06/joneal_600_060123.jpg</list>
+    <list sizes="1" team1="ATL">05-06/Jose-calderon400.jpg</list>
+    <list sizes="1" team1="ATL">05-06/JoshChildress_400_051227.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/JoshSmith_400_051204.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/JoshSMith_400_051227.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/JoshSmith_400_060103.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/JoshSmith_400_060120.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/joshsmith_400_060130.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/JoshSmith_400_060221.jpg</list>
+    <list sizes="1" team1="ATL" name1="Smith">05-06/jossmith400.jpg</list>
+    <list sizes="1" team1="TOR">05-06/JRose_400_060129.jpg</list>
+    <list sizes="1" team1="NY" team2="HOU" name2="Yao">05-06/JRose_400_060205.jpg</list>
+    <list sizes="2" team1="NY" team2="OS">05-06/JRose_600.jpg</list>
+    <list sizes="1" team1="NO">05-06/jrsmith_400_051223.jpg</list>
+    <list sizes="2" team1="LC" team2="OS">05-06/JSingleton_600_051211.jpg</list>
+    <list sizes="2" team1="SAC" team2="NJ">05-06/JSmith_600_060221.jpg</list>
+    <list sizes="1" team1="DAL" team2="TOR">05-06/JTerry_400_060106.jpg</list>
+    <list sizes="1" team1="NJ">05-06/JVaughn_400_060108.jpg</list>
+    <list sizes="1" team1="LA" team2="OS">05-06/Kareem.jpg400.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe" team2="OS">05-06/KB600.jpg</list>
+    <list sizes="1" team1="CHA">05-06/KBogans_400_060114.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kbryant_400_051223.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/KBT400.jpg</list>
+    <list sizes="1" team1="ORL" team2="CLE">05-06/KDooling_400_060221.jpg</list>
+    <list sizes="2" team1="CHA" team2="OS">05-06/KeithBogans_600_060118.jpg</list>
+    <list sizes="1" team1="SAC" team2="BOS">05-06/kendrickPerkins_400_060127.jpg</list>
+    <list sizes="1" team1="DEN">05-06/kenyon400.jpg</list>
+    <list sizes="2" team1="DEN">05-06/kenyonmartin_600_051203.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG" team2="MEM" name2="Gasol">05-06/Kevgar400.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG">05-06/Kevin-Garnett600.jpg</list>
+    <list sizes="1" team1="SAC">05-06/KevinMartin_400_060115.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/KG_400_060124.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG">05-06/KG_400_060208.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG" team2="WAS" name2="Arenas">05-06/KG_400_060221.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG">05-06/Kgarnett600.jpg</list>
+    <list sizes="1" team1="MIN" name1="KG" team2="OS">05-06/KG-Autograph400.jpg</list>
+    <list sizes="2" team1="MIN" name1="KG" team2="OS">05-06/KG-Powder600.jpg</list>
+    <list sizes="1" team1="CHI">05-06/KHin.jpg400.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47">05-06/Ki.jpg400.jpg</list>
+    <list sizes="1" team1="NJ" name1="Kidd">05-06/Kidd400.jpg</list>
+    <list sizes="2" team1="NJ" name1="Kidd" team2="PHI">05-06/Kidd600.jpg</list>
+    <list sizes="1" team1="NJ" name1="Kidd">05-06/kidd_400_051203.jpg</list>
+    <list sizes="2" team1="NJ" name1="Kidd" team2="OS">05-06/Kidd_600_051201.jpg</list>
+    <list sizes="1" team1="NJ" name1="Kidd" name2="Carter">05-06/KiddCarter_400_060118.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47">05-06/Kirile400.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47">05-06/Kirilenko_400_051129.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47" team2="OS">05-06/kirilenko_400_051201.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47">05-06/kirilenko_400_051212.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47">05-06/kirilenko_400_060121.jpg</list>
+    <list sizes="2" team1="UTA" name1="AK47">05-06/kirilenko_600_060203.jpg</list>
+    <list sizes="1" team1="UTA" name1="AK47">05-06/KirilenkoA400.jpg</list>
+    <list sizes="1" team1="PHI">05-06/KKorver_400_060124.jpg</list>
+    <list sizes="2" team1="PHI" team2="OS">05-06/KKorver_600_060118.jpg</list>
+    <list sizes="1" team1="DEN">05-06/KMartin_400_051231.jpg</list>
+    <list sizes="1" team1="DEN">05-06/KMartin_400_060114.jpg</list>
+    <list sizes="1" team1="DEN">05-06/KMartin_400_060120.jpg</list>
+    <list sizes="1" team1="DEN">05-06/KMartin_400_060127.jpg</list>
+    <list sizes="2" team1="CHA" team2="NO">05-06/KNIGHT_600_060102.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe1_400_051221.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe2_400_051221.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe3_400_051221.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe4_400_051221.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/kobe5_600_051221.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/kobe6_600_051221.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe" team2="OS">05-06/kobe7_600_051221.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe8_400_051221.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe_400_051204.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Kobe_400_051207.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe_400_060111.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="AS">05-06/Kobe_400_060202.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/kobe_400_060207.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="AS">05-06/kobe_400_060211.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/kobe_600_051129.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/kobe_600_051212.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/kobeB_400_060127.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/KobeBr600.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe">05-06/KobeBrya600.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/KoBEBryan.jpg400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/KOBEBRYANT_300_051216.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/KobeBryant_400_051201.jpg</list>
+    <list sizes="2" team1="LA" name1="Kobe" team2="OS">05-06/Kobe-Daughter400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="CLE" name2="James">05-06/kobeLebron600.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Kobe-Walk400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Kobry400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/KoBry.jpg400.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/Ko-Bryant400.jpg</list>
+    <list sizes="2" team1="PHI">05-06/korver_600_060113.jpg</list>
+    <list sizes="1" team1="NJ">05-06/krstic_400_060121.jpg</list>
+    <list sizes="1" team1="NO">05-06/KSnyder_400_060221.jpg</list>
+    <list sizes="1" team1="SAC">05-06/KThomas_400_060221.jpg</list>
+    <list sizes="1" team1="NO">05-06/kurtthomas_400_051216.jpg</list>
+    <list sizes="1" team1="LA">05-06/KwameB_400_060203.jpg</list>
+    <list sizes="1" team1="LA">05-06/kwameBrown_400_060129.jpg</list>
+    <list sizes="2" team1="PHI">05-06/KYLEKORVER_600_060113.jpg</list>
+    <list sizes="1" team1="LA">05-06/LALHuddle_400_060127.jpg</list>
+    <list sizes="1" team1="LA" team2="OS">05-06/LamarOd600.jpg</list>
+    <list sizes="1" team1="DET" name1="MAS" name2="Billups">05-06/LBrown_400_051202.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/Lebr400.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/LebroJam600.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/lebron1_600_051222.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/lebron_400_060216.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/Lebronj_400_060202.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LeBronJ_400_060211.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LeBronJames_400_060115.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/lebronjames_400_060130.jpg</list>
+    <list sizes="1" team1="CLE" name1="James" team2="AS">05-06/LebronJames_400_060202.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/lebronjames_600_051203.jpg</list>
+    <list sizes="2" team1="CLE" name1="James" team2="MIN">05-06/LeBronJames_600_060208.jpg</list>
+    <list sizes="2" team1="CLE" name1="James" team2="DEN" name2="Anthony">05-06/Lebron-melo600.jpg</list>
+    <list sizes="1" team1="CLE" name1="James" team2="HOU" name2="Tmac">05-06/Lebron-TMAC400.jpg</list>
+    <list sizes="1" team1="CLE" name1="James" team2="MIA" name2="Wade">05-06/lebronwade_400_060202.jpg</list>
+    <list sizes="1" team1="HOU">05-06/LHead_400_060120.jpg</list>
+    <list sizes="1" team1="CLE">05-06/LHughes_400_051213.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LJ_400_051213.jpg</list>
+    <list sizes="1" team1="CLE" name1="James" team2="OS">05-06/lj_400_060129.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/LJames600.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LJames_400_051203.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LJames_400_051209.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LJames_400_051223.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/ljames_400_060105.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LJames_400_060121.jpg</list>
+    <list sizes="1" team1="CLE" name1="James">05-06/LJames_400_060129.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/LJames_600_051231.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/LJames_600_060115.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/ljames_600_060206.jpg</list>
+    <list sizes="1" team1="NOT" name1="James">05-06/Lor%20WRIGHT400.jpg</list>
+    <list sizes="1" team1="CHI" team2="OS">05-06/LuolDeng_400_051208.jpg</list>
+    <list sizes="2" team1="HOU" name1="Yao" team2="AS" name2="Tmac">05-06/macMing_600_060203.jpg</list>
+    <list sizes="1" team1="MIN">05-06/madsen_400_060213.jpg</list>
+    <list sizes="1" team1="POR">05-06/maggette_400_051205.jpg</list>
+    <list sizes="1" team1="MIL">05-06/magloire_400_060127.jpg</list>
+    <list sizes="2" team1="MIL" team2="CHA">05-06/magloire_400_060211.jpg</list>
+    <list sizes="1" team1="CHI">05-06/MalikAllen_400_060131.jpg</list>
+    <list sizes="2" team1="SA" name1="Ginobili" team2="BOS">05-06/manu_600_051209.jpg</list>
+    <list sizes="2" team1="SA" name1="Ginobili" team2="OS">05-06/manu_600_051227.jpg</list>
+    <list sizes="1" team1="SA" name1="Ginobili" name2="Duncan">05-06/manuTD_400_060114.jpg</list>
+    <list sizes="1" team1="NY">05-06/marbury_400_051223.jpg</list>
+    <list sizes="1" team1="NY">05-06/marbury_400_060102.jpg</list>
+    <list sizes="1" team1="NY">05-06/marbury_400_060110.jpg</list>
+    <list sizes="1" team1="DEN">05-06/MarCamby.jpg400.jpg</list>
+    <list sizes="1" team1="MIN">05-06/MarcusBankS_400_060211.jpg</list>
+    <list sizes="2" team1="MIN" team2="OS">05-06/MarcusBanks_600_060203.jpg</list>
+    <list sizes="1" team1="DEN">05-06/Marcus-Camby400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/Marion_40_051201.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/Marion_400_051209.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/marion_400_051214.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/marion_600_051019.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/marion_600_051216.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/marion_600_060110.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/marion_600_060122.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/marion_600_060124.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/marion_600_060126.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion" team2="OS">05-06/MarionFoxx_400_060115.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/MarionHouse_400_060120.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion" team2="Nash">05-06/MarionNash_600_051231.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion" team2="IND" name2="Joneal">05-06/marion-oneal400.jpg</list>
+    <list sizes="1" team1="MIN" team2="OS">05-06/Mark-Blount400.jpg</list>
+    <list sizes="1" team1="POR" team2="DAL">05-06/MartellWebster_400_060103.jpg</list>
+    <list sizes="1" team1="DEN">05-06/martin_400_051216.jpg</list>
+    <list sizes="1" team1="ATL">05-06/marvinwilliams_400_060123.jpg</list>
+    <list sizes="1" team1="PHI" team2="OT">05-06/mascot_400_060118.jpg</list>
+    <list sizes="2" team1="PHI" team2="OT">05-06/mascot_600_060120.jpg</list>
+    <list sizes="2" team1="UTA" team2="OT">05-06/mascot_600_060121.jpg</list>
+    <list sizes="1" team1="UTA" team2="HOU">05-06/MattHarpring_400_060211.jpg</list>
+    <list sizes="1" team1="SAC" team2="PHI">05-06/MBibby_400_060103.jpg</list>
+    <list sizes="1" team1="SAC" name1="Biby">05-06/MBibby_400_060115.jpg</list>
+    <list sizes="1" team1="MIN">05-06/McCants_400_051205.jpg</list>
+    <list sizes="2" team1="OT">05-06/mcCray_600_060213.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac" team2="PHO" name2="Marion">05-06/mcgrady_400_060216.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/mcgrady_600_051115.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/mcgrady_600_051211.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/mcgrady_600_051217.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/mcgrady_600_051231.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/mcgrady_600_060106.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/McGradyT400.jpg</list>
+    <list sizes="1" team1="UTA" team2="NJ">05-06/mcleod_400_060123.jpg</list>
+    <list sizes="1" team1="SEA" name1="Allen" team2="OS">05-06/mcmillian_400_060130.jpg</list>
+    <list sizes="2" team1="UTA">05-06/mehmetokur_600_060206.jpg</list>
+    <list sizes="1" team1="DEN" name1="Anthony">05-06/melo400.jpg</list>
+    <list sizes="2" team1="CLE" name1="James">05-06/melo-lebron600.jpg</list>
+    <list sizes="1" team1="SA" team2="CHA">05-06/MEly_400_060124.jpg</list>
+    <list sizes="2" team1="NJ">05-06/MEly_600_051207.jpg</list>
+    <list sizes="2" team1="OS" team2="MEM">05-06/memphisgrizzlies_600_051212.jpg</list>
+    <list sizes="2" team1="OS" team2="MEM">05-06/memphisgrizzlies_600_060202.jpg</list>
+    <list sizes="1" team1="OS">05-06/MHarpring_400_060203.jpg</list>
+    <list sizes="1" team1="MIL">05-06/MichaelRedd_400_060102.jpg</list>
+    <list sizes="1" team1="CHA" name1="MAS">05-06/MikDunle400.jpg</list>
+    <list sizes="1" team1="MEM" team2="HOU" name2="Yao">05-06/mikemiller_400_060130.jpg</list>
+    <list sizes="1" team1="MEM">05-06/miller_400_060113.jpg</list>
+    <list sizes="2" team1="MEM">05-06/miller_600_051228.jpg</list>
+    <list sizes="2" team1="SAC">05-06/miller_600_060119.jpg</list>
+    <list sizes="1" team1="HOU" name1="Yao" team2="LA" name2="Kobe">05-06/ming_400_060208.jpg</list>
+    <list sizes="1" team1="HOU" name1="Yao">05-06/Ming_400_060211.jpg</list>
+    <list sizes="1" team1="HOU" name1="Yao">05-06/ming_400_060214.jpg</list>
+    <list sizes="1" team1="TOR" team2="HOU" name2="Tmac">05-06/MJames_400_060106.jpg</list>
+    <list sizes="1" team1="TOR" team2="MEM">05-06/MJames_400_060221.jpg</list>
+    <list sizes="1" team1="MIN">05-06/MJaric_400_051204.jpg</list>
+    <list sizes="2" team1="MIN" team2="OS">05-06/MJaric_600_060124.jpg</list>
+    <list sizes="1" team1="MEM">05-06/MMiller2_400_051214.jpg</list>
+    <list sizes="1" team1="SEA">05-06/MMoore400.jpg</list>
+    <list sizes="1" team1="LC">05-06/Mobley_400_051201.jpg</list>
+    <list sizes="1" team1="LC">05-06/mobley_400_051220.jpg</list>
+    <list sizes="1" team1="LC" team2="OS">05-06/MobleyArrival400.jpg</list>
+    <list sizes="2" team1="NOT" team2="OS">05-06/mocheeks_600_051228.jpg</list>
+    <list sizes="2" team1="MIL" team2="OS">05-06/Mo-williams.jpg600.jpg</list>
+    <list sizes="1" team1="TOR">05-06/MPeterson_400_060203.jpg</list>
+    <list sizes="1" team1="TOR">05-06/MPeterson_400_060205.jpg</list>
+    <list sizes="2" team1="MIL">05-06/MRedd600.jpg</list>
+    <list sizes="1" team1="GS">05-06/murphy_400_060123.jpg</list>
+    <list sizes="1" team1="GS">05-06/murphy_400_060128.jpg</list>
+    <list sizes="1" team1="SEA">05-06/Murray_400_060102.jpg</list>
+    <list sizes="1" team1="MIL">05-06/MWilliams_400_051202.jpg</list>
+    <list sizes="1" team1="ATL">05-06/MWilliams_400_060207.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/nas400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/Nash_400_051201.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/nash_400_051212.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/Nash_400_051223.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash" team2="PHI" name2="AI">05-06/nash_400_060105.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/nash_400_060129.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash" team2="AS">05-06/Nash_400_060202.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/nash_400_060206.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/nash_400_060208.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash">05-06/nash_600_051003.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash">05-06/nash_600_051110.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash">05-06/nash_600_051228.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash">05-06/nash_600_060118.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash">05-06/nash_600_060124.jpg</list>
+    <list sizes="1" team1="NY">05-06/NateR400.jpg</list>
+    <list sizes="1" team1="NY">05-06/Nate-Robin400.jpg</list>
+    <list sizes="1" team1="CHI">05-06/nocioni_400_051217.jpg</list>
+    <list sizes="1" team1="CHI">05-06/nocioni_400_060216.jpg</list>
+    <list sizes="2" team1="CHI">05-06/nocioni_600_060128.jpg</list>
+    <list sizes="2" team1="DAL" name1="Nowitzki">05-06/Nowitzki600.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/nowitzki_400_051203.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/nowitzki_400_051222.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/Nowitzki_400_051223.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/nowitzki_400_060105.jpg</list>
+    <list sizes="1" team1="DAL" name1="Nowitzki">05-06/nowitzki_400_060128.jpg</list>
+    <list sizes="2" team1="DAL" name1="Nowitzki">05-06/nowitzki_600_051125.jpg</list>
+    <list sizes="2" team1="DAL" name1="Nowitzki">05-06/nowitzki_600_051222.jpg</list>
+    <list sizes="2" team1="DAL" name1="Nowitzki">05-06/nowitzki_600_060111.jpg</list>
+    <list sizes="2" team1="DAL" name1="Nowitzki">05-06/nowitzki_600_060116.jpg</list>
+    <list sizes="2" team1="DAL" name1="Nowitzki">05-06/nowitzki_600_060120b.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe">05-06/ObeBrya400.jpg</list>
+    <list sizes="1" team1="CHA">05-06/okafor_400_051202.jpg</list>
+    <list sizes="1" team1="UTA" team2="OS">05-06/okur_400_051204.jpg</list>
+    <list sizes="1" team1="UTA">05-06/okur_400_060205.jpg</list>
+    <list sizes="1" team1="IND" name1="Joneal">05-06/Oneal_400_051201.jpg</list>
+    <list sizes="1" team1="IND" name1="Joneal">05-06/onealhaywood2_400_060113.jpg</list>
+    <list sizes="1" team1="IND" name1="Joneal">05-06/OnealJ.jpg400.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/ONeal-Shaq400.jpg</list>
+    <list sizes="2" team1="ORL">05-06/OrlandoTeam_600_060115.jpg</list>
+    <list sizes="1" team1="IND">05-06/pacers_400_051217.jpg</list>
+    <list sizes="2" team1="IND">05-06/pacers_600_060131.jpg</list>
+    <list sizes="1" team1="ATL" team2="HOU" name2="Yao">05-06/Pachulia_400_051129.jpg</list>
+    <list sizes="1" team1="ATL">05-06/pachulia_400_060116.jpg</list>
+    <list sizes="1" team1="ATL">05-06/Pachulia_400_060120.jpg</list>
+    <list sizes="1" team1="ATL" team2="OS">05-06/pachulia_400_060127.jpg</list>
+    <list sizes="1" team1="UTA">05-06/palaciomil400.jpg</list>
+    <list sizes="1" team1="SA" name1="Parker">05-06/parker_400_051201.jpg</list>
+    <list sizes="1" team1="LA" name1="Parker">05-06/parker_400_060101.jpg</list>
+    <list sizes="2" team1="SA" name1="Parker">05-06/parker_600_051123.jpg</list>
+    <list sizes="2" team1="SA" name1="Parker">05-06/parker_600_051228.jpg</list>
+    <list sizes="2" team1="SA" name1="Parker">05-06/parker_600_051229.jpg</list>
+    <list sizes="2" team1="SA" name1="Parker">05-06/parker_600_060106.jpg</list>
+    <list sizes="2" team1="SA" name1="Parker">05-06/parker_600_060110.jpg</list>
+    <list sizes="1" team1="MIA" name1="MAS">05-06/Pat-Riley400.jpg</list>
+    <list sizes="2" team1="MIA" name1="MAS">05-06/patriley_600_051212.jpg</list>
+    <list sizes="2" team1="POR">05-06/patterson_600_060213.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/Pau400.jpg</list>
+    <list sizes="2" team1="MEM" name1="Gasol" team2="OS">05-06/Pau-calderon600.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/paul_400_051203.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/paul_400_060102.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/paul_400_060113.jpg</list>
+    <list sizes="1" team1="NO" name1="Paul">05-06/Paul-chris400.jpg</list>
+    <list sizes="1" team1="CLE">05-06/Pavolic400.jpg</list>
+    <list sizes="1" team1="MIA">05-06/payton_400_060101.jpg</list>
+    <list sizes="2" team1="MIA">05-06/Payton-Nate600.jpg</list>
+    <list sizes="1" team1="SAC">05-06/peja_400_051211.jpg</list>
+    <list sizes="1" team1="IND">05-06/Peja_400_060131.jpg</list>
+    <list sizes="2" team1="IND" team2="OS">05-06/peja_600_060127.jpg</list>
+    <list sizes="1" team1="BOS">05-06/Perkenderick400.jpg</list>
+    <list sizes="1" team1="IND">05-06/peter1_400_060116.jpg</list>
+    <list sizes="1" team1="POR">05-06/Peterson_400_051201.jpg</list>
+    <list sizes="1" team1="TOR">05-06/peterson_400_060105.jpg</list>
+    <list sizes="1" team1="POR">05-06/Petersonmor.jpg400.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol" team2="GS">05-06/pgasol_400_060213.jpg</list>
+    <list sizes="1" team1="BOS" name1="Pierce">05-06/Pierce400.jpg</list>
+    <list sizes="1" team1="BOS" name1="Pierce">05-06/pierce_400_060206.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/pierce_600_051204.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/pierce_600_051228.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/PIERCE_600_060113.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/pierce_600_060120.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/pierce_600_060127.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/pierce_600_060204.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce" team2="NO">05-06/pierceBrown_600_060123.jpg</list>
+    <list sizes="1" team1="BOS" name1="Pierce" team2="NO">05-06/piercemason_400_060123.jpg</list>
+    <list sizes="2" team1="BOS" name1="Pierce">05-06/PiercePaull.jpg600.jpg</list>
+    <list sizes="2" team1="LA" team2="OS">05-06/Pippen_600_051209.jpg</list>
+    <list sizes="1" team1="NO">05-06/PJBrwn400.jpg</list>
+    <list sizes="1" team1="SEA" team2="PHO">05-06/potapenko_400_051220.jpg</list>
+    <list sizes="1" team1="CHA">05-06/prezec_400_051213.jpg</list>
+    <list sizes="1" team1="MEM" name1="Gasol">05-06/Psol400.jpg</list>
+    <list sizes="1" team1="NY">05-06/QR_400_051204.jpg</list>
+    <list sizes="1" team1="NY">05-06/QRichardson_400_060127.jpg</list>
+    <list sizes="1" team1="NY">05-06/QRichardson_400_060207.jpg</list>
+    <list sizes="1" team1="HOU">05-06/Rafer-Alston400.jpg</list>
+    <list sizes="1" team1="SEA" name1="Allen">05-06/RAllen_400_060108.jpg</list>
+    <list sizes="1" team1="SEA" name1="Allen">05-06/RAllen_400_060221.jpg</list>
+    <list sizes="2" team1="SEA" name1="Allen">05-06/rallen_600_051206.jpg</list>
+    <list sizes="2" team1="SEA" name1="Allen">05-06/rallen_600_051210.jpg</list>
+    <list sizes="2" team1="SEA" name1="Allen">05-06/rallen_600_051229.jpg</list>
+    <list sizes="2" team1="SEA" name1="Allen">05-06/rallen_600_051231.jpg</list>
+    <list sizes="2" team1="SEA" name1="Allen">05-06/rallen_600_060108.jpg</list>
+    <list sizes="2" team1="TOR" team2="OT">05-06/raptor_600_051216.jpg</list>
+    <list sizes="1" team1="SAC" name1="Artest">05-06/RArtest_400_060203.jpg</list>
+    <list sizes="1" team1="SAC" name1="Artest">05-06/RArtest_400_060205.jpg</list>
+    <list sizes="2" team1="SAC" name1="Artest">05-06/RArtest_600_060127.jpg</list>
+    <list sizes="2" team1="SAC" name1="Artest" team2="OS">05-06/RArtest_600_060131.jpg</list>
+    <list sizes="1" team1="SEA">05-06/Rashard-Lewis400.jpg</list>
+    <list sizes="2" team1="DET" name1="Wallace" team2="OS">05-06/rasheedwallace_600_060128.jpg</list>
+    <list sizes="1" team1="POR">05-06/Ratliff_400_060103.jpg</list>
+    <list sizes="1" team1="ORL">05-06/rawiemarshall_400_060116.jpg</list>
+    <list sizes="1" team1="CHA">05-06/RayFeton400.jpg</list>
+    <list sizes="2" team1="POR">05-06/raymondfelton_600_060116.jpg</list>
+    <list sizes="1" team1="BOS">05-06/RDavis_400_051207.jpg</list>
+    <list sizes="1" team1="MIN">05-06/RDavis_400_060127.jpg</list>
+    <list sizes="2" team1="B0S">05-06/RDAvis_600_051209.jpg</list>
+    <list sizes="2" team1="WAS" team2="OT">05-06/Referee600.jpg</list>
+    <list sizes="1" team1="DET" name1="Hamilton">05-06/RH_400_060214.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/Ric400.jpg</list>
+    <list sizes="2" team1="DET" name1="Hamilton">05-06/RiChardHam600.jpg</list>
+    <list sizes="1" team1="DET" name1="Hamilton">05-06/Richard-Ham400.jpg</list>
+    <list sizes="1" team1="GS" name1="Richardson">05-06/richardson_400_060210.jpg</list>
+    <list sizes="1" team1="PHO" name1="MAS">05-06/Rick-Adelman400.jpg</list>
+    <list sizes="1" team1="NOT" name1="MAS">05-06/Rick-Carlisle400.jpg</list>
+    <list sizes="1" team1="MIN">05-06/RickyDa400.jpg</list>
+    <list sizes="1" team1="MIN">05-06/rickydavis_400_051228.jpg</list>
+    <list sizes="1" team1="MIN">05-06/rickydavis_400_060128.jpg</list>
+    <list sizes="1" team1="MIN">05-06/rickydavis_400_060130.jpg</list>
+    <list sizes="1" team1="MIN">05-06/RiDavis400.jpg</list>
+    <list sizes="1" team1="SEA">05-06/ridnour_400_060116.jpg</list>
+    <list sizes="2" team1="MIA" name1="MAS">05-06/Riley_600_051217.jpg</list>
+    <list sizes="1" team1="NJ">05-06/RJefferson_400_060121.jpg</list>
+    <list sizes="1" team1="SEA" team2="HOU" name2="Tmac">05-06/RLewis_400_060203.jpg</list>
+    <list sizes="1" team1="SA">05-06/Robert-Horry400.jpg</list>
+    <list sizes="1" team1="SEA">05-06/RobertSwift_400_060214.jpg</list>
+    <list sizes="1" team1="NY" name1="Robinson">05-06/robinson_400_060116.jpg</list>
+    <list sizes="1" team1="NY" name1="Robinson">05-06/robinson_400_060128.jpg</list>
+    <list sizes="1" team1="CHA">05-06/ROBINSON_400_060206.jpg</list>
+    <list sizes="1" team1="NY" name1="Robinson">05-06/ROBINSON_400_060213.jpg</list>
+    <list sizes="2" team1="NY" name1="Robinson">05-06/robinson_600_060119.jpg</list>
+    <list sizes="2" team1="OT">05-06/Robinson-willis600.jpg</list>
+    <list sizes="2" team1="DEN" team2="OT">05-06/rocky_600_060105.jpg</list>
+    <list sizes="1" team1="SEA">05-06/Ronald-Murray400.jpg</list>
+    <list sizes="2" team1="POR">05-06/RPatterson_600_051204.jpg</list>
+    <list sizes="1" team1="CHA">05-06/rush_400_060210.jpg</list>
+    <list sizes="2" team1="OT">05-06/russell_600_060116.jpg</list>
+    <list sizes="2" team1="OT">05-06/Rusty-Jay-Z600.jpg</list>
+    <list sizes="2" team1="DET" name1="Wallace">05-06/rwallace_600_051119.jpg</list>
+    <list sizes="2" team1="DET" name1="Wallace">05-06/rwallace_600_051209.jpg</list>
+    <list sizes="2" team1="DET" name1="Wallace">05-06/rwallace_600_060106.jpg</list>
+    <list sizes="2" team1="DET" name1="Wallace">05-06/rwallace_600_060112.jpg</list>
+    <list sizes="2" team1="DET" name1="Wallace">05-06/rwallace_600_060124.jpg</list>
+    <list sizes="2" team1="SAC" team2="OS">05-06/Sacra600.jpg</list>
+    <list sizes="1" team1="PHI" team2="PHO">05-06/salmons_400_060131.jpg</list>
+    <list sizes="2" team1="OT">05-06/Santa600.jpg</list>
+    <list sizes="2" team1="LC">05-06/SCEB_600_060207.jpg</list>
+    <list sizes="2" team1="OT" team2="LA">05-06/Scoreboard600.jpg</list>
+    <list sizes="2" team1="OT" team2="NOT">05-06/Seam-May600.jpg</list>
+    <list sizes="1" team1="CHA">05-06/SeanMay_400_051217.jpg</list>
+    <list sizes="1" team1="ORL" name1="Francis">05-06/SFrancis_400_051214.jpg</list>
+    <list sizes="2" team1="ORL" name1="Francis">05-06/SFrancis_600_060121.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal" team2="OS">05-06/shaq_400_051214.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/shaq_400_051220.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/shaq_400_060105.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/shaq_400_060106.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal" team2="OS">05-06/shaq_400_060108.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/Shaq_400_060129.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/shaq_400_060130.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal" team2="AS">05-06/Shaq_400_060208.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal">05-06/shaq_600_051003.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal" team2="OS">05-06/shaq_600_051203.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal">05-06/shaq_600_051216.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal">05-06/shaq_600_051220.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal">05-06/shaq_600_060114.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal" team2="LA" name2="Kobe">05-06/shaq_600_060116.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal" team2="OS">05-06/shaqholiday_600_051222.jpg</list>
+    <list sizes="1" team1="MIA" name1="Oneal">05-06/Shaqui400.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal" team2="AS" name2="Wade">05-06/SHAQWADE_600_060202.jpg</list>
+    <list sizes="1" team1="SAC" name1="Oneal">05-06/shareef_400_051213.jpg</list>
+    <list sizes="1" team1="SAC" name1="Oneal" team2="OS">05-06/shareef_400_051217.jpg</list>
+    <list sizes="1" team1="OT">05-06/Shaun-White400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/ShawMarion400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/Shawmion400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/ShMarion400.jpg</list>
+    <list sizes="1" team1="IND">05-06/SJackson_400_051227.jpg</list>
+    <list sizes="1" team1="IND">05-06/SJax_400_060124.jpg</list>
+    <list sizes="1" team1="LC">05-06/SLivingston_400_051214.jpg</list>
+    <list sizes="1" team1="NY">05-06/SMarbury_400_060108.jpg</list>
+    <list sizes="1" team1="PHO" name1="Marion">05-06/sMarion400.jpg</list>
+    <list sizes="2" team1="PHO" name1="Marion">05-06/SMarion_600_060118.jpg</list>
+    <list sizes="1" team1="LA">05-06/smushParker400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/SNash_400_051214.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash">05-06/SNAsh_400_060131.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash">05-06/SNash_600_051230.jpg</list>
+    <list sizes="1" team1="NO">05-06/SpeedyClaxt400.jpg</list>
+    <list sizes="1" team1="DAL">05-06/Stackho400.jpg</list>
+    <list sizes="1" team1="DAL">05-06/Stackhousej.jpg400.jpg</list>
+    <list sizes="2" team1="POR">05-06/SteBlake600.jpg</list>
+    <list sizes="2" team1="NY">05-06/stephmar-warm600.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash" team2="AS">05-06/SteveJAcket.jpg400.jpg</list>
+    <list sizes="1" team1="PHO" name1="Nash" team2="AS">05-06/SteveNash_400_060202.jpg</list>
+    <list sizes="2" team1="ORL" team2="CHA">05-06/stevenson_600_060120.jpg</list>
+    <list sizes="2" team1="ORL">05-06/Stevenson-D600.jpg</list>
+    <list sizes="1" team1="ORL" name1="Francis">05-06/Stev-Franc400.jpg</list>
+    <list sizes="1" team1="SAC">05-06/stojakovic_400_060119.jpg</list>
+    <list sizes="1" team1="MEM">05-06/Stoudamire_400_051201.jpg</list>
+    <list sizes="1" team1="HOU" team2="LA">05-06/StromSwift400.jpg</list>
+    <list sizes="2" team1="PHO" name1="Nash" team2="OS">05-06/Suns-Holiday600.jpg</list>
+    <list sizes="1" team1="PHO">05-06/suns-huddle_060124.jpg</list>
+    <list sizes="2" team1="CHI" team2="CLE" name2="James">05-06/sweetney-james_600_051222.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan" team2="OS">05-06/TD_600_051207.jpg</list>
+    <list sizes="2" team1="SA" name1="Duncan" team2="OS">05-06/TD_600_060118.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan" team2="AS">05-06/tduncan_400_060210.jpg</list>
+    <list sizes="1" team1="POR">05-06/telfair_400_060221.jpg</list>
+    <list sizes="1" team1="MIN">05-06/THassell_400_060203.jpg</list>
+    <list sizes="1" team1="WAS">05-06/THOMAS_400_051208.jpg</list>
+    <list sizes="1" team1="SAC">05-06/thomas_400_060119.jpg</list>
+    <list sizes="1" team1="SAC">05-06/Thomas_400_060212.jpg</list>
+    <list sizes="2" team1="SAC">05-06/Thomas_600_051222.jpg</list>
+    <list sizes="1" team1="MIN">05-06/THudson_400_060118.jpg</list>
+    <list sizes="1" team1="SA" name1="Duncan" team2="ORL">05-06/timduncan_400_051205.jpg</list>
+    <list sizes="1" team1="SA" team2="MIL">05-06/TJFord_400_051220.jpg</list>
+    <list sizes="2" team1="MIL" team2="NJ">05-06/TJFORD_600_051201.jpg</list>
+    <list sizes="2" team1="ALT">05-06/TLue_600_051213.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac">05-06/TMAC_400_051217.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac">05-06/TMac_400_060108.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac">05-06/tmac_400_060214.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/TMAc_600_060203.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac" team2="OS">05-06/tmacholiday_400_051222.jpg</list>
+    <list sizes="1" team1="SA" name1="Parker">05-06/TonyPark400.jpg</list>
+    <list sizes="1" team1="SA" name1="Parker">05-06/tonyparker400.jpg</list>
+    <list sizes="1" team1="TOR" team2="OT">05-06/TorontoMascot_400_060208.jpg</list>
+    <list sizes="1" team1="NOT" team2="OS">05-06/TOutlaw_400_051211.jpg</list>
+    <list sizes="1" team1="SA" name1="Parker">05-06/TParker_400_060106.jpg</list>
+    <list sizes="1" team1="SA" name1="Parker" team2="TOR">05-06/TParker_400_060208.jpg</list>
+    <list sizes="2" team1="SA" name1="Parker" team2="OS">05-06/TParker_600_051213.jpg</list>
+    <list sizes="1" team1="DET" team2="LC">05-06/TPrince_400_051211.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac" team2="OS">05-06/Tracy-Holiday600.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac">05-06/TracyMac400.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac" team2="OS">05-06/TracyMac.jpg600.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac">05-06/Tracy-McGrady400.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac">05-06/tracymcgrady_400_051208.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac" team2="AS">05-06/tracymcgrady_400_060202.jpg</list>
+    <list sizes="2" team1="HOU" name1="Tmac">05-06/TraMcGra600.jpg</list>
+    <list sizes="1" team1="HOU" name1="Tmac" team2="OS">05-06/TrMcGrady400.jpg</list>
+    <list sizes="1" team1="ORL" team2="SAC">05-06/turkoglu_400_060121.jpg</list>
+    <list sizes="1" team1="CHI">05-06/TysonChand.jpg400.jpg</list>
+    <list sizes="1" team1="DAL">05-06/van-horn400.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/VCarter_400_051207.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter" team2="OS">05-06/VCarter_400_051209.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/VCarter_400_051227.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/VCarter_400_060114.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/VCarter_400_060120.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/VCarter_600_060108.jpg</list>
+    <list sizes="1" team1="TOR">05-06/villanueva_400_051228.jpg</list>
+    <list sizes="2" team1="TOR" team2="OS">05-06/Villanueva_600_060213.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/Vincarter.jpg400.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/Vinccarter_Updated_400.jpg</list>
+    <list sizes="1" team1="NJ" name1="Carter">05-06/vince_400_060206.jpg</list>
+    <list sizes="2" team1="NJ" name1="Carter">05-06/VinceCarter_600_051201.jpg</list>
+    <list sizes="2" team1="SEA" team2="OS">05-06/VladamirR600.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade" team2="HOU" name2="Yao">05-06/Wade_400_051201.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/wade_400_051205.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/wade_400_051223.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/WADE_400_051227.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/wade_400_060116.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/WAde_400_060120.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/wade_400_060130.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade" team2="AS">05-06/Wade_400_060202.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/wade_400_060214.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade">05-06/wade_600_051024.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade">05-06/wade_600_051027.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade">05-06/wade_600_051203.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade">05-06/wade_600_051223.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade">05-06/wade_600_060111.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade" team2="HOU">05-06/wade_600_060129.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade" team2="AS">05-06/Wade_600_060202.jpg</list>
+    <list sizes="2" team1="MIA" name1="Wade">05-06/wadewinner_600_060212.jpg</list>
+    <list sizes="1" team1="MIA" name1="Wade">05-06/Wadwayne400.jpg</list>
+    <list sizes="1" team1="DET" name1="Wallace">05-06/Wal400.jpg</list>
+    <list sizes="2" team1="MIA">05-06/walker600.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/Wallace_400_051223.jpg</list>
+    <list sizes="2" team1="BOS">05-06/WallSz600.jpg</list>
+    <list sizes="1" team1="MIN">05-06/wallysz400.jpg</list>
+    <list sizes="1" team1="BOS">05-06/WallySzczerbiak_400_060130.jpg</list>
+    <list sizes="1" team1="UTA" team2="LA">05-06/walton_400_051201.jpg</list>
+    <list sizes="1" team1="MEM">05-06/warrick_400_060110.jpg</list>
+    <list sizes="2" team1="WAS" team2="OS">05-06/Washington.jpg600.jpg</list>
+    <list sizes="1" team1="PHI">05-06/webberiguodala_400_060113.jpg</list>
+    <list sizes="1" team1="HOU">05-06/wesley_400_051208.jpg</list>
+    <list sizes="1" team1="HOU">05-06/wesley_400_060216.jpg</list>
+    <list sizes="2" team1="NO">05-06/west%20gallery600.jpg</list>
+    <list sizes="1" team1="NO">05-06/West_400_051201.jpg</list>
+    <list sizes="2" team1="BOS">05-06/west_600_060110.jpg</list>
+    <list sizes="1" team1="LC">05-06/Wilcox_400_051213.jpg</list>
+    <list sizes="1" team1="LC">05-06/wilcox_400_060128.jpg</list>
+    <list sizes="2" team1="OT">05-06/Wilikns600.jpg</list>
+    <list sizes="1" team1="NOT">05-06/WillConroy_400_060115.jpg</list>
+    <list sizes="1" team1="MIA">05-06/williams_400_051205.jpg</list>
+    <list sizes="1" team1="MIN">05-06/WSzczerbiak_400_060111.jpg</list>
+    <list sizes="1" team1="BOS">05-06/WSzczerbiak_400_060127.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="OS">05-06/xmas_bryant_400_051225.jpg</list>
+    <list sizes="1" team1="LA" name1="Kobe" team2="MIA" name2="Wade">05-06/xmas_bryant_wade_400_051225.jpg</list>
+    <list sizes="1" team1="DET" name1="Ben">05-06/xmas_bwallace_400_051225.jpg</list>
+    <list sizes="1" team1="DET" name1="Wallace" team2="SA" name2="Duncan">05-06/xmas_duncan_400_051225.jpg</list>
+    <list sizes="2" team1="LA" name1="MAS" team2="MIA">05-06/xmas_jackson_riley_600_0512.jpg</list>
+    <list sizes="1" team1="DET">05-06/xmas_mcdyess_400_051225.jpg</list>
+    <list sizes="2" team1="MIA" name1="Oneal" team2="LA" name2="Kobe">05-06/xmas_oneal_600_051225.jpg</list>
+    <list sizes="2" team1="MIA" team2="LA" name2="Kobe">05-06/xmas_payton_bryant_600_0512.jpg</list>
+    <list sizes="1" team1="HOU" name1="Yao">05-06/YaMing400.jpg</list>
+    <list sizes="2" team1="HOU" name1="Yao">05-06/yao_600_051102.jpg</list>
+    <list sizes="2" team1="HOU" name1="Yao">05-06/yao_600_051110.jpg</list>
+    <list sizes="2" team1="HOU" name1="Yao" team2="IND" name2="Joneal">05-06/yao_600_051120.jpg</list>
+    <list sizes="2" team1="HOU" name1="Yao">05-06/yao_600_051208.jpg</list>
+    <list sizes="2" team1="HOU" name1="Yao">05-06/yao_600_051211.jpg</list>
+    <list sizes="1" team1="HOU" name1="Yao" team2="AS">05-06/yaoming_400_060202.jpg</list>
+    <list sizes="1" team1="POR" team2="OS">05-06/zachR_400_060208.jpg</list>
+    <list sizes="1" team1="POR">05-06/ZaRand400.jpg</list>
+    <list sizes="1" team1="MIA">05-06/zo_400_051213.jpg</list>
+    <list sizes="1" team1="MIA">05-06/Zo_400_051217.jpg</list>
+  </imgList>
+  </imgList>

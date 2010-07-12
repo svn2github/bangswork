@@ -1,0 +1,58 @@
+获取日期  提取年月
+读取路径文件——
+	路径存在：读取路径 载入XML  
+	路径不存在： 
+	是否选择XML——  
+		是：创建一个路径文件 路径指向选择的XML 
+		否：创建一个路径文件 路径指向document/myAccount/account.xml
+		初始化account.xml  
+			
+				
+打开account.xml用 FileMode.READ
+判断格式是否正确
+	是：继续
+	否：提示，是否创建新的xml
+判断此年月是否存在数据——
+	①存在：获取数据
+	
+	②不存在：
+	判断month-1是否存在：
+		存在：
+			大于0
+				大于0：book+=
+					获取<month={month-1}>里<bank><burse><spend>到对应的<month={month}>
+					转到①
+					
+				等于0：account+=
+				  
+		不存在：提示日期是否错误
+			是：重新判断
+			否：years中{year}是否存在
+				是：加<months month={month}></months>
+				否：加<years year={year}></years>
+
+界面：
+	读取：读取另外一个XML文件，并保存路径到路径文件
+	备份：另存为当前XML文件
+	
+	显示：
+		第 costMonth 月共花（可选月份）
+		共存钱：所有store之和
+		共花钱：所有cost之和
+		花在 item 的钱：所有<cost>中label=item的总和   列出所有item供选择
+		每个月情况查看
+		
+		
+		银行存款：bank的数值
+		钱包现剩：burse的数值
+		共剩：bank+burse的数值
+		今月花费:cost的总和
+	功能：
+		存钱：加到当月store
+		取钱：从当月store减  加到burse
+		花费：可选择 饭卡 零食 手机 其他  从burse减
+			选其他：可填具体 新增标签<other id={i} label={what}>money</other>
+		输入银行钱  钱包钱  与数据所差加到其他上
+		
+		修改/增加某年某月各项数值
+		

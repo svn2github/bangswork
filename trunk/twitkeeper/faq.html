@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>faq - twitkeeper</title>
+        <link href="css/faq.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+			$(document).ready(function(){
+				document.getElementById("head").addEventListener('mousedown', mousedownHandler, true)
+				function mousedownHandler (e) {
+					window.nativeWindow.startMove();
+				}
+				
+				$("#minBtn").hover(
+					function(){
+						$("#minBtn").css("background", "url(../img/min2.png)");
+					},
+					function(){
+						$("#minBtn").css("background", "url(../img/min1.png)");
+					}
+				).click(function(){
+					window.nativeWindow.minimize();
+				})
+				$("#closeBtn").hover(
+					function(){
+						$("#closeBtn").css("background", "url(../img/close2.png)");
+					},
+					function(){
+						$("#closeBtn").css("background", "url(../img/close1.png)");
+					}
+				).click(function(){
+					window.nativeWindow.close();
+				})
+			})
+        
+        </script>
+	</head>
+	<body>
+		<div id="head">
+			<div id="windowCtrl">
+				<span id="minBtn"></span>
+				<span id="closeBtn"></span>
+			</div>
+		</div>
+		<div id="faq">
+			<h1>读取</h1>
+			<p>1.读取用户名为个人页面网址后面接着的名字，如http://fanfou.com/bang590，用户名为bang590。</p>
+			<p>2.读取时对网页逐页读取，可点“高级”选择开始读取的页码和结束页码。</p>
+			<p>3.读取过程可以暂停读取，不暂停则一直读取到最后。</p>
+			<p>4.储存到程序目录可以在“应用”的“程序目录”里直接选择文件，也可以储存到其他地方，储存格式为XML。</p>
+			
+			<h1>应用</h1>
+			<p>5.读取文件后，可以对内容进行搜索，开始时间和结束时间格式示例：2008-4-17，名字只在读取的文件为好友信息时才有效，可搜索多个名字，用英文逗号','隔开。示例："bang,阿槿"。每页显示数范围为1~200。</p>
+			<p>6.左下角为数据统计，可选择查看各月份的统计。</p>
+			<p>7.“每小时统计”为一天的24小时内发布消息条数的情况分布。</p>
+		</div>
+			<span id="copyright">copyright <a href="http://space.flash8.net/space/?461421" target="_blank">bang</a> 2008 QQ:67551552</span>
+		
+	</body>
+</html>

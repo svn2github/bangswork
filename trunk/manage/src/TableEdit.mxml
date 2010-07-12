@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Window xmlns:local="*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="844" height="534" initialize="init()" backgroundColor="#ECEBBD">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.DataGridEvent;
+			import mx.collections.Sort;
+			import mx.controls.CheckBox;
+			import mx.controls.ComboBox;
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.collections.ArrayCollection;
+			public var stmt:SQLStatement	
+			
+			public function init():void
+			{
+				title = "表格栏目管理";
+			    stmt.text = "SELECT * FROM tableinfo";  
+				stmt.execute();
+				var tableData:ArrayCollection = new ArrayCollection(stmt.getResult().data);
+
+				tableDataGrid.dataProvider = tableData;
+				tableDataGrid.addEventListener(DataGridEvent.ITEM_EDIT_END, itemEditedHandle);
+				var columns:Array = new Array();
+				var col:DataGridColumn;
+				
+				for (var i in tableData[0]) {
+					col = new DataGridColumn(i);
+					switch (i) {
+						case "tableinfo_id":
+							continue;
+							break;
+						case "coltype":
+							var cbFactory:ClassFactory = new ClassFactory(ComboBox);
+							cbFactory.properties = {dataProvider: ["COMBO", "DATE", "INT", ""]};
+							col.itemEditor = cbFactory;
+							col.headerText = "栏目类型";
+							break;
+						case "colvisible":
+							var cbFactory:ClassFactory = new ClassFactory(CheckBox);
+							cbFactory.properties = {styleName: "checkbox"};
+							col.itemEditor = cbFactory;
+							col.setStyle("textAlign", "center");
+							col.editorDataField = "selected";
+							col.headerText = "栏目是否显示";
+							break;
+						case "colname":
+							col.headerText = "栏目数据表名";
+							col.editable = false;
+							break;
+						case "colname_cn":
+							col.headerText = "栏目名";
+							break;
+						case "colnumber":
+							col.headerText = "栏目排序";
+							break;
+						case "colwidth":
+							col.headerText = "栏目宽度";
+							break;
+					}
+					columns.push(col);
+				}
+								
+				tableDataGrid.columns = columns;
+			}
+			
+			private function itemEditedHandle(e:DataGridEvent):void
+			{
+                var dataGrid:DoubleClickDataGrid = e.target as DoubleClickDataGrid;
+                var col:DataGridColumn = dataGrid.columns[e.columnIndex];
+                var oldValue:String = e.itemRenderer.data[e.dataField];
+                var newValue:String = dataGrid.itemEditorInstance[col.editorDataField];
+				var colname:String = e.dataField;
+			    var id = dataGrid.selectedItem.tableinfo_id;
+			    
+			    if (oldValue != newValue) {
+			    	try {
+					    stmt.text = "UPDATE tableinfo SET " + colname + "='" + newValue + "' WHERE tableinfo_id=" + id;  
+			    		if (colname == "colvisible")
+					    	stmt.text = "UPDATE tableinfo SET " + colname + "=" + newValue + " WHERE tableinfo_id=" + id;  
+					    trace(stmt.text);
+						stmt.execute(); 
+			    	} catch (e:Error) {
+			    		trace(e.getStackTrace());
+			    	}
+			    }
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+		.tableDataGrid{
+			fontSize:12;
+			margin-right: 10;
+		    margin-left: 10;
+		    margin-top: 10;
+		    margin-bottom: 10;
+		}
+		.checkbox{
+			margin-left:20;
+		}
+	</mx:Style>
+	
+	<local:DoubleClickDataGrid id="tableDataGrid" editable="true" textAlign="center" dragEnabled="true" dropEnabled="true" dragMoveEnabled="true" width="100%" height="100%" styleName="tableDataGrid"/>
+</mx:Window>

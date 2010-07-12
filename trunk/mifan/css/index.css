@@ -1,0 +1,282 @@
+
+#textInput {
+	margin:10px 40px 0 40px;
+	padding:5px;
+	font-size:14px;
+	overflow:hidden;
+	width:470px;
+	height:80px;
+	background-color:#f7f7f7;
+	border:1px solid #A7A6AA;
+}
+#textInput:hover{
+	background-color:#FFF;
+}
+
+.submitBtn{
+	background:url(../img/btn.png);
+	border:none;
+	float:right;
+	margin:10px 50px 0 0;
+	width:130px;
+	height:46px;
+	color:#FFF;
+	font-size:16px;
+	font-weight:bold;
+}
+
+.submitBtn:hover{
+	background:url(../img/btn.png) ;
+	background-position:-130px;
+	cursor:pointer;
+}
+
+#tagAdd{
+	float:left;
+	margin:14px 0 0 30px;
+	font-size:12px;
+  position:relative;
+}
+#tagAdd span{
+	display:inline-block;
+	margin:0 5px 4px 10px;
+}
+#tagTipBtn{
+	display:inline-block;
+	margin:0 5px -3px 5px;
+	*margin:0 5px 0 5px;
+}
+#tagInput{
+	width:120px;
+	padding:3px;
+	background-color:#f7f7f7;
+	border:1px solid #A7A6AA;
+}
+
+#tagInput:hover{
+	background-color:#FFF;
+}
+
+#tagTip{
+    position:absolute;
+    width:320px;
+    padding:10px;
+    line-height:18px;
+    left:10px;
+    top:-80px;
+    display:none;
+    font-size:12px;
+    background-color:#FFFCAA;
+    border:1px solid #FFED00;
+    -moz-border-radius:10px;
+    
+}
+
+h2{
+	float:left;
+	margin:10px 0 0 40px;
+	_margin:10px 0 0 20px;
+	font-size:14px;
+	font-weight:bold;
+}
+
+#tip {
+	float:right;
+	margin:0px 50px 0 0;
+	color:#999;
+	font-size:12px;
+}
+
+#tip b{
+	font-size:24px;
+	margin:3px;
+}
+
+#sentTip{
+	clear:both;
+	border:1px #FFED00 solid;
+	background:#FFFCAA;
+	padding:5px 10px;
+	width:470px;
+	margin:5px 35px;
+}
+
+#content{
+	border-top:1px dashed #CCC;
+	margin:20px 40px 0 40px;
+}
+#content img{
+	float:left;
+	margin-right:10px;
+}
+#nav{
+  margin:0 40px;
+  border-bottom:1px solid #a9d9e2;
+  padding:20px 8px 8px 8px;
+  *padding:0 8px 8px 8px;
+  clear:both;
+}
+.navNormal{
+  border:1px solid #a9d9e2;
+  border-bottom:1px solid #ffffff;
+  padding:8px 12px;
+  -moz-border-radius-topleft:8px;
+  -moz-border-radius-topright:8px;
+}
+.navLink{
+  background-color:#a9d9e2;
+  padding:5px 12px 8px 12px;
+  *padding-top:7px;
+  
+  _padding-bottom:10px;
+  margin:0 5px;
+  font-size:12px;
+	cursor: pointer;
+}
+.navLink a{
+  color:#000000;
+  text-decoration:none;
+}
+
+.message {
+	border-bottom:1px dashed #CCC;
+	padding:10px;
+	overflow:hidden;
+}
+.message:hover{
+	background-color:#f5f5f5;
+}
+.message:hover .messageBar a{
+	color:#3280ab;
+	text-decoration:underline;
+}
+
+.word {
+	line-height:20px;
+}
+.messageBar{
+	text-align:right;
+	margin-top:8px;
+	font-size:12px;
+	color:#999;
+}
+  
+.messageBar a{
+	color:#999;
+	text-decoration:none;
+}
+.message:hover .messageBar a:hover{
+	text-decoration:none;
+}
+.source {
+  margin:0 0 3px 0;
+	display:inline-block;
+	padding:0 3px;
+}
+.date {
+  margin:0 0 3px 0;
+	display:inline-block;
+	padding:0 3px;
+}
+.tag {
+  margin:0 0 3px 0;
+  display:inline-block;
+  padding:0 3px;
+}
+.tag a{
+  display:inline;
+}
+.commentBtn{
+	display:inline-block;
+	margin:0;
+	font-size:12px;
+	padding:3px 14px 3px 3px;
+	background:url(../img/up_down.gif) no-repeat top right;
+	cursor: pointer;
+}
+.cLoading{
+	display:inline-block;
+	margin:0;
+}
+  
+.comment{
+  border-top:1px solid #cccccc;
+  padding:8px 10px;
+  margin:15px 0 10px 0;
+}
+.cForm {
+  position:relative;
+}
+.cInput{
+  width:430px;
+  height:50px;
+  padding:4px;
+  margin-bottom:7px;
+  font-size:12px;
+}
+.cAuthorInput{
+  width:120px;
+  float:left;
+}
+.cTip{
+  position:absolute;
+  padding:5px;
+  background-color:#FFFCAA;
+  top:40px;
+  left:-5px;
+  display:none;
+  font-size:12px;
+  border:1px solid #FFED00;
+  -moz-border-radius:10px;
+}
+.cSubmit{
+  float:right;
+  margin-right:10px;
+}
+.cPostTip{
+  float:right;
+  margin:5px 8px 0 0;
+  font-size:12px;
+  color:green;
+}
+.cPostTip b{
+  color:red;
+  font-weight:normal;
+}
+.cArea{
+  clear:both;
+  margin:10px;
+  color:#666666;
+  *padding-top:0px;
+}
+.cAuthor{
+  color:#4f6977;
+}
+.cAuthor a{
+  color:#4f6977;
+  text-decoration:underline;
+}
+.cAuthor a:hover{
+  text-decoration:none;
+}
+.cContent{
+  font-size:12px;
+  margin:5px 15px 10px 15px;
+  line-height:17px;
+}
+#pageArea{
+  margin:20px 0;
+  font-size:12px;
+  text-align:right;
+}
+#pageArea a{
+  padding:5px 8px;
+  margin:0 5px;
+  border:1px solid #cccccc;
+  text-decoration:none;
+}
+#pageArea a:hover{
+  background-color:#4391bc;
+  color:#ffffff;
+}
+

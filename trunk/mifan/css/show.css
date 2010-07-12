@@ -1,0 +1,11 @@
+﻿#content{
+	border-top:1px dashed #CCC;
+	margin:90px 40px 0 40px;
+	clear:both;
+	display:block;
+}
+
+.cSubmitIn{
+  float:right;
+  margin-right:10px;
+}

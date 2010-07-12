@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Window xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="844" height="534" initialize="init()" cornerRadius="0" backgroundColor="#ECEBBD">
+	<mx:Script>
+		<![CDATA[
+			public var stmt:SQLStatement	
+			
+			private function init(){
+				
+			}
+			private function stat(e:MouseEvent){
+				var a:Array = [{label:"女员工", data:" sex='女' "},
+							   {label:"党员", data:" politics='中共党员' "},
+							   {label:"研究生", data:" school_record='研究生' "},
+							   {label:"本科", data:" school_record='本科' "},
+							   {label:"大专", data:" school_record='大专' "},
+							   {label:"高中及以下", data:" (school_record='高中' OR school_record='初中' OR school_record='中专' ) "},
+							   {label:"35以下", data:" datetime()-datetime(birth_date) <= 35 "},
+							   {label:"36-45", data:" datetime()-datetime(birth_date) >= 36 AND datetime()-datetime(birth_date) <= 45 "},
+							   {label:"46-55", data:" datetime()-datetime(birth_date) >= 46 AND datetime()-datetime(birth_date) <= 55 "},
+							   {label:"56以上", data:" datetime()-datetime(birth_date) >= 56 "},
+							   {label:"中师", data:" (title='经济师' OR title='会计师') "},	
+							   {label:"助师", data:" title LIKE '助理%' "},	
+							   {label:"员及以下", data:" (title LIKE '%员' or title='' or title=' ') "},					   
+							   ];
+				
+				stmt.text = "select distinct classify from employee";
+				stmt.execute(); 
+				var result = stmt.getResult().data;
+				var statResult:String = "类别\t总数";
+				
+				for ( var j:int = 0; j < a.length; j++ ) {
+					statResult += "\t" + a[j].label;
+				}
+				statResult += "\n";
+				
+				
+				for( var i:int = 0; i < result.length; i++ ) {
+					stmt.text = "SELECT COUNT(*) as count FROM employee WHERE classify='" + result[i]['classify'] + "'";
+					stmt.execute();
+//					trace(result[i]['classify'] + ":" + stmt.getResult().data[0].count);
+					statResult += result[i]['classify'] + "\t" + stmt.getResult().data[0].count;
+					for ( var j:int = 0; j < a.length; j++ ) {
+						stmt.text = "SELECT COUNT(*) as count FROM employee WHERE classify='" + result[i]['classify'] + "' AND " + a[j].data;
+						stmt.execute();
+//						trace(a[j].label + ":" + stmt.getResult().data[0].count);
+						statResult += "\t" + stmt.getResult().data[0].count;
+					}
+					statResult += "\n";
+				}
+				seasonStatTA.text = statResult;
+			}
+			
+			private function sexStat(e:MouseEvent){
+				var a:Array = [{label:"正式员工", data:" beikao NOT LIKE '临%' "},
+							   {label:"临时工", data:" beikao='临' "},
+							   {label:"临时雇佣工", data:" beikao LIKE '临%' AND beikao<>'临' "},				   
+							   ];
+				
+				stmt.text = "select distinct department from employee";
+				stmt.execute(); 
+				var result = stmt.getResult().data;
+				
+				var statResult:String = "社\t总数\t正式男\t正式女\t临时男\t临时女\t雇佣男\t雇佣女\n";
+				
+				for( var i:int = 0; i < result.length; i++ ) {
+					stmt.text = "SELECT COUNT(*) as count FROM employee WHERE department='" + result[i]['department'] + "'";
+					stmt.execute();
+					statResult += result[i]['department'] + "\t" + stmt.getResult().data[0].count;
+					
+					for ( var j:int = 0; j < a.length; j++ ) {
+						stmt.text = "SELECT COUNT(*) as count FROM employee WHERE department='" + result[i]['department'] + "' AND sex='男' AND " + a[j].data;
+						stmt.execute();
+						statResult += "\t" + stmt.getResult().data[0].count;
+						
+						stmt.text = "SELECT COUNT(*) as count FROM employee WHERE department='" + result[i]['department'] + "' AND sex='女' AND " + a[j].data;
+						stmt.execute();
+						statResult += "\t" + stmt.getResult().data[0].count;
+					}
+					statResult += "\n";
+				}
+				seasonStatTA.text = statResult;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Style>
+		Label{
+			fontSize:14;
+		}
+	</mx:Style>
+	<mx:Button x="10" y="10" label="季度统计" fontSize="12" click="stat(event)"/>
+	<mx:Button x="96" y="10" label="男女统计" fontSize="12" click="sexStat(event)"/>
+	<mx:TextArea x="18" y="46" width="804" id="seasonStatTA" height="458" backgroundAlpha="1" fontSize="12"/>
+	
+</mx:Window>

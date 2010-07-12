@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:bang="webbang.draw.*" xmlns:local="webbang.component.*" minWidth="1024" minHeight="768" backgroundColor="0xcccccc" creationComplete="init()" frameRate="30">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ColorPickerEvent;
+			import com.adobe.images.JPGEncoder;
+			
+			import flash.display.BitmapData;
+			import flash.display.Bitmap;
+			import flash.events.MouseEvent;
+			import flash.utils.ByteArray;
+			import flash.net.*;
+			import mx.collections.ArrayCollection;
+			import webbang.draw.*
+
+
+			[Bindable]
+            public var fontSize:ArrayCollection = new ArrayCollection(
+                [ 12, 14, 18, 20, 24, 28, 36, 48, 72 ]);
+
+
+			protected function rectangleBtn(e:MouseEvent):void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					fillColor: fillColorPicker.selectedColor,
+					lineWeight: lineWeightSlider.value
+				}
+				drawCanvas.drawRectangle(param);
+			}
+			
+			protected function roundRectangleBtn(e:MouseEvent):void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					fillColor: fillColorPicker.selectedColor,
+					lineWeight: lineWeightSlider.value
+				}
+				drawCanvas.drawRoundRectangle(param);
+			}
+			
+			protected function RectangleTextBtn(e:MouseEvent):void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					fillColor: fillColorPicker.selectedColor,
+					textColor: textColorPicker.selectedColor
+				}
+				drawCanvas.drawRectangleText(param);
+			}
+			
+			
+			protected function lineBtn(e:MouseEvent):void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					lineWeight: lineWeightSlider.value
+				}
+				drawCanvas.drawLine(param);
+			}
+			
+			protected function pointBtn(e:MouseEvent):void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					lineWeight: lineWeightSlider.value
+				}
+				drawCanvas.drawPoint(param);
+			}
+			
+			protected function circleBtn(e:MouseEvent):void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					fillColor: fillColorPicker.selectedColor,
+					lineWeight: lineWeightSlider.value
+				}
+				drawCanvas.drawCircle(param);
+			}
+			
+			protected function clearBtn(event:MouseEvent):void
+			{
+				drawCanvas.clear();
+			}
+
+			public function init():void{
+				
+			}
+			
+			protected function eraserBtn(event:MouseEvent):void
+			{
+				drawCanvas.drawEraser();
+			}
+
+			protected function changeSetting():void
+			{
+				var param:Object = {
+					lineColor: lineColorPicker.selectedColor,
+					fillColor: fillColorPicker.selectedColor,
+					textColor: textColorPicker.selectedColor,
+					lineWeight: lineWeightSlider.value
+				}
+				drawCanvas.changeSetting(param);
+			}
+
+
+			protected function pointerBtn(event:MouseEvent):void
+			{
+				drawCanvas.pointer();
+			}
+
+
+
+
+			protected function textBtn(event:MouseEvent):void
+			{
+				var param:Object = {
+					textColor: textColorPicker.selectedColor,
+					textSize: Number(fontSizeBox.value)
+				}
+				drawCanvas.drawText(param);
+			}
+
+			protected function saveBtn(event:MouseEvent):void
+			{
+				drawCanvas.savePic();
+			}
+
+
+
+
+		]]>
+	</fx:Script>
+		<fx:Style>
+			.customTextInput {
+				skinClass: ClassReference("webbang.component.CustomTextInputSkin");
+				fontFamily: '微软雅黑';
+				fontWeight: bold;
+			}
+		</fx:Style>
+	<bang:DrawCanvas id="drawCanvas" x="25" y="79" />
+	
+	<s:Button x="157" y="15" label="矩形" click="rectangleBtn(event)" width="66"/>
+	<s:Button x="232" y="15" label="圆角矩形" width="77" click="roundRectangleBtn(event)" />
+	<s:Button x="92" y="15" label="线条" click="lineBtn(event)" width="55"/>
+	<s:Button x="23" y="14" label="画笔" click="pointBtn(event)" width="55"/>
+	<s:Button x="320" y="15" label="圆形" click="circleBtn(event)" width="55"/>
+	<s:Button x="464" y="47" label="清除" click="clearBtn(event)" width="55"/>
+	<mx:ColorPicker x="299" id="lineColorPicker" y="45" change="changeSetting()"/>
+	<mx:ColorPicker x="329" id="fillColorPicker" y="45" selectedColor="0x33CCFF" change="changeSetting()"/>
+	<s:Button x="23" y="45" label="选择" click="pointerBtn(event)" width="61"/>
+	<s:Button x="386" y="15" label="文本" click="textBtn(event)"/>
+	<mx:ComboBox x="493" y="15" editable="true" width="55" dataProvider="{fontSize}" id="fontSizeBox"/>
+	<s:Button x="94" y="45" label="橡皮擦" click="eraserBtn(event)" width="65"/>
+	<mx:ColorPicker id="textColorPicker" x="463" y="15" change="changeSetting()"/>
+	<s:Button x="372" y="46" label="快速生成" width="79" click="RectangleTextBtn(event)"/>
+	<s:Button x="532" y="47" label="保存" click="saveBtn(event)" />
+	<s:HSlider x="181" y="51" minimum="1" maximum="15" liveDragging="true" id="lineWeightSlider" change="changeSetting()" stepSize="1"/>
+
+</s:Application>

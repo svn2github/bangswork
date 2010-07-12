@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="秘饭,秘密,饭否,twitter,微博客,应用,API" />
+<meta name="description" content="秘饭是一个可以让你匿名发送饭否信息的网站。不需要饭否帐号，只需要输入你想说的话，点击发送即可。" />
+<title>{$title}</title>
+<link rel="shortcut icon" href="../img/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="../css/main.css" />
+<link type="text/css" rel="stylesheet" href="../css/index.css" />
+<link type="text/css" rel="stylesheet" href="../css/adminMain.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+</head>
+
+<body>
+	<div id="container">
+    	{include file="adminSideBar.html"}
+        <div id="main">
+            
+            <div id="nav">
+            	<span class="navNormal">验证消息</span>
+            	<span class="navLink"><a href="privatemsg.php">私信管理</a></span>
+            	<span class="navLink"><a href="statusAccepted.php">已发布消息</a></span>
+            	<span class="navLink"><a href="comment.php">评论</a></span>
+            	<span class="navLink"><a href="exit.php">退出</a></span>
+           	</div>
+           	<div id="adminTip"></div>
+        	<div id="content">
+        		{if $type == 'nodata'}
+        			<span class="word">无数据</span>
+        		{/if}
+				{section name=loop loop=$data}
+					<div class="message">
+						<span class="number">{$data[loop]->id}</span>
+						<span class="word">{$data[loop]->content}</span>
+						<div class="messageBar">						
+							<span class="tag">标签：
+								<input type="text" value="{$data[loop]->tag}" class="tagTest" />
+							</span>
+							<span class="date">{$data[loop]->time}</span>
+							<input type="button" value="通过" class="acceptBtn" />
+							<input type="button" value="删除" class="deleteBtn" />
+							<span class="checkMsg"></span>
+						</div>
+					</div>
+				{/section} 
+		        <div id="pageArea">
+					{if $pageType == -1}
+						<a href="statusNoAccept.php?p={$prePage}">上一页</a>
+					{elseif $pageType === 0}
+						<a href="statusNoAccept.php?p={$prePage}">上一页</a>
+						<a href="statusNoAccept.php?p={$nextPage}">下一页</a>
+					{elseif $pageType == 1}
+						<a href="statusNoAccept.php?p={$nextPage}">下一页</a>
+					{/if}
+				</div>
+            </div>
+        </div>
+        <div id="bottom">
+        
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://ns.adobe.com/air/application/1.0.M6">
+    <id>account</id>
+    <version>1.0</version>
+    <filename>my account</filename>
+    <description>我的帐本</description>
+    <copyright>bang 2008</copyright>
+    <initialWindow>
+        <content>account.swf</content>
+        <visible>true</visible>
+        <systemChrome>none</systemChrome>
+        <transparent>true</transparent>
+        <width>440</width>
+        <height>310</height>
+    </initialWindow>
+    <icon>
+		<image16x16>img/16.png</image16x16>
+		<image32x32>img/32.png</image32x32>
+		<image48x48>img/48.png</image48x48>
+		<image128x128>img/128.png</image128x128>
+	</icon>
+</application>

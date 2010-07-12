@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="秘饭,秘密,饭否,twitter,微博客,应用,API" />
+<meta name="description" content="秘饭是一个可以让你匿名发送饭否信息的网站。不需要饭否帐号，只需要输入你想说的话，点击发送即可。" />
+<title>秘饭_说出你的秘密</title>
+<link type="text/css" rel="stylesheet" href="css/main.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body>
+	<div id="container">
+    	<div id="sideBar">
+        	<h1><a href="http://fanfou.com/mysecret" target="_blank"><img src="img/logo.png" id="logo" title="秘饭" /></a></h1>
+            <div id="introduce">
+            	秘饭是一个基于饭否API开发的可以让你匿名发送饭否信息的网站。不需要饭否帐号，只需要输入你想说的话，点击发送即可。这有什么用呢？一些不太适合在你饭否帐户说的话，但又很想说的，就可以在这里发了，也可以说出心中的秘密之类的。而你发布的秘密将会显示在本页面和饭否页面上。如果你想随时接受陌生人的秘密宣言，那可以在饭否里面关注<a href="http://fanfou.com/mysecret" target="_blank">秘饭</a>
+            </div>
+        </div>
+        <div id="main">
+        	        	
+        	{if $updateStatus == 'success'}
+            	<div id="sentTip">发送成功</div>
+            {elseif $updateStatus == 'repeat'}
+            	<div id="sentTip">发送失败，请勿重复发送。</div>
+            {elseif $updateStatus == 'error'}
+            	<div id="sentTip">发送失败，未知错误。</div>
+            {/if}
+            	
+            
+            
+        	<h2>说出你的秘密：</h2> 
+            <span id="tip">还可以输入<b>140</b>个字</span>
+        	<form action="" method="post">
+            	<textarea name="message" id="textInput"></textarea>
+            	<input type="submit" id="sendBtn" class="submitBtn" title="按ctrl+enter键发送" value="发送" />
+            </form>
+        	<div id="content">
+        		{section name=loop loop=$data}
+				<div class="message">
+					<span class="word">{$data[loop]->content}</span>
+					<span class="date"><a href="http://fanfou.com/statuses/{$data[loop]->sourceid}">{$data[loop]->time}</a></span>
+				</div>
+				{/section} 
+            </div>
+        </div>
+        <div id="bottom">
+        
+        </div>
+    </div>
+    <div id="footer">
+    	<div id="footerMain">
+        	<a href="http://fanfou.com/bang590" target="_blank"><img src="img/power.png" /></a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $("#sendBtn").click(function(){
+          alert("df");
+          return false;
+        })
+    </script>
+</body>
+</html>

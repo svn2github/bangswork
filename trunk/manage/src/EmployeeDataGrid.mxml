@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<local:DoubleClickDataGrid xmlns:local="*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalScrollPolicy="on" fontSize="14" textAlign="center" x="50" y="92" width="900" height="380" initialize="init()" editable="true" dragEnabled="true" dropEnabled="true" dragMoveEnabled="true">
+		<mx:Script>
+			<![CDATA[
+				import mx.controls.TextInput;
+				import mx.controls.DataGrid;
+				import mx.collections.ArrayCollection;
+				import mx.events.ListEvent;
+				import mx.events.CloseEvent;
+				import mx.events.DataGridEvent;
+				import mx.controls.dataGridClasses.DataGridColumn;
+				import mx.controls.Alert;
+				
+				public var stmt:SQLStatement;
+				public var employeeData:ArrayCollection;
+				public var tableInfoData:Array = new Array();
+				
+				public function init():void
+				{
+				    stmt.text = "SELECT * FROM employee";  
+					stmt.execute();
+					employeeData = new ArrayCollection(stmt.getResult().data);
+					this.dataProvider = employeeData;
+					this.addEventListener(ListEvent.ITEM_CLICK, itemClickHandle);
+					
+					this.addEventListener(DataGridEvent.ITEM_EDIT_END, itemEditedHandle);
+					this.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, itemEditeBeginHandle);
+					
+					readTableInfo();
+					
+					var columns:Array = new Array();
+					var col:DataGridColumn;
+					for (var i:int = 0, l:int = tableInfoData.length; i < l; i++) {
+						if (tableInfoData[i].colvisible) {
+							var colname:String = tableInfoData[i].colname;
+							col = new DataGridColumn(colname);
+							col.headerText = tableInfoData[i].colname_cn;
+							col.width = tableInfoData[i].colwidth;
+							
+							if (tableInfoData[i].coltype == "COMBO") {
+								setColumnCombobox(col, colname);
+							}
+							if (tableInfoData[i].coltype == "DATE") {
+								col.labelFunction = itemRenderDateFormat;
+							}
+							columns.push(col);
+						}
+					}
+					
+					this.columns = columns;
+					this.dataProvider = employeeData;
+					addDataGridMenu();
+					
+				}
+				
+				private function readTableInfo() 
+				{	
+					stmt.text = "SELECT * FROM tableinfo";
+					stmt.execute();
+					
+					try {
+						var result:SQLResult = stmt.getResult();
+						tableInfoData = result.data;
+						tableInfoData.sortOn("colnumber", Array.NUMERIC);
+					} catch (e:Error) {
+					}				
+				}
+				
+				private function addDataGridMenu():void
+				{
+					var datagridMenu:NativeMenu = new NativeMenu();
+					var refreshMI:NativeMenuItem = new NativeMenuItem("重新载入表格");
+					var addMI:NativeMenuItem = new NativeMenuItem("添加");
+					var delMI:NativeMenuItem = new NativeMenuItem("删除");
+					var copyMI:NativeMenuItem = new NativeMenuItem("复制表格");
+					var tableMI:NativeMenuItem = new NativeMenuItem("编辑表属性");
+					
+					datagridMenu.addItem(refreshMI);
+					datagridMenu.addItem(addMI);
+					datagridMenu.addItem(delMI);
+					datagridMenu.addItem(copyMI);
+					datagridMenu.addItem(tableMI);
+					
+					this.contextMenu = datagridMenu;
+					addMI.addEventListener(Event.SELECT, newEmployee);
+					delMI.addEventListener(Event.SELECT, delEmployee);
+					refreshMI.addEventListener(Event.SELECT, refreshHandler);
+					copyMI.addEventListener(Event.SELECT, copyTable);
+					tableMI.addEventListener(Event.SELECT, tableEditHandler);
+				}
+				
+				private function refreshHandler(e:Event):void
+				{
+					this.dispatchEvent(new Event("REFRESH_TABLE"));
+				}
+				
+				private function copyTable(e:Event):void
+				{
+					var str:String = "";
+					
+					for ( var k in employeeData[0] ) {
+						if (getColumnVisible(k)) 
+							str += getColumnNameCn(k) + "\t";
+					}
+					str += "\n";
+					
+					for ( var i:int = 0; i < employeeData.length; i++ ) {
+						for ( var j in employeeData[i] ) {
+							if (getColumnVisible(j))
+								if (!employeeData[i][j]) {
+									str += " \t";
+								} else {
+									str += employeeData[i][j] + "\t";
+								}
+						}
+						str += "\n";
+					}
+					
+					System.setClipboard(str);
+					
+					Alert.show("已复制表格数据");
+				}
+				
+				
+				private function tableEditHandler(e:Event){
+					var tableEdit:TableEdit = new TableEdit();
+					tableEdit.stmt = stmt;
+					tableEdit.open();
+				}
+				
+				//格式化日期为 XXXX年XX月
+				private function itemRenderDateFormat(item:Object,column:DataGridColumn):String
+				{
+			        if (!item[column.dataField]) {
+			        	var d:Date = new Date();
+			        } else {
+						var d:Date = new Date(item[column.dataField]);
+			        }
+			        if (!d.getFullYear() || d.getFullYear() == 1000) {
+			        	return "";
+			        } else {
+			        	var now:Date = new Date();
+			        	if (d.getMonth()+1 < 10) {
+							return d.getFullYear() + "年" + 0 + (d.getMonth()+1) + "月 (" + (now.getFullYear() - d.getFullYear()) + ")";
+			        	} else {
+							return d.getFullYear() + "年" + (d.getMonth()+1) + "月 (" + (now.getFullYear() - d.getFullYear()) + ")";
+			        	}
+			        }
+				}
+				
+				
+				private function itemEditeBeginHandle(e:DataGridEvent):void
+				{
+					//格式化日期编辑显示为 年/月/日
+					if (e.dataField.indexOf("date") > 0) {
+						try {
+			                var col:DataGridColumn = e.target.columns[e.columnIndex];
+							var d:Date = new Date(e.itemRenderer.data[e.dataField]);
+							var formatedDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+							
+							var t:ClassFactory = new ClassFactory(TextInput);
+							t.properties = {text: formatedDate};
+							col.itemEditor = t;
+						} catch (e:Error) {
+							trace(e.getStackTrace());
+						}
+					}
+				}
+				
+				//修改数据
+				private function itemEditedHandle(e:DataGridEvent):void
+				{
+	                var dataGrid:DataGrid = e.target as DataGrid;
+	                var col:DataGridColumn = dataGrid.columns[e.columnIndex];
+	                var oldValue:String = e.itemRenderer.data[e.dataField];
+	                var newValue:String = dataGrid.itemEditorInstance[col.editorDataField];
+					var colname:String = e.dataField;
+					
+	                if (colname.indexOf("date") > 0) {
+	                	
+	                	var d:Date = new Date(newValue);
+	                	
+	                	if (!d.getDate()) {
+						    e.preventDefault();
+	                		Alert.show("日期格式错误");
+	                		return;
+	                	} else {
+	                		newValue = Utility.dateFormat(d);
+	                	}
+	                }
+	                
+	                //修改时执行，注意日期每次均不同
+	                if (oldValue !== newValue) {
+		                try {
+			                var id = dataGrid.selectedItem.id;
+						    stmt.text = "UPDATE employee SET " + colname + "='" + newValue + "' WHERE id=" + id;  
+							stmt.execute(); 
+							
+							//更新对应栏combobox的值
+							if (getColumnType(colname) == "COMBO") {
+								setColumnCombobox(col, colname);
+							}
+							
+		                } catch (e:Error) {
+		                	trace(e.message);
+		                }
+	                }
+				}
+				
+				//更新combobox的值
+				private function setColumnCombobox ( column:DataGridColumn, colname:String ) 
+				{
+					stmt.text = "select distinct " + colname + " from employee";
+					stmt.execute(); 
+					var result = stmt.getResult().data;
+					var resultArr = new Array();
+					for( var j:int = 0; j < result.length; j++ ) {
+						resultArr.push(result[j][colname]);
+					}
+					column.itemEditor = new CustomComboBox(resultArr);
+				}
+				
+	
+				
+				//新增数据
+				private function newEmployee(e:Event):void{
+					try {
+					    stmt.text = "INSERT INTO employee (sex) VALUES ('男')";  
+						stmt.execute(); 
+				    	stmt.text = "SELECT * FROM employee ORDER BY id DESC LIMIT 1"; 
+						stmt.execute(); 
+						
+						var newRow:Object = new Object();
+						for (var i:int = 0, l:int = tableInfoData.length; i < l; i++) {
+							newRow[tableInfoData[i].colname] = "";
+						}
+						newRow["id"] = stmt.getResult().data[0].id;
+						
+						filterAllHandle()
+						employeeData.addItem(newRow);
+						employeeData.refresh();
+						this.scrollToIndex(employeeData.getItemIndex(newRow));
+						
+					} catch (e:Error) {
+						trace(e.getStackTrace());
+					}
+					
+				}
+				
+	            public function filterAllHandle():void
+	            {
+	            	employeeData.filterFunction = function(){
+	            		return true;
+	            	};
+	            	employeeData.refresh();
+	            }
+	            
+				private function delEmployee(e:Event):void
+				{
+					if (this.selectedItem) {
+						var name:String = this.selectedItem.name ? this.selectedItem.name : "此无名人士";
+						Alert.yesLabel = "确认";
+						Alert.noLabel = "取消";
+						Alert.show("确定删除" + name + "？", "删除数据", 3, this, deleteHandler);
+					}
+				}
+				
+				private function deleteHandler(e:CloseEvent):void 
+				{
+	                if (e.detail==Alert.YES) {
+						try {
+						    stmt.text = "DELETE FROM employee WHERE id=" + this.selectedItem.id;  
+							stmt.execute(); 
+							employeeData.removeItemAt(this.selectedIndex);
+							employeeData.refresh();
+						} catch (e:Error) {
+							trace(e.getStackTrace());
+						}
+	                }
+	            }
+	            
+				
+				private function itemClickHandle(e:ListEvent):void
+				{   
+					
+					if ( e.target.columns[e.columnIndex].dataField == 'remuse_id' ) {
+						var data:Object = (e.target as DataGrid).selectedItem   
+						var remuse:Remuse = new Remuse();
+						remuse.stmt = stmt;
+						remuse.employee = data;
+						remuse.open();
+					}  
+				}
+				
+				
+				private function getColumnNameCn( columnName:String ) 
+				{
+					var length:int = tableInfoData.length;
+					for ( var i:int = 0; i < length; i++) {
+						if ( tableInfoData[i].colname == columnName ) {
+							return tableInfoData[i].colname_cn;
+						}
+					}
+					return '空';
+				}			
+				
+				private function getColumnType( columnName:String ) 
+				{
+					var length:int = tableInfoData.length;
+					for ( var i:int = 0; i < length; i++) {
+						if ( tableInfoData[i].colname == columnName ) {
+							return tableInfoData[i].coltype;
+						}
+					}
+					return null;
+				}			
+				
+				private function getColumnWidth( columnName:String ) 
+				{
+					var length:int = tableInfoData.length;
+					for ( var i:int = 0; i < length; i++) {
+						if ( tableInfoData[i].colname == columnName ) {
+							return tableInfoData[i].colwidth;
+						}
+					}
+					return 100;
+				}	
+				
+				private function getColumnVisible( columnName:String ) 
+				{
+					var length:int = tableInfoData.length;
+					for ( var i:int = 0; i < length; i++) {
+						if ( tableInfoData[i].colname == columnName ) {
+							return tableInfoData[i].colvisible;
+						}
+					}
+					return false;
+				}	
+				
+			]]>
+		</mx:Script>
+	</local:DoubleClickDataGrid>

@@ -1,0 +1,313 @@
+body{
+	font-size:12px;
+	overflow:hidden;
+}
+#main{
+	background:url(../img/twitkeeper.png) top left;
+	width:450px;
+	height:570px;
+}
+
+#head{
+	height:55px;
+}
+a{
+	color:black;
+	text-decoration:none;
+}
+a:hover{
+	color:#0b7ca1;
+}
+
+/*windows control*/
+#faqBtn{
+	width:16px;
+	height:16px;
+	background:url(../img/faq1.png);
+	display:inline-block;;
+	margin:5px 0 0 0;
+}
+#minBtn{
+	width:12px;
+	height:12px;
+	background:url(../img/min1.png);
+	display:inline-block;;
+	margin:2px;
+}
+
+#closeBtn{
+	width:12px;
+	height:12px;
+	background:url(../img/close1.png);
+	display:inline-block;;
+	margin:2px;
+}
+
+#windowCtrl{
+	margin:10px 20px 0 0 ;
+	float:right;
+}
+
+/*menu*/
+#menu{
+	position:absolute;
+	top:23px;
+	right:105px;
+}
+
+#menuRead{
+	width:71px;
+	height:21px;
+	background:url(../img/menu2.png);
+	display:inline-block;
+}
+#menuFunc{
+	width:71px;
+	height:21px;
+	background:url(../img/menu3.png);
+	display:inline-block;;
+	
+}
+
+/*form*/
+#userName{
+	width:100px;
+}
+#request{
+	margin:0 0 0 25px;
+}
+
+/*内容*/
+#content , #rContent{
+	margin:5px 0 5px 20px;
+	width:400px;
+	height:420px;
+	overflow-x:hidden; 
+	overflow-y:auto;
+	
+}
+#pageCtrl{
+	display:none;
+}
+#pages .c , #rPages .c{
+	margin:10px 15px 0 10px;
+	border:1px #0b7ca1 solid;
+	border-bottom:none;
+	padding:5px 10px 0 10px;
+	line-height:18px;
+	background:#d9f1f9;
+	overflow:hidden;
+}
+#pages .d , #rPages .d{
+	margin:0px 15px 10px 10px;
+	border:1px #0b7ca1 solid;
+	border-top:none;
+	padding:5px 10px 5px 10px;
+	text-align:right;
+	background:#d9f1f9;
+}
+#pages .a , #rPages .a{
+	margin:0px 15px 0 10px;
+	border:1px #0b7ca1 solid;
+	border-top:none;
+	border-bottom:none;
+	padding:5px 10px 5px 10px;
+	text-align:right;
+	background:#d9f1f9;
+}
+
+/*高级*/
+#moreInput{
+	margin-left:10px;
+	cursor:hand;
+}
+#moreInput:hover{
+	color:#0b7ca1;
+}
+
+#moreInputContent{
+	position:absolute;
+	right:20px;
+	top:85px;
+	width:120px;
+	padding:10px;
+	background:#d9f1f9;
+	border:1px solid #000000;
+	display:none;
+}
+#moreInputContent span{
+	display:inline-block;
+}
+#endPage{
+	width:40px;
+}
+#startPage{
+	width:40px;
+}
+.divClose{
+	text-align:center;
+	margin-top:5px;
+	width:120px;
+	font-size:9px;
+	cursor:crosshair;
+}
+#moreClose:hover{
+	color:#0b7ca1;
+}
+
+/*储存*/
+#storage{
+	position:absolute;
+	left:90px;
+	bottom:15px;
+	width:90px;
+	padding:10px;
+	background:#d9f1f9;
+	border:1px solid #000000;
+	display:none;
+}
+#storage span{
+	display:inline-block;
+	padding-bottom:3px;
+}
+#closeStorage{
+	display:none;
+}
+
+
+/*读取*/
+#loadCtrl{
+	display:none;
+	float:left;
+	margin:5px 0 0 25px;
+}
+#loadStart{
+	display:none;
+}
+
+#pagectrl{
+	float:right;
+	margin:3px 25px 0 0;
+	height:20px;
+}
+#nextpage, #prepage{
+	display:inline;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+#suggest{
+	position:absolute;
+	left:170px;
+	bottom:30px;
+}
+
+#state{
+	display:inline-block;
+	position:absolute;
+	bottom:15px;
+	left:15px;
+	font-size:9px;
+}
+#selectform{
+	display:inline;
+	margin:0 10px 0 10px;
+}
+#pageSelect{
+	display:none;
+}
+
+
+
+/*应用块*/
+#funcMain{
+	display:none;
+}
+#funcHead{
+	margin-left:25px;
+}
+/*程序目录*/
+#fileList{
+	position:absolute;
+	left:30px;
+	top:65px;
+	width:250px;
+	padding:10px;
+	background:#d9f1f9;
+	border:1px solid #000000;
+	list-style:none;
+	line-height:20px;
+	display:none;
+}
+#closeCatalogBtn{
+	display:none;
+}
+#fileList li:hover{
+	cursor:hand;
+	color:red;
+}
+#rPageCtrl{
+	float:right;
+	margin:0 28px 0 0;
+	height:20px;
+	display:none;
+}
+#searchBar{
+	position:absolute;
+	top:75px;
+	left:20px;
+	background:#d9f1f9;
+	border:1px solid #000000;
+	padding:10px;
+	width:340px;
+	text-align:center;
+	display:none;
+}
+#searchBar input[type="text"]{
+	width:100px;
+}
+#searchShowBtn , #rCloseBtn{
+	display:none;
+}
+#searchBtn , #closeSearchBtn{
+	width:60px;
+}
+#searchBar span{
+	display:inline-block;
+}
+#funcState{
+	display:inline-block;
+	position:absolute;
+	bottom:16px;
+	right:26px;
+	font-size:9px;
+}
+#rHourStat{
+	position:absolute;
+	list-style:none;
+	bottom:35px;
+	right:175px;
+	display:none;
+	background:#d9f1f9;
+	border:1px solid #000000;
+	padding:10px;
+	line-height:16px;
+}
+#rStat{
+	width:250px;
+	float:left;
+	margin-left:30px;
+	line-height:24px;
+	display:none;
+}
+#rStatSelect{
+	width:85px;
+}
+#rReadName{
+	display:inline-block;
+	
+	max-width:95px;
+	height:18px;
+	overflow:hidden;
+}
+

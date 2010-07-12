@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Window xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="250" initialize="init()" cornerRadius="0" backgroundColor="#ECEBBD">
+	<mx:Script>
+		<![CDATA[
+		]]>
+	</mx:Script>
+	<mx:HBox x="0" y="117" width="100%" horizontalAlign="center">
+		<mx:Label text="copyright bang 2010"/>
+	</mx:HBox>
+	<mx:Label x="148.5" y="89" text="陆丰市信用联合社" fontSize="12"/>
+	
+</mx:Window>
