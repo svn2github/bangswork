@@ -1,14 +1,14 @@
 <?php
 	DEFINE('DB_HOST','localhost');		// 数据库服务器
 	DEFINE('DB_USER','root');			// 数据库用户名
-	DEFINE('DB_PW','401401');			// 数据库密码
+	DEFINE('DB_PW','***');			// 数据库密码
 	DEFINE('DB_NAME','mifan');			// 数据库名	
 	
 	DEFINE('FANFOU_NAME','mysecret');	// 饭否名
-	DEFINE('FANFOU_PW','liubang401');	// 饭否密码
+	DEFINE('FANFOU_PW','***');	// 饭否密码
 	
 	DEFINE('ADMIN_NAME','mifan');		// 后台名
-	DEFINE('ADMIN_PW','mysecret401');	// 后台密码
+	DEFINE('ADMIN_PW','mysecret');	// 后台密码
 	
 	DEFINE('CHARSET','utf-8');			// 编码
 	
