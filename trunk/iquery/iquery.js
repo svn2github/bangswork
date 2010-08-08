@@ -618,18 +618,16 @@ iQuery.each( ("touchstart touchmove touchend touchcancel gesturestart gesturecha
 	};
 });
 iQuery.fn.touch = function ( touchFn, touchendFn, touchmoveFn, compat ) {
-	this.bind( "touchstart", touchFn );
-	if ( touchendFn ) {
-		this.bind( "touchend", touchendFn );
-	}
-	if ( touchmoveFn ) {
-		this.bind( "touchmove", touchmoveFn );
-	}
 	if (compat && !$.isIphone()) {
 		this.bind( "mousedown", touchFn );
 		this.bind( "mousemove", touchmoveFn );
 		this.bind( "mouseup", touchendFn );
+		return this;
 	}
+	
+	this.bind( "touchstart", touchFn );
+	touchendFn && this.bind( "touchend", touchendFn );
+	touchmoveFn && this.bind( "touchmove", touchmoveFn );
 	return this;
 };
 iQuery.fn.orient = iQuery.fn.orientationchange;
