@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+<title>iQuery animate demo</title> 
+<style type="text/css">
+body{margin:0;padding:0;min-height:460px;font-size:12px;}
+.testcl{width:30px;height:30px;background:#eee;position:absolute;left:100px;top:50px;-webkit-border-radius:20px;padding:10px;}
+</style>
+<script type="text/javascript" src="iQuery.js"></script>
+<script type="text/javascript" > 
+	$.setup().hideBar();
+	$(function(){
+		$(".testcl").touchstart(function(e){
+			var rColor = '#'+(Math.random()*0xffffff<<0).toString(16);
+				rWidth = 30 + Math.random()*20;
+				rHeight = 30 + Math.random()*20;
+				rLeft = $.hori() ? Math.random()*420 : Math.random()*270;
+				rTop = $.hori() ? Math.random()*240 : Math.random()*390;
+				rTime = 200 + Math.random()*1800;
+				rEasing = ["linear", "ease", "ease-in", "ease-out"][parseInt(Math.random()*4)]
+			$(this).animate({
+				width : rWidth,
+				height : rHeight,
+				left : rLeft,
+				top : rTop,
+				background : rColor
+			}, {
+				duration : rTime,
+				easing : rEasing,
+				start : function () {
+					$(this).html("");
+				},
+				complete : function () {
+					$(this).html("touch me!");
+				}
+			});
+		})
+		
+	});
+</script> 
+</head> 
+<body> 
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	<div class="testcl">touch me</div>
+	</body>
+</html>

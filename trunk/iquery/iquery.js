@@ -11,7 +11,7 @@ var iQuery = function( selector, context ) {
 	rtrim = /^(\s|\u00A0)+|(\s|\u00A0)+$/g,
 	quickExpr = /^[^<]*(<[\w\W]+>)[^>]*$|^#([\w-]+)$/,
 
-	
+	push = Array.prototype.push,
 	// Use the correct document accordingly with window argument (sandbox)
 	document = window.document;
 	
@@ -189,9 +189,8 @@ iQuery._extend({
 	
 	makeArray: function ( arr, results ) {
 		var ret = results || [];
-		
 		if ( arr !== null ) {
-			if ( arr.length === null || typeof arr === "string"  ) {
+			if ( arr.length == null || typeof arr === "string" || iQuery.isFunction(arr) && !arr.length ) {
 				push.call( ret, arr );
 			} else {
 				var i = ret.length, j = 0;
@@ -212,7 +211,18 @@ iQuery._extend({
 	
 	isFunction: function ( obj ) {
 		return typeof obj === "function";
-	}
+	},
+	
+	isArray: function( obj ) {
+		return toString.call(obj) === "[object Array]";
+	},
+
+	isEmptyObject: function( obj ) {
+		for ( var name in obj ) {
+			return false;
+		}
+		return true;
+	},
 });
 
 
@@ -326,7 +336,7 @@ iQuery.fn._extend({
 	},
 	
 	html: function ( content ) {
-		if ( !content ) {
+		if ( content === undefined ) {
 			var ret = "";
 			for ( var i = 0, elem; (elem = this[i]) !== null; i++ ) {
 				ret += elem.innerHTML;
@@ -498,14 +508,22 @@ var scrollFlag,
 	
 iQuery._extend({
 	isIphone: function () {
-		return navigator.appVersion.indexOf('iPhone OS ') >= 0;
+		return navigator.appVersion.indexOf('iPhone OS') >= 0;
+	},
+	isAndroid: function () {
+		navigator.appVersion.indexOf('android') >= 0;
 	},
 	
 	isStandalone: function() {
 		return window.navigator.standalone;
 	},
+	
 	orient: function() {
 		return window.orientation;
+	},
+	
+	hori : function() {
+		return window.orientation == 90 || window.orientation == -90;
 	},
 	
 	scrollTo: function( pos, time ) {
@@ -545,7 +563,7 @@ iQuery._extend({
 	
 	//隐藏地址栏 需要在onload里才能用
 	hideBar : function() {
-		$.load(function(){
+		iQuery.load(function(){
 			setTimeout(function() {
 				window.scrollTo(0, 1);
 			}, 0);
@@ -559,7 +577,7 @@ iQuery._extend({
 				startup: "",
 				viewport: true,
 				fullScreen: true,
-				statusBar: true
+				statusBar: "black" //black and white
 			},
 			html = "";
 		
@@ -580,14 +598,13 @@ iQuery._extend({
 		// Set full-screen
 		if ( options.fullScreen ) {
 			html += '<meta name="apple-mobile-web-app-capable" content="yes" />';
-			if ( options.statusBar ) {
-				html += '<meta name="apple-mobile-web-app-status-bar-style" content="black" />';
-			}
+			html += '<meta name="apple-mobile-web-app-status-bar-style" content="' + options.statusBar + '" />';
 		}
 		if ( html != "" ) {
 			iQuery("head").append( html );
 		}
 		
+		return iQuery;
 	}
 	
 	
@@ -617,19 +634,19 @@ iQuery.each( ("touchstart touchmove touchend touchcancel gesturestart gesturecha
 		return this;
 	};
 });
-iQuery.fn.touch = function ( touchFn, touchendFn, touchmoveFn, compat ) {
-	if (compat && !$.isIphone()) {
+iQuery.fn.touch = function ( touchFn, touchendFn, touchmoveFn ) {
+	if (!iQuery.isIphone() && !iQuery.isAndroid()) {
 		this.bind( "mousedown", touchFn );
 		this.bind( "mousemove", touchmoveFn );
 		this.bind( "mouseup", touchendFn );
 		return this;
 	}
-	
 	this.bind( "touchstart", touchFn );
 	touchendFn && this.bind( "touchend", touchendFn );
 	touchmoveFn && this.bind( "touchmove", touchmoveFn );
 	return this;
 };
+
 iQuery.fn.orient = iQuery.fn.orientationchange;
 
 
@@ -638,21 +655,18 @@ var rexclude = /z-?index|font-?weight|opacity|zoom|line-?height/i,
 	rupper = /([A-Z])/g,
 	fcamelCase = function( all, letter ) {
 		return letter.toUpperCase();
-	};
+	}
+	rfxnum = /^([+-]=)?([\d+-.]+)(.*)$/,
+	fnFlag = "_fxCallback_",
+	timeIdFlag = "_fxTimeId_";
 
 	
-var tranSpeeds = {
-	slow: 3,
-	normal: 2,
-	fast: 1
-};
-
 iQuery._extend({
-	curCss: function( elem, name ) {
+	curCss: function( elem, name, computed ) {
 		var style = elem.style, ret,
 			defaultView = elem.ownerDocument.defaultView;
 		
-		if ( style && style[name] ) {
+		if ( style && style[name] && !computed ) {
 			ret = style[name];
 			
 		} else {
@@ -675,41 +689,51 @@ iQuery._extend({
 			value += "px";
 		}
 		elem.style[ name ] = value;
+		
+		return iQuery;
 	},
 	
-	//问题1：从display:none转到display:block时无法进行动画
-	//问题2：如果上一次动画未结束即进行下一个动画，则动画结束后所有传进的fn都会执行
-	//	fadeIn("slow", fn1) fadeOut("slow", fn2)  在fadeIn未结束时执行fadeOut 则动画结束后fn1 fn2都会执行
-	fade: function ( to, self, speed, fn ) {
-		if ( typeof speed != "number" ) {
-			speed = tranSpeeds[speed] || 2;
-		}
-		self.each( function( i, o ){
-			var elem = iQuery(o)
-			elem.css({
-				"-webkit-transition-property": "opacity",
-				"-webkit-transition-duration": speed + "s",
-				"opacity": to
-			});
-			if ( fn ) {
-				elem.bind( "webkitTransitionEnd", function(e) {
-					fn(e);
-					elem.unbind("webkitTransitionEnd", arguments.callee);
-				});
+	getAnimateOpt: function( speed, easing, fn ) {
+		var opt = speed && typeof speed === "object" ? speed : {
+			complete: fn || !fn && easing ||
+				iQuery.isFunction( speed ) && speed,
+			duration: speed,
+			easing: fn && easing || easing && typeof easing === "string" && easing || "linear"
+		};
+
+		opt.duration = typeof opt.duration === "number" ? opt.duration :
+			iQuery.speeds[opt.duration] || iQuery.speeds._default;
+
+		// Queueing
+		opt.old = opt.complete;
+		opt.complete = function() {
+			if ( opt.queue !== false ) {
+				iQuery(this).dequeue();
 			}
-			
-		});
-	}
+			if ( iQuery.isFunction( opt.old ) ) {
+				opt.old.call( this );
+			}
+		};
+
+		return opt;
+	},
+	
+	speeds: {
+		slow: 600,
+ 		fast: 200,
+ 		_default: 400
+	},
+	
 });
 
 iQuery.fn._extend({
-	css: function( name, value ) {
+	css: function( name, value, computed ) {
 		if ( !this[0] ) {
 			return this;
 		}
 		if ( value === undefined ) {
 			if ( typeof name == "string" ) {
-				return iQuery.curCss( this[0], name );
+				return iQuery.curCss( this[0], name, computed );
 		
 			//name is object
 			} else {
@@ -736,12 +760,100 @@ iQuery.fn._extend({
 		if ( elem ) {
 			var offset = elem.offsetTop;
 			while ( elem = elem.offsetParent ) {
-				console.info(elem, elem.offsetTop);
 				offset += elem.offsetTop;
 			}
 			return offset;
 		}
 		return 0;
+	},
+	
+	
+	animate: function( prop, speed, easing, fn ) {
+		var names = [], name, trsProp, timeId,
+			opt = iQuery.getAnimateOpt( speed, easing, fn );
+		
+		for ( name in prop ) {
+			names.push(name);
+		}
+		trsProp = names.join(", ");
+		return this[ opt.queue === false ? "each" : "queue" ](function(){
+			var self = this;
+			
+			if ( opt.start ) {
+				opt.start.call(self)
+			}
+			//处理+=
+			for (name in prop) {
+				var parts = rfxnum.exec(prop[name]);
+				if ( parts && parts[1]) {
+					var end = parseFloat( parts[2] ),
+						start = parseFloat(iQuery.curCss(self, name)) || 0,
+						unit = parts[3];
+						
+					end = ((parts[1] === "-=" ? -1 : 1) * end) + start;
+					prop[name] = end + unit;
+				}
+			}
+			iQuery.setCss(this, "webkitTransitionProperty", trsProp)
+				.setCss(this, "webkitTransitionDuration", opt.duration + "ms")
+				.setCss(this, "webkitTransitionTimingFunction", opt.easing);
+			
+			timeId = window.setTimeout(function() {
+				iQuery.removeData( self, timeIdFlag )
+					.removeData( self, fnFlag )
+					.setCss(self, "webkitTransitionProperty", "none");
+				opt.complete.call(self);
+			}, opt.duration);
+			
+			//存储callback和timeId 在stop时可以调用和clearTimeout
+			iQuery.data( self, fnFlag, opt.complete );
+			iQuery.data( self, timeIdFlag, timeId )
+			
+			if ( iQuery.curCss( self, "display" ) == "none" ) {
+				iQuery.setCss( self, "display", "block" );
+			}
+			//display=none时，在上面设成block显示后直接修改css属性不会触发transition
+			//需要用setTimeout将操作提到js操作队列最后执行。
+			window.setTimeout(function(){
+				for ( name in prop ) {
+					iQuery.setCss(self, name, prop[name]);
+				}
+			}, 0);
+		});
+		
+	},
+	
+	stop: function( clearQueue, gotoEnd ) {
+		
+		if ( clearQueue ) {
+			this.queue([]);
+		}
+		
+		this.each(function(i, o){
+			var trsProp = iQuery.curCss(o, "webkitTransitionProperty"),
+				names = trsProp && trsProp.split(",") || [],
+				obj = {};
+			
+			for (var i = 0; i < names.length; i++) {
+				var name = iQuery.trim(names[i]);
+				obj[name] = iQuery.curCss(o, name, !gotoEnd);
+			}
+			
+			obj["webkitTransitionProperty"] = "none";
+			
+			for (var i in obj) {
+				iQuery.setCss(o, i, obj[i]);
+			}
+			
+			if ( gotoEnd && iQuery.data(o, fnFlag) ) {
+				iQuery.data(o, fnFlag)();
+			}
+			clearTimeout( iQuery.data(o, timeIdFlag) );
+			iQuery.removeData(o, fnFlag).removeData(o, timeIdFlag);
+			iQuery(o).dequeue();
+		});
+		
+		
 	},
 	
 	show: function( speed, fn ) {
@@ -763,15 +875,186 @@ iQuery.fn._extend({
 			this.fadeOut( speed, fn );
 		}
 	},
+	
 	fadeIn: function( speed, fn ) {
-		iQuery.fade( 1, this, speed, fn );
+		this.animate({ opacity : 1 }, speed, fn)
 	},
 	
 	fadeOut: function( speed, fn ) {
-		iQuery.fade( 0, this, speed, fn );
+		this.animate({ opacity : 0 }, speed, function(){
+			iQuery.setCss(this, "display", "none");
+		})
 	}
 });
 
+
+//data mod  start
+
+var expando = "iQuery" + now(), uuid = 0, windowData = {};
+iQuery._extend({
+	cache: {},
+	
+	data: function( elem, name, data ) {
+		elem = elem == window ? windowData : elem;
+		
+		var id = elem[ expando ], cache = iQuery.cache;
+				
+		if ( !id && typeof name === "string" && data === undefined ) {
+			return null;
+		}
+		
+		if ( !id ) {
+			elem[ expando ] = id = ++uuid;
+		}
+		
+		if ( typeof name === "object" ) {
+			cache[id] = iQuery.mix( {}, name );
+			
+		} else if ( !cache[id] ) {
+			cache[ id ] = {};
+		}
+		
+		if ( data !== undefined ) {
+			cache[ id ][ name ] = data;
+		}
+		return typeof name === "string"? cache[ id ][ name ] : cache[ id ];
+	},
+	
+	removeData: function( elem, name ) {
+		elem = elem == window ? windowData : elem;
+		
+		var id = elem[ expando ], cache = iQuery.cache, thisCache = cache[ id ];
+
+		if ( name ) {
+			if ( thisCache ) {
+				delete thisCache[ name ];
+				if ( iQuery.isEmptyObject(thisCache) ) {
+					iQuery.removeData( elem );
+				}
+			}
+		} else {
+			delete elem[ expando ];
+			delete cache[ id ];
+		}
+		return iQuery;
+	}
+});
+
+iQuery.fn._extend({
+	data: function ( key, value ) {
+		if ( !this.length ) {
+			return this;
+		}
+		if ( typeof key === "undefined" ) {
+			return iQuery.data( this[0] );
+			
+		} else if ( typeof key === "object" ) {
+			return this.each(function() {
+				iQuery.data( this, key );
+			});
+		}
+		
+		return value === undefined ? 
+			iQuery.data( this[0], key ): 
+			this.each(function(){
+				iQuery.data( this, key, value )
+			});
+	},
+	
+	removeData: function ( key ) {
+		return this.each(function() {
+			iQuery.removeData( this, key );
+		});
+	}
+});
+//data mod  end
+
+//queue mod start
+iQuery._extend({
+	queue: function( elem, type, data ) {
+		if ( !elem ) {
+			return;
+		}
+		type = (type || "fx") + "queue";
+		var q = iQuery.data( elem, type );
+
+		// Speed up dequeue by getting out quickly if this is just a lookup
+		if ( !data ) {
+			return q || [];
+		}
+		if ( !q || iQuery.isArray(data) ) {
+			q = iQuery.data( elem, type, iQuery.makeArray(data) );
+
+		} else {
+			q.push( data );
+		}
+		return q;
+	},
+
+	dequeue: function( elem, type ) {
+		type = type || "fx";
+		var queue = iQuery.queue( elem, type ), fn = queue.shift();
+
+		// If the fx queue is dequeued, always remove the progress sentinel
+		if ( fn === "inprogress" ) {
+			fn = queue.shift();
+		}
+		if ( fn ) {
+			// Add a progress sentinel to prevent the fx queue from being
+			// automatically dequeued
+			if ( type === "fx" ) {
+				queue.unshift("inprogress");
+			}
+
+			fn.call(elem, function() {
+				iQuery.dequeue(elem, type);
+			});
+		}
+	}
+});
+
+iQuery.fn._extend({
+	queue: function( type, data ) {
+		if ( typeof type !== "string" ) {
+			data = type;
+			type = "fx";
+		}
+
+		if ( data === undefined ) {
+			return iQuery.queue( this[0], type );
+		}
+		return this.each(function( i, elem ) {
+			var queue = iQuery.queue( this, type, data );
+			if ( type === "fx" && queue[0] !== "inprogress" ) {
+				iQuery.dequeue( this, type );
+			}
+		});
+	},
+	dequeue: function( type ) {
+		return this.each(function() {
+			iQuery.dequeue( this, type );
+		});
+	},
+
+	// Based off of the plugin by Clint Helfers, with permission.
+	// http://blindsignals.com/index.php/2009/07/jquery-delay/
+	delay: function( time, type ) {
+		time = iQuery.fx ? iQuery.fx.speeds[time] || time : time;
+		type = type || "fx";
+
+		return this.queue( type, function() {
+			var elem = this;
+			setTimeout(function() {
+				iQuery.dequeue( elem, type );
+			}, time );
+		});
+	},
+
+	clearQueue: function( type ) {
+		return this.queue( type || "fx", [] );
+	}
+});
+//queue mod end
 
 iQuery._extend({
 
@@ -844,6 +1127,9 @@ iQuery._extend({
 	}
 });
 
+function now() {
+	return (new Date).getTime();
+}
 
 window.iQuery = window.$ = iQuery;
 
