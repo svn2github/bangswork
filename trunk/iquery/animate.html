@@ -11,7 +11,7 @@ body{margin:0;padding:0;min-height:460px;font-size:12px;}
 <script type="text/javascript" > 
 	$.setup().hideBar();
 	$(function(){
-		$(".testcl").touchstart(function(e){
+		$(".testcl").touch(function(e){
 			var rColor = '#'+(Math.random()*0xffffff<<0).toString(16);
 				rWidth = 30 + Math.random()*20;
 				rHeight = 30 + Math.random()*20;
