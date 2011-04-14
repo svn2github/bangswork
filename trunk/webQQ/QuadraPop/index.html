@@ -26,7 +26,7 @@ a:hover{
 <table width="100%" height="80%" border="0" align="center" cellspacing="10">
   <tr>
     <td height="384" align="center" valign="middle">
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 	AC_FL_RunContent(
 		'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0',
 		'width', '240',
@@ -49,12 +49,18 @@ a:hover{
 		'movie', 'QuadraPop',
 		'salign', ''
 		); //end AC code
+	window.onload = function(){
 	alloy.window.setWinSize(
 		{
 			width: 240,
 			height: 320
 		}
 	);
+		alloy.on("window.resize", function(result){
+			alert("窗口发生resize,尺寸为："+result.width+","+result.height);
+		 
+		});
+	}
 </script>
 <noscript>
 	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="240" height="320" id="QuadraPop" align="middle">
