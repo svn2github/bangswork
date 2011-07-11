@@ -1,0 +1,396 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>web tweetie</title>
+
+<script type="text/javascript" src="iscroll.js"></script>
+<script type="text/javascript" src="iquery.js"></script>
+
+<script type="text/javascript">
+function onResize(){
+	window.scrollTo(0, 0);
+	setHeight();
+}
+$.setup({
+	icon: "logo.png",
+	statusBar: "while"
+});
+function setHeight() {
+	var headerH = $('#header')[0].offsetHeight;
+	var footerH = $('#footer')[0].offsetHeight;
+	var wrapperH = window.innerHeight - headerH - footerH;
+	$('.wrapper').css("height", wrapperH + 'px');
+	if (!$.isFull()) {
+		$('#footer').css("top", headerH+wrapperH + "px");
+	}
+}
+$(function(){
+	$.load(function(){
+		setTimeout(function() {
+			onResize();
+			refreshData();
+		}, 0);
+	});
+	var updateCtn = $("#update_ctn"),
+		updateImg = $("#update_img"),
+		updateStatus = 0,	//0 pull down, 1 release
+		updating = false,
+		extraHeight = 70,
+		myScroll = new iScroll('timeline_ctn',{edge:{x:0,y:-extraHeight}, desktopCompatibility:true});
+	
+	$("#timeline_ctn").touchmove(function(e){
+		if ( myScroll.y < -extraHeight || updating ) {
+			return;
+		}
+		if ( myScroll.y < -10 && !updating ) {
+			//pull down
+			if (updateStatus) {
+				updateCtn.html("pull down to refresh");
+				updateImg.addClass("update_down").removeClass("update_up");
+				updateStatus = 0;
+			}
+		} else if ( myScroll.y > -10 && !updating ) {
+			//release
+			if (!updateStatus) {
+				updateCtn.html("Release to refresh");
+				updateImg.addClass("update_up").removeClass("update_down");
+				updateStatus = 1;
+			}
+		}
+	}).touchend(function(e){
+		if ( !updating && myScroll.y > -10 ) {
+			refreshData();
+		}
+	});
+	
+	
+	$("#icon1").touch(function(e){
+		if ( !$(this).hasClass("active") ) {
+			$(this).parent().children().removeClass("active");
+			$(this).addClass("active");
+			$("#timeline").css("-webkit-transform", "translateX(0%)");
+			$("#about").css("-webkit-transform", "translateX(100%)");
+			$("#title").html("Public Timeline");
+		}
+	});
+	
+	$("#icon2").touch(function(e){
+		if ( !$(this).hasClass("active") ) {
+			$(this).parent().children().removeClass("active");
+			$(this).addClass("active")
+			$("#timeline").css("-webkit-transform", "translateX(-100%)");
+			$("#about").css("-webkit-transform", "translateX(0%)");
+			$("#title").html("About");
+		}
+	});
+	
+	function ui_refreshing () {
+		myScroll.options.edge.y = 0;
+		myScroll.scrollTo(0, 0)
+		$("#update_loading").show();
+		updateCtn.html("Refreshing...");
+		updating = true;
+		updateImg.hasClass("update_down") && updateImg.addClass("update_up").removeClass("update_down");
+	}
+	
+	function ui_refreshed () {
+		myScroll.options.edge.y = -extraHeight;
+		updateStatus = 0; 
+		updating = false;
+		updateImg.addClass("update_down").removeClass("update_up");
+		updateCtn.html("pull down to refresh");
+		$("#update_loading").hide();
+		if ( myScroll.y > -extraHeight ) {
+			myScroll.scrollTo(0,-extraHeight);
+		}
+	}
+	
+	function refreshData() {
+		ui_refreshing();
+		var since_id = $($("#timeline_ctn").find(".status_id").first()).text();
+		$.ajax({
+			url: "twitter.php",
+			data: 'since_id=' + since_id,
+			type: "json",
+			method: "GET",
+			success: function ( data ) {
+				ui_refreshed();
+				var dataStr = '';
+				for ( var i = 0; i < data.length; i ++ ) {
+					dataStr +=  '<li>'
+							+  '<span class="status_id">' + data[i].id + '</span>'
+							+'	<span class="tweet_avatar"><img src="' + data[i].user.profile_image_url + '" /></span>'
+							+'	<span class="tweet_name">' + data[i].user.screen_name + '</span>'
+							+'	<span class="tweet_ctn">'
+							+		data[i].text
+							+'	</span>'
+							+'	<span class="tweet_date">' + formatTime(data[i].created_at) +  '</span>'
+							+'</li>';
+				}
+				//var old_height = $("#timeline_list")[0].offsetHeight;
+				$("#timeline_list").prepend(dataStr);
+				//var new_height = $("#timeline_list")[0].offsetHeight
+				//myScroll.scrollTo(0, -(new_height-old_height)-extraHeight)
+			},
+			error: function () {
+				ui_refreshed();
+			}
+		})
+	}
+});
+function formatTime( time ) {
+	var now = new Date(),
+		time = new Date( time ),
+		differ = (now.getTime() - time.getTime())/1000;
+	if ( differ < 0 ) {
+		differ = 0;
+	}
+	if ( differ < 60 ) {
+		return Math.floor(differ) + ' secs';
+	} else if ( differ < 3600 ) {
+		return Math.floor(differ/60) + ' mins';
+	} else if ( differ < 3600*24 ) {
+		return Math.floor(differ/3600) + ' hours';
+	} else {
+		return Math.floor(differ/3600/24) + ' days';
+	}
+}
+
+$().resize(onResize).touchmove(function(e){ e.preventDefault(); });
+</script>
+
+<style type="text/css" media="all">
+body,ul,li {
+	padding:0;
+	margin:0;
+}
+
+body {
+	font-family: "Helvetica";
+	font-size:1em;
+	-webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+}
+
+#header {
+	width:100%;
+	height:40px;
+	line-height:40px;
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #CDD5DF), color-stop(0.01, #AEBBCB),color-stop(0.5, #8B9DB5), color-stop(0.5, #8195AF), color-stop(0.97, #6E85A2), color-stop(1, #000000));
+	padding:0;
+	color:#eee;
+	text-align:center;
+}
+
+#header h1 {
+	color:#f3f3f3;
+	padding:0;
+	margin:0;
+	font-size:20px;
+	font-weight:bold;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.5);
+}
+
+#footer {
+	width:100%;
+	height:40px;
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #535353), color-stop(0.02, #3D3D3D), color-stop(0.5, #292929), color-stop(0.5, #000));;
+	padding:0;
+	border-top:1px solid #000;
+	position:absolute;
+	bottom:0;
+	z-index:100;
+}
+#footer li{
+	display:block;
+	float:left;
+	text-decoration:none;
+}
+#icon1 {
+	width:60px;
+	height:40px;
+	background:url(icon1-0.gif) 2px left no-repeat;
+}
+#icon1.active{
+	background:url(icon1-1.gif) 2px left no-repeat;
+}
+#icon2 {
+	width:60px;
+	height:40px;
+	background:url(icon2-0.gif) 2px left no-repeat;
+}
+#icon2.active{
+	background:url(icon2-1.gif) 2px left no-repeat;
+}
+
+.wrapper {
+	height:200px;		/* Of course you need to specify the object height */
+
+	position:absolute;	/* On older OS versions "position" and "z-index" must be defined, */
+	z-index:1;			/* it seems that recent webkit is less picky and works anyway. */
+
+	width:100%;
+	background:#e3e5e8;
+	overflow:hidden;
+	-webkit-transition-property: -webkit-transform;  
+	-webkit-transition-duration: 0.5s;
+	-webkit-transform-style: preserve-3d;
+}
+
+#timeline_ctn {
+	float:left;
+	width:100%;
+	padding:0;
+}
+
+#timeline_ctn ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+	clear:both;
+	min-height:380px;
+}
+
+#timeline_ctn li {
+	padding:5px 5px;
+	border-bottom:1px solid #ccc;
+	border-top:1px solid #fff;
+	background-color:#fafafa;
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #ffffff), color-stop(0.01, #F9F9F9), color-stop(0.02, #ffffff),color-stop(0.3, #ffffff), color-stop(0.999, #F5F5F5), color-stop(0.999, #E0E0E0));
+	position:relative;
+	min-height:48px;
+}
+.tweet_avatar{
+	position:absolute;
+	top:5px;
+	left:5px;
+}
+.tweet_avatar img{
+	width:48px;
+	height:48px;
+}
+.tweet_name{
+	margin:0 0 0 55px;
+	display:block;
+	font-weight:bold;
+}
+.tweet_ctn{
+	margin:2px 0 0 55px;
+	display:block;
+	line-height:1.3em;
+}
+.tweet_date{
+	position:absolute;
+	top:5px;
+	right:15px;
+	color:#999;
+	font-size:0.7em;
+}
+.status_id{
+	display:none;
+}
+#update_area{
+	height:69px;
+	border-bottom:1px solid #aaa;
+}
+#update_img{
+	background:url(update.png) top left;
+	width:18px;
+	height:45px;
+	display:block;
+	margin:10px 30px;
+	float:left;
+	
+	/*
+	-webkit-transition-property: -webkit-transform;  
+	-webkit-transition-duration: 0.5s;
+	*/
+
+}
+#update_ctn{
+	display:block;
+	float:left;
+	margin:25px 0;
+	text-align:center;
+	text-shadow:0 1px 0 #ffffff;
+	color:#a8adb4;
+	font-weight:bold;
+}
+#update_loading{
+	margin:25px 3px;
+	float:left;
+	display:none;
+}
+.update_down{
+	-webkit-transform: rotate(180deg);
+}
+.update_up{
+	-webkit-transform: rotate(0deg);
+}
+
+#about{
+	min-height:380px;
+	width:100%;
+	
+	-webkit-transform:translateX(100%); 
+	-webkit-transition-property: -webkit-transform;  
+	-webkit-transition-duration: 0.5s;
+	-webkit-transform-style: preserve-3d;
+}
+#about_ctn{
+	background:#fff;
+	border:1px solid #999;
+	-webkit-border-radius:10px;
+	margin:15px;
+	padding:7px 15px 3px 15px;
+	line-height:1.5em;	
+}
+#about_ctn a{
+	text-decoration:none;
+}
+.copyright{
+	font-size:0.8em;
+	text-align:center;
+}
+</style>
+</head>
+<body>
+<div id="header"><h1 id="title">Public Timeline</h1></div>
+
+<div class="wrapper" id="timeline">
+	<div id="timeline_ctn">
+		<div id="update_area">
+			<span id="update_img" class="update_down"></span>
+			<span id="update_ctn">Pull down to refresh </span>
+			<img src="loading.png" id="update_loading" />
+			
+		</div>
+		<ul id="timeline_list">
+		</ul>
+	</div>
+</div>
+<div class="wrapper" id="about">
+	<div id="about_ctn">
+		<p>模仿tweetie的IPhone Webapp</p>
+		<p>将此应用添加到主屏幕使用更佳（点击下方+号—>添加至主屏幕）</p>
+		<p>桌面浏览器仅支持webkit浏览器(chrome/safari)</p>
+		<p><a href="http://blog.webbang.net/works/1375/">相关博文</a></p>
+		<p class="copyright">2010 <a href="http://webbang.net">webbang.net</a></p>
+	</div>
+</div>
+<div id="footer">
+	<ul>
+		<li id="icon1" class="active">
+			
+		</li>
+		<li id="icon2">
+		
+		</li>
+	</ul>
+</div>
+<div id="test"><div></div></div>
+</body>
+</html>
