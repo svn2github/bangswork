@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ios5 innerHTML</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<style>div{padding:10px;margin:5px;background:#eee;}span{display:block}</style>
+</head>
+<body>
+<div id="testTS"></div>
+<div id="testMD"></div>
+<div id="testTSdom"></div>
+<script>
+var ts = document.getElementById("testTS"),
+	md = document.getElementById("testMD");
+ts.innerHTML = '<span ontouchstart="alert(\'touchstart\')">touchstart</span>';
+md.innerHTML = '<span onmousedown="alert(\'mousedown\')">mousedown</span>';
+
+var dom = document.createElement("div");
+dom.innerHTML = '<span ontouchstart="alert(\'touchstart\')">touchstart dom create</span>';
+document.getElementById("testTSdom").appendChild(dom.childNodes[0].cloneNode(true));
+
+</script>
+</body>
+</html>

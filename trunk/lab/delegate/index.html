@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+<title>iQuery</title> 
+<style type="text/css"> 
+#outer{width:90%;height:90%;padding:20px;background:#eee;}
+#middle{width:90%;height:90%;padding:20px;background:#ccc;}
+#inner{width:90%;height:90%;padding:20px;background:#999;}
+</style>
+</head> 
+<body> 
+	<div id="outer">
+		<div id="middle">
+			<div id="inner">xx</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" > 
+	var body = document.getElementsByTagName("body")[0];
+	var delegateFlag = "EventDelegate",
+		bodyEventObj = {};
+		eventHandlers = {};
+		eventUin = 1;
+	
+	function addBodyEvent( type ) {
+		bodyEventObj[type] = {};
+		bodyEventObj[type]["num"] = 0
+		
+		bodyEventObj[type]["fn"] = function (e) {
+			if (e.target[delegateFlag] && e.target[delegateFlag][type]) {
+				eventHandlers[e.target[delegateFlag][type]](e);
+			}
+		}
+		
+		body.addEventListener(type, bodyEventObj[type]["fn"], false);
+	}
+	function removeBodyEvent( type ) {
+		body.removeEventListener(type, bodyEventObj[type]["fn"], false);
+		bodyEventObj[type] = {};
+	}
+	function addEvent(dom, type, func) {
+		if (!bodyEventObj[type]) {
+			addBodyEvent(type);
+		}
+		bodyEventObj[type]["num"] ++;
+		eventHandlers[eventUin] = func;
+		dom[delegateFlag] = dom[delegateFlag] || {}
+		dom[delegateFlag][type] = eventUin ++;
+	}
+	function removeEvent(dom, type) {
+		if (!type) {
+			dom[delegateFlag] = null;
+		} else {
+			dom[delegateFlag][type] = null;
+		}
+	}
+	addEvent(document.getElementById("inner"), "click", function(e){
+		console.info(e);
+		console.info("inner");
+	});
+	addEvent(document.getElementById("inner"), "mouseover", function(e){
+		console.info(e);
+		console.info("inner");
+	});
+	removeBodyEvent("mouseover");
+</script> 
+</html>
